@@ -52,7 +52,7 @@ app.addHook('onRequest', (request, reply, done) => {
 
 // 📦 Register routes
 app.register(authRoutes, { prefix: '/auth' });
-app.register(adminRoutes, { prefix: '/admin' })
+app.register(adminRoutes, { prefix: '/auth' })
 app.register(playableClassAdminRoutes, { prefix: '/admin' });
 app.register(playableTagAdminRoutes, { prefix: '/admin' });
 app.register(playableStatAdminRoutes, { prefix: '/admin' });
