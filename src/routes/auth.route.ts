@@ -1,3 +1,5 @@
+// src/routes/auth.route.ts
+
 import { FastifyInstance } from 'fastify';
 import {
   loginHandler,
