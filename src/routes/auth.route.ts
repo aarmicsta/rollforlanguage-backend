@@ -3,22 +3,22 @@
 import { FastifyInstance } from 'fastify';
 import {
   loginHandler,
-  signupHandler,
+  registerHandler,
   refreshHandler,
   logoutHandler,
   globalLogoutHandler,
 } from '../controllers/auth.controller';
 import fromZodSchema from 'zod-to-json-schema';
-import { signupSchema, loginSchema } from '../schemas/auth.schema';
+import { registerSchema, loginSchema } from '../schemas/auth.schema';
 
 export async function authRoutes(server: FastifyInstance) {
   const authenticate = (server as any).authenticate; // 👈 safely cast for TypeScript
 
-  server.post('/signup', {
+  server.post('/register', {
     schema: {
       description: 'Create a new user account',
       tags: ['Auth'],
-      body: fromZodSchema(signupSchema),
+      body: fromZodSchema(registerSchema),
       response: {
         201: {
           description: 'User created successfully',
@@ -49,7 +49,7 @@ export async function authRoutes(server: FastifyInstance) {
         },
       },
     },
-    handler: signupHandler,
+    handler: registerHandler,
   });
 
   server.post('/login', {

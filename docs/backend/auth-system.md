@@ -49,7 +49,7 @@ Core system lives in:
 ---
 
 ## ✅ Features
-- [x] **User signup** → Creates user, hashes password, assigns default role
+- [x] **User register** → Creates user, hashes password, assigns default role
 - [x] **User login** → Validates credentials, issues JWT access token
 - [x] **Token refresh** → Issues new access token using refresh token
 - [x] **Logout** → Invalidates refresh token for a single session
@@ -147,9 +147,9 @@ if (!request.hasPermission('manage_users')) {
 
 ---
 
-### Sample Signup Request
+### Sample Register Request
 
-`POST /auth/signup`
+`POST /auth/register`
 
 ```json
 {

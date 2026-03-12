@@ -229,7 +229,7 @@ Key Files:
 ✅ Tested via:
 
 ```bash
-curl -X POST http://localhost:3000/auth/signup
+curl -X POST http://localhost:3000/auth/register
 curl -X POST http://localhost:3000/auth/login
 ```
 

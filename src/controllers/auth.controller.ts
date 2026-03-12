@@ -1,6 +1,6 @@
 // src/controllers/auth.controller.ts
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { signupSchema, loginSchema } from '../schemas/auth.schema';
+import { registerSchema, loginSchema } from '../schemas/auth.schema';
 import {
   createUser,
   findUserByEmail,
@@ -13,9 +13,9 @@ import { db } from '../db';
 import { eq, and } from 'drizzle-orm';
 import { refreshTokens } from '../db/schema/core';
 
-export async function signupHandler(request: FastifyRequest, reply: FastifyReply) {
+export async function registerHandler(request: FastifyRequest, reply: FastifyReply) {
   try {
-    const parsed = signupSchema.parse(request.body);
+    const parsed = registerSchema.parse(request.body);
 
     const user = await createUser(parsed);
 
