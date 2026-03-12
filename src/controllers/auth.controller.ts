@@ -13,10 +13,30 @@ import { db } from '../db';
 import { eq, and } from 'drizzle-orm';
 import { refreshTokens } from '../db/schema/core';
 
+// export async function registerHandler(request: FastifyRequest, reply: FastifyReply) {
+//   try {
+//     const parsed = registerSchema.parse(request.body);
+
+//     const user = await createUser(parsed);
+
+//     return reply.status(201).send({
+//       message: 'User created successfully',
+//       user: {
+//         id: user.id,
+//         email: user.email,
+//         username: user.username,
+//         roleId: user.roleId,
+//       },
+//     });
+//   } catch (err) {
+//     request.log.error(err);
+//     return reply.status(400).send({ error: 'Invalid request or user creation failed' });
+//   }
+// }
+
 export async function registerHandler(request: FastifyRequest, reply: FastifyReply) {
   try {
     const parsed = registerSchema.parse(request.body);
-
     const user = await createUser(parsed);
 
     return reply.status(201).send({
@@ -28,9 +48,11 @@ export async function registerHandler(request: FastifyRequest, reply: FastifyRep
         roleId: user.roleId,
       },
     });
-  } catch (err) {
+  } catch (err: any) {
     request.log.error(err);
-    return reply.status(400).send({ error: 'Invalid request or user creation failed' });
+    return reply.status(500).send({
+      error: err?.message || 'User creation failed',
+    });
   }
 }
 

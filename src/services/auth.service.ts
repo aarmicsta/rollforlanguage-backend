@@ -34,11 +34,33 @@ export async function verifyPassword(
  * @param email, username, password
  * @returns created user object
  */
-export async function createUser({
-  email,
-  username,
-  password,
-}: {
+// export async function createUser({
+//   email,
+//   username,
+//   password,
+// }: {
+//   email: string;
+//   username: string;
+//   password: string;
+// }) {
+//   const hashedPassword = await hashPassword(password);
+
+//   const newUser = {
+//     id: idGenerator(16),
+//     email,
+//     username,
+//     passwordHash: hashedPassword,
+//     roleId: 'student', // default role
+//     isVerified: false,
+//     isActive: true,
+//   };
+
+//   await db.insert(users).values(newUser);
+
+//   return newUser;
+// }
+
+export async function createUser({ email, username, password }: {
   email: string;
   username: string;
   password: string;
@@ -50,10 +72,12 @@ export async function createUser({
     email,
     username,
     passwordHash: hashedPassword,
-    roleId: 'student', // default role
+    roleId: 'student',
     isVerified: false,
     isActive: true,
   };
+
+  console.log('Creating user with payload:', newUser);
 
   await db.insert(users).values(newUser);
 
