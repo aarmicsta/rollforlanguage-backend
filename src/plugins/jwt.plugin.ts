@@ -1,3 +1,5 @@
+// src/plugins/jwt.plugin.ts
+
 import { env } from '../config/env';
 import fp from 'fastify-plugin';
 import fastifyJwt from '@fastify/jwt';
