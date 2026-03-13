@@ -1,0 +1,1 @@
+DROP TABLE `playable_passives`;
