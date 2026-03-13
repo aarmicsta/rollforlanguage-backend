@@ -6,7 +6,7 @@ import {
   playableClassStatBonuses,
   playableClassPassives,
   playableClassTagLinks,
-} from '../db/schema/playable_classes';
+} from '../db/schema/playable_entities';
 import { playableTags } from '../db/schema/playable_tags';
 
 

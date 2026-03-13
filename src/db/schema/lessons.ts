@@ -1,3 +1,34 @@
+/**
+ * =========================================================
+ * RFL DATABASE SCHEMA
+ * =========================================================
+ *
+ * Domain: Lessons and Educational Content
+ * Layer: Canon Bridge
+ *
+ * Purpose:
+ * Structured definitions of language learning content used
+ * within the portal.
+ *
+ * Tables Defined Here:
+ * - languages
+ * - lessons
+ * - lesson_sections
+ * - lesson_quizzes
+ * - quiz_questions
+ * - quiz_answers
+ *
+ * Relationships:
+ * lessons → lesson_sections
+ * lessons → lesson_quizzes
+ *
+ * Notes:
+ * These tables define educational content and do not track
+ * student progress.
+ *
+ * =========================================================
+ */
+
 import {
   mysqlTable,
   varchar,

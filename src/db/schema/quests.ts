@@ -1,3 +1,37 @@
+/**
+ * =========================================================
+ * RFL DATABASE SCHEMA
+ * =========================================================
+ *
+ * Domain: Quests and Campaigns
+ * Layer: Canon Bridge / Portal
+ *
+ * Purpose:
+ * Defines canonical quests and campaigns as well as runtime
+ * player quest progress.
+ *
+ * Tables Defined Here:
+ * Canon Bridge:
+ * - quest_campaigns
+ * - quests
+ * - quest_objectives
+ * - quest_objective_assignments
+ * - quest_reward_definitions
+ *
+ * Portal:
+ * - character_quest_progress
+ *
+ * Relationships:
+ * quests → quest_objectives
+ * player_characters → character_quest_progress
+ *
+ * Notes:
+ * Quest definitions belong to the Canon Bridge layer while
+ * player progress belongs to the Portal layer.
+ *
+ * =========================================================
+ */
+
 import {
   mysqlTable,
   varchar,

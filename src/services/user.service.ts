@@ -2,7 +2,7 @@
 
 import { and, or, inArray, lte, gte, count, eq, ilike, sql } from 'drizzle-orm';
 import { db } from '../db';
-import { users } from '../db/schema/core';
+import { users } from '../db/schema/auth';
 import { GetUsersQuery } from '../schemas/admin.schema';
 
 interface UserListItem {

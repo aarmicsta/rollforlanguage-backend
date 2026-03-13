@@ -1,7 +1,7 @@
 // src/services/playableTag.service.ts
 
 import { db } from '../db';
-import { playableClassTagLinks } from '../db/schema/playable_classes';
+import { playableClassTagLinks } from '../db/schema/playable_entities';
 import { eq, count } from 'drizzle-orm';
 import { idGenerator } from '../utils/idGenerator';
 import { CreatePlayableTagInput, UpdatePlayableTagInput, playableTags,  } from '../schemas/playable_tags';

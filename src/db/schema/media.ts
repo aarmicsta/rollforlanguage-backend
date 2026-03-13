@@ -1,3 +1,30 @@
+/**
+ * =========================================================
+ * RFL DATABASE SCHEMA
+ * =========================================================
+ *
+ * Domain: Media and Audio Submissions
+ * Layer: Canon Bridge / Portal
+ *
+ * Purpose:
+ * Stores media assets used in the portal and student audio
+ * submissions associated with lessons.
+ *
+ * Tables Defined Here:
+ * Canon Bridge:
+ * - media_assets
+ *
+ * Portal:
+ * - lesson_audio_submissions
+ * - audio_submission_feedback
+ *
+ * Notes:
+ * Media assets define reusable resources while audio
+ * submissions track student activity.
+ *
+ * =========================================================
+ */
+
 import {
   mysqlTable,
   varchar,

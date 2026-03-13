@@ -1,3 +1,39 @@
+/**
+ * =========================================================
+ * RFL DATABASE SCHEMA
+ * =========================================================
+ *
+ * Domain: Items and Equipment
+ * Layer: Canon Bridge / Portal
+ *
+ * Purpose:
+ * Defines canonical item records and runtime item ownership
+ * by characters.
+ *
+ * Tables Defined Here:
+ * Canon Bridge:
+ * - items
+ * - weapon_stats
+ * - armor_stats
+ * - potion_effects
+ * - equipment_slots
+ * - item_modifier_assignments
+ *
+ * Portal:
+ * - character_inventory
+ * - character_equipped_items
+ *
+ * Relationships:
+ * items → character_inventory
+ * equipment_slots → character_equipped_items
+ *
+ * Notes:
+ * Item definitions are canonical. Inventory and equipment
+ * represent runtime player state.
+ *
+ * =========================================================
+ */
+
 import {
     mysqlTable,
     varchar,

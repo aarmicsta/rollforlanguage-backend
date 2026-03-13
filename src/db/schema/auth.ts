@@ -1,3 +1,33 @@
+/**
+ * =========================================================
+ * RFL DATABASE SCHEMA
+ * =========================================================
+ *
+ * Domain: Authentication and Identity
+ * Layer: Portal
+ *
+ * Purpose:
+ * Defines user identity, authentication providers, sessions,
+ * and role-based access control.
+ *
+ * Tables Defined Here:
+ * - users
+ * - user_roles
+ * - user_login_sessions
+ * - user_auth_providers
+ * - user_refresh_tokens
+ * - teacher_profiles
+ *
+ * Relationships:
+ * user_roles → users
+ *
+ * Notes:
+ * This schema manages authentication and identity only and
+ * does not contain gameplay data.
+ *
+ * =========================================================
+ */
+
 import {
   mysqlTable,
   varchar,

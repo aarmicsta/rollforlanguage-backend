@@ -1,3 +1,35 @@
+/**
+ * =========================================================
+ * RFL DATABASE SCHEMA
+ * =========================================================
+ *
+ * Domain: Player Characters
+ * Layer: Portal
+ *
+ * Purpose:
+ * Runtime player character state within the portal.
+ * These tables store the dynamic state of characters
+ * created by users during gameplay.
+ *
+ * Tables Defined Here:
+ * - player_characters
+ * - character_stat_values
+ * - character_skill_levels
+ * - character_ability_states
+ * - character_active_modifiers
+ *
+ * Relationships:
+ * users → player_characters
+ * playable_entities → player_characters
+ * stat_types → character_stat_values
+ *
+ * Notes:
+ * These tables store runtime state and should never contain
+ * canonical definitions of species, classes, or abilities.
+ *
+ * =========================================================
+ */
+
 import {
   mysqlTable,
   varchar,

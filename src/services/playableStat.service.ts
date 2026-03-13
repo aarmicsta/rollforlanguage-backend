@@ -1,7 +1,7 @@
 
 import { db } from '../db';
-import { playableClassStatBonuses } from '../db/schema/playable_classes';
-import { playableStats } from '../db/schema/playable_stats';
+import { playableClassStatBonuses } from '../db/schema/playable_entities';
+import { playableStats } from '../db/schema/system_vocabularies';
 import { eq, count } from 'drizzle-orm';
 import { idGenerator } from '../utils/idGenerator';
 

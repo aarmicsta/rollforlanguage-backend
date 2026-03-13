@@ -1,3 +1,36 @@
+/**
+ * =========================================================
+ * RFL DATABASE SCHEMA
+ * =========================================================
+ *
+ * Domain: System Vocabularies
+ * Layer: Canon Bridge
+ *
+ * Purpose:
+ * Shared vocabulary registries used throughout the system.
+ * These tables define canonical reference values such as
+ * stat types and entity tags.
+ *
+ * Tables Defined Here:
+ * - stat_types
+ * - entity_tags
+ * - tag_categories
+ * - tag_category_assignments
+ *
+ * Relationships:
+ * Used by:
+ * playable_entities
+ * items
+ * quests
+ * characters
+ *
+ * Notes:
+ * These tables act as controlled vocabularies and prevent
+ * string duplication across the database.
+ *
+ * =========================================================
+ */
+
 import {
   mysqlTable,
   varchar,
@@ -5,10 +38,23 @@ import {
   timestamp,
   int,
   boolean,
-  primaryKey
+  primaryKey,
 } from 'drizzle-orm/mysql-core';
-import { sql } from 'drizzle-orm';
 import { idGenerator } from '../../utils/idGenerator';
+
+//
+// 📊 PLAYABLE STATS REGISTRY
+//
+export const playableStats = mysqlTable('playable_stats', {
+  id: varchar('id', { length: 36 }).primaryKey(),
+  name: varchar('name', { length: 50 }).notNull().unique(), // e.g., "strength"
+  displayName: varchar('display_name', { length: 100 }).notNull(), // e.g., "Strength"
+  description: text('description'),
+  isActive: boolean('is_active').default(true),
+  sortOrder: int('sort_order').default(0),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').onUpdateNow().defaultNow(),
+});
 
 //
 // 🏷️ PLAYABLE TAG GLOSSARY
@@ -48,4 +94,3 @@ export const playableTagCategoryLinks = mysqlTable('playable_tag_category_links'
 }, (table) => [
   primaryKey(table.tagId, table.categoryId)
 ]);
-

@@ -1,3 +1,32 @@
+/**
+ * =========================================================
+ * RFL DATABASE SCHEMA
+ * =========================================================
+ *
+ * Domain: System Administration
+ * Layer: Portal
+ *
+ * Purpose:
+ * Operational tables used for configuration, moderation,
+ * support, and administrative auditing.
+ *
+ * Tables Defined Here:
+ * - system_settings
+ * - admin_action_logs
+ * - user_bans
+ * - support_tickets
+ *
+ * Relationships:
+ * users → user_bans
+ * users → support_tickets
+ *
+ * Notes:
+ * These tables are primarily accessed through the
+ * AdminDashboard and are not part of gameplay systems.
+ *
+ * =========================================================
+ */
+
 import {
     mysqlTable,
     varchar,

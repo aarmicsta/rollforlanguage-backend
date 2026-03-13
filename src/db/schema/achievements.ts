@@ -1,3 +1,39 @@
+/**
+ * =========================================================
+ * RFL DATABASE SCHEMA
+ * =========================================================
+ *
+ * Domain: Achievements and Rankings
+ * Layer: Canon Bridge / Portal
+ *
+ * Purpose:
+ * Defines canonical achievement and leaderboard structures,
+ * along with runtime unlock and ranking records tied to
+ * player characters.
+ *
+ * Tables Defined Here:
+ * Canon Bridge:
+ * - achievements
+ * - leaderboards
+ *
+ * Portal:
+ * - achievement_unlocks
+ * - leaderboard_entries
+ *
+ * Relationships:
+ * achievements → achievement_unlocks
+ * leaderboards → leaderboard_entries
+ * player_characters → achievement_unlocks
+ * player_characters → leaderboard_entries
+ *
+ * Notes:
+ * Achievement and leaderboard definitions belong to the
+ * Canon Bridge layer. Unlocks and ranking entries belong
+ * to the Portal layer as runtime player state.
+ *
+ * =========================================================
+ */
+
 import {
   mysqlTable,
   varchar,

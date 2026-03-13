@@ -1,3 +1,35 @@
+/**
+ * =========================================================
+ * RFL DATABASE SCHEMA
+ * =========================================================
+ *
+ * Domain: School / Classroom Management
+ * Layer: Portal
+ *
+ * Purpose:
+ * Tables representing real-world school classes using the
+ * Roll For Language portal. These structures manage teacher
+ * ownership of classes and student enrollment.
+ *
+ * IMPORTANT:
+ * These tables represent real-world classroom groupings and
+ * are completely separate from RPG playable classes.
+ *
+ * Tables Defined Here:
+ * - school_classes
+ * - school_class_enrollments
+ *
+ * Relationships:
+ * users → school_classes (teacher_user_id)
+ * users → school_class_enrollments (student_user_id)
+ *
+ * Notes:
+ * This domain integrates the educational platform layer
+ * with the RPG portal. It should not contain gameplay data.
+ *
+ * =========================================================
+ */
+
 
 import {
   mysqlTable,

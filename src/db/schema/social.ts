@@ -1,3 +1,33 @@
+/**
+ * =========================================================
+ * RFL DATABASE SCHEMA
+ * =========================================================
+ *
+ * Domain: Social Systems
+ * Layer: Portal
+ *
+ * Purpose:
+ * Defines runtime social interaction features including
+ * messaging, parties, friendships, and notifications.
+ *
+ * Tables Defined Here:
+ * - user_messages
+ * - player_parties
+ * - party_memberships
+ * - user_notifications
+ * - user_friendships
+ *
+ * Relationships:
+ * users → user_messages
+ * users → player_parties
+ *
+ * Notes:
+ * These systems support collaboration and interaction between
+ * players within the portal.
+ *
+ * =========================================================
+ */
+
 import {
   mysqlTable,
   varchar,
