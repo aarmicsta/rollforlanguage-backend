@@ -1,6 +1,6 @@
 
 import { db } from '../db';
-import { playablePassives } from '../db/schema/playable_passives';
+import { playablePassives } from '../db/schema/playable_entities';
 import { eq } from 'drizzle-orm';
 import { idGenerator } from '../utils/idGenerator';
 

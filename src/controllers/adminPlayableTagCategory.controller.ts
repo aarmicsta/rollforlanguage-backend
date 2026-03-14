@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { eq } from 'drizzle-orm';
 import { db } from '../db';
-import { playableTagCategories, playableTagCategoryLinks } from '../db/schema/playable_tags';
+import { playableTagCategories, playableTagCategoryLinks } from '../db/schema/system_vocabularies';
 import { idGenerator } from '../utils/idGenerator';
 
 type CategoryInput = {

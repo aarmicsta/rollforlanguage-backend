@@ -3,7 +3,7 @@
 import { z } from 'zod';
 
 // 💾 Drizzle table import
-import { playableTags } from '../db/schema/playable_tags';
+import { playableTags } from '../db/schema/system_vocabularies';
 export { playableTags };
 
 
