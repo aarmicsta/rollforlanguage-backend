@@ -11,7 +11,7 @@ import '@fastify/jwt';
 import { idGenerator } from '../utils/idGenerator';
 import { db } from '../db';
 import { eq, and } from 'drizzle-orm';
-import { refreshTokens } from '../db/schemata/auth';
+import { refreshTokens } from '../db/schema/portal/auth';
 
 // export async function registerHandler(request: FastifyRequest, reply: FastifyReply) {
 //   try {

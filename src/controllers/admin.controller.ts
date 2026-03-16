@@ -4,7 +4,7 @@ import { FastifyRequest, FastifyReply } from 'fastify';
 import { hashPassword, findUserByEmail } from '../services/auth.service';
 import { getUsersFromDB } from '../services/user.service';
 import { db } from '../db';
-import { users } from '../db/schemata/auth';
+import { users } from '../db/schema/portal/auth';
 import { idGenerator } from '../utils/idGenerator';
 import { getUsersQuerySchema } from '../validation/admin.validation'; // Zod schema
 import { GetUsersQuery } from '../validation/admin.validation'; // Type for controller use
