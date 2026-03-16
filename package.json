@@ -5,7 +5,8 @@
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
-    "test": "vitest"
+    "test": "vitest",
+    "seed": "ts-node src/db/seeds/seed.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.799.0",
