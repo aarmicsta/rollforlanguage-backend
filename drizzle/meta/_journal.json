@@ -43,6 +43,13 @@
       "when": 1773365028102,
       "tag": "0005_sloppy_stephen_strange",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1773634624404,
+      "tag": "0006_charming_ender_wiggin",
+      "breakpoints": true
     }
   ]
 }
