@@ -64,6 +64,13 @@
       "when": 1773638543154,
       "tag": "0008_smart_quentin_quire",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1773687321535,
+      "tag": "0009_daily_slapstick",
+      "breakpoints": true
     }
   ]
 }
