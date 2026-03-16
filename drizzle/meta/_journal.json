@@ -50,6 +50,13 @@
       "when": 1773634624404,
       "tag": "0006_charming_ender_wiggin",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1773637380858,
+      "tag": "0007_aspiring_wild_child",
+      "breakpoints": true
     }
   ]
 }
