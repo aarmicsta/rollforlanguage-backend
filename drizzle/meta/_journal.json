@@ -57,6 +57,13 @@
       "when": 1773637380858,
       "tag": "0007_aspiring_wild_child",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1773638543154,
+      "tag": "0008_smart_quentin_quire",
+      "breakpoints": true
     }
   ]
 }
