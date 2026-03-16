@@ -7,23 +7,28 @@
  * Layer: Portal
  *
  * Purpose:
- * Defines user identity, authentication providers, sessions,
- * and role-based access control.
+ * Defines account identity, role-based access, session state,
+ * refresh tokens, and user-level settings.
  *
  * Tables Defined Here:
+ * - roles
  * - users
- * - user_roles
- * - user_login_sessions
- * - user_auth_providers
- * - user_refresh_tokens
- * - teacher_profiles
+ * - refresh_tokens
+ * - user_settings
+ * - login_sessions
  *
  * Relationships:
- * user_roles → users
+ * - users.role_id → roles.id
+ * - refresh_tokens.user_id → users.id
+ * - user_settings.user_id → users.id
+ * - login_sessions.user_id → users.id
  *
  * Notes:
- * This schema manages authentication and identity only and
- * does not contain gameplay data.
+ * - This schema manages authentication/account concerns only.
+ * - It does not contain gameplay/runtime character data.
+ * - The login_sessions token field is now session_token.
+ *   This replaces the older jwt_token naming for clearer,
+ *   more implementation-agnostic session modeling.
  *
  * =========================================================
  */
@@ -31,9 +36,9 @@
 import {
   mysqlTable,
   varchar,
-  text,
   timestamp,
   boolean,
+  text,
 } from 'drizzle-orm/mysql-core';
 
 // Roles table
@@ -50,32 +55,14 @@ export const users = mysqlTable('users', {
   email: varchar('email', { length: 255 }).notNull().unique(),
   passwordHash: varchar('password_hash', { length: 255 }).notNull(),
   roleId: varchar('role_id', { length: 36 }).notNull(),
-  username: varchar('username', { length: 100 }).notNull().unique(),
   displayName: varchar('display_name', { length: 100 }),
-  genderIdentity: varchar('gender_identity', { length: 100 }),
-  pronouns: varchar('pronouns', { length: 100 }),
-  isVerified: boolean('is_verified').default(false),   // <--- NEW
-  isActive: boolean('is_active').default(true),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
-
-// Login Sessions table
-export const loginSessions = mysqlTable('login_sessions', {
-  id: varchar('id', { length: 36 }).primaryKey(),
-  userId: varchar('user_id', { length: 36 }).notNull(),
-  jwtToken: text('jwt_token').notNull(),
-  createdAt: timestamp('created_at').defaultNow(),
-  expiresAt: timestamp('expires_at').notNull(),
-});
-
-// Auth Providers table (for OAuth, SSO, etc.)
-export const authProviders = mysqlTable('auth_providers', {
-  id: varchar('id', { length: 36 }).primaryKey(),
-  userId: varchar('user_id', { length: 36 }).notNull(),
-  providerName: varchar('provider_name', { length: 100 }).notNull(),
-  providerAccountId: varchar('provider_account_id', { length: 255 }).notNull(),
-  createdAt: timestamp('created_at').defaultNow(),
+  isActive: boolean('is_active').default(true),
+  username: varchar('username', { length: 100 }).notNull().unique(),
+  genderIdentity: varchar('gender_identity', { length: 100 }),
+  pronouns: varchar('pronouns', { length: 100 }),
+  isVerified: boolean('is_verified').default(false),
 });
 
 // Refresh Tokens table
@@ -86,4 +73,38 @@ export const refreshTokens = mysqlTable('refresh_tokens', {
   isRevoked: boolean('is_revoked').default(false),
   createdAt: timestamp('created_at').defaultNow(),
   expiresAt: timestamp('expires_at').notNull(),
+});
+
+// User Settings table
+export const userSettings = mysqlTable('user_settings', {
+  id: varchar('id', { length: 36 }).primaryKey(),
+  userId: varchar('user_id', { length: 36 }).notNull(),
+  preferredLanguage: varchar('preferred_language', { length: 100 }),
+  theme: varchar('theme', { length: 50 }),
+  timezone: varchar('timezone', { length: 100 }),
+  notificationsEnabled: boolean('notifications_enabled').default(true),
+  soundEnabled: boolean('sound_enabled').default(true),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+});
+
+// Login Sessions table
+export const loginSessions = mysqlTable('login_sessions', {
+  id: varchar('id', { length: 36 }).primaryKey(),
+  userId: varchar('user_id', { length: 36 }).notNull(),
+
+  // NOTE:
+  // session_token replaces the older jwt_token naming.
+  // The intent is the same: this field stores the session auth token.
+  // The new name is broader and avoids over-coupling the schema
+  // to one specific token implementation detail.
+  sessionToken: text('session_token').notNull(),
+
+  ipAddress: varchar('ip_address', { length: 45 }),
+  userAgent: text('user_agent'),
+  lastActiveAt: timestamp('last_active_at'),
+  expiresAt: timestamp('expires_at').notNull(),
+  isRevoked: boolean('is_revoked').default(false),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
 });
