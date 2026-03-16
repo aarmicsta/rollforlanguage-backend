@@ -6,8 +6,8 @@ import { getUsersFromDB } from '../services/user.service';
 import { db } from '../db';
 import { users } from '../db/schemata/auth';
 import { idGenerator } from '../utils/idGenerator';
-import { getUsersQuerySchema } from '../schemata/admin.schema'; // Zod schema
-import { GetUsersQuery } from '../schemata/admin.schema'; // Type for controller use
+import { getUsersQuerySchema } from '../validation/admin.validation'; // Zod schema
+import { GetUsersQuery } from '../validation/admin.validation'; // Type for controller use
 import { count, eq, gte } from 'drizzle-orm';
 
 const allowedRolesByCreator: Record<string, string[]> = {

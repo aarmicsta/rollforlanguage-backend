@@ -1,6 +1,6 @@
 // src/controllers/auth.controller.ts
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { registerSchema, loginSchema } from '../schemata/auth.schema';
+import { registerSchema, loginSchema } from '../validation/auth.validation';
 import {
   createUser,
   findUserByEmail,

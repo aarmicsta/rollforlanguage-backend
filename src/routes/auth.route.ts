@@ -9,7 +9,7 @@ import {
   globalLogoutHandler,
 } from '../controllers/auth.controller';
 import fromZodSchema from 'zod-to-json-schema';
-import { registerSchema, loginSchema } from '../schemata/auth.schema';
+import { registerSchema, loginSchema } from '../validation/auth.validation';
 
 export async function authRoutes(server: FastifyInstance) {
   const authenticate = (server as any).authenticate; // 👈 safely cast for TypeScript

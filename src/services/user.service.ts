@@ -3,7 +3,7 @@
 import { and, or, inArray, lte, gte, count, eq, ilike, sql } from 'drizzle-orm';
 import { db } from '../db';
 import { users } from '../db/schemata/auth';
-import { GetUsersQuery } from '../schemata/admin.schema';
+import { GetUsersQuery } from '../validation/admin.validation';
 
 interface UserListItem {
   id: string;
