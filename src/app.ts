@@ -15,13 +15,13 @@ import swaggerUi from '@fastify/swagger-ui';
 
 import { authRoutes } from './routes/auth.route';
 import { adminRoutes } from './routes/admin.route';
-import { playableClassAdminRoutes } from './routes/playableClassAdmin.route';
-import { playableTagAdminRoutes } from './routes/playableTagAdmin.route';
-import { playableStatAdminRoutes } from './routes/playableStatAdmin.route';
-import { playablePassiveAdminRoutes } from './routes/playablePassiveAdmin.route';
-import { mediaUploadRoutes } from './routes/mediaUpload.route';
-import { playableTagCategoryAdminRoutes } from './routes/playableTagCategoryAdmin.route';
-import { playableTagCategoryLinkAdminRoutes } from './routes/playableTagCategoryLinkAdmin.route';
+// import { playableClassAdminRoutes } from './routes/playableClassAdmin.route';
+// import { playableTagAdminRoutes } from './routes/playableTagAdmin.route';
+// import { playableStatAdminRoutes } from './routes/playableStatAdmin.route';
+// import { playablePassiveAdminRoutes } from './routes/playablePassiveAdmin.route';
+// import { mediaUploadRoutes } from './routes/mediaUpload.route';
+// import { playableTagCategoryAdminRoutes } from './routes/playableTagCategoryAdmin.route';
+// import { playableTagCategoryLinkAdminRoutes } from './routes/playableTagCategoryLinkAdmin.route';
 
 
 const app = Fastify({
