@@ -1,7 +1,7 @@
 // src/services/auth.service.ts
 import bcrypt from 'bcryptjs';
 import { db } from '../db';
-import { users } from '../db/schema/auth';
+import { users } from '../db/schemata/auth';
 import { idGenerator } from '../utils/idGenerator';
 import { eq } from 'drizzle-orm';
 

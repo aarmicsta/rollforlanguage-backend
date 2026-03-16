@@ -2,8 +2,8 @@
 
 import { and, or, inArray, lte, gte, count, eq, ilike, sql } from 'drizzle-orm';
 import { db } from '../db';
-import { users } from '../db/schema/auth';
-import { GetUsersQuery } from '../schemas/admin.schema';
+import { users } from '../db/schemata/auth';
+import { GetUsersQuery } from '../schemata/admin.schema';
 
 interface UserListItem {
   id: string;

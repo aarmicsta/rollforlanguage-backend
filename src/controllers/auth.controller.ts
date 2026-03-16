@@ -1,6 +1,6 @@
 // src/controllers/auth.controller.ts
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { registerSchema, loginSchema } from '../schemas/auth.schema';
+import { registerSchema, loginSchema } from '../schemata/auth.schema';
 import {
   createUser,
   findUserByEmail,
@@ -11,7 +11,7 @@ import '@fastify/jwt';
 import { idGenerator } from '../utils/idGenerator';
 import { db } from '../db';
 import { eq, and } from 'drizzle-orm';
-import { refreshTokens } from '../db/schema/auth';
+import { refreshTokens } from '../db/schemata/auth';
 
 // export async function registerHandler(request: FastifyRequest, reply: FastifyReply) {
 //   try {

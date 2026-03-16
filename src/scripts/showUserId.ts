@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { users } from '../db/schema/auth';
+import { users } from '../db/schemata/auth';
 import { eq } from 'drizzle-orm';
 
 async function main() {
