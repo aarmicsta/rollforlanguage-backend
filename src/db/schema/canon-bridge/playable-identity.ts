@@ -345,3 +345,81 @@ export const playableStatBaselines = mysqlTable('playable_stat_baselines', {
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
 });
+
+/**
+ * ---------------------------------------------------------
+ * playable_species_stat_modifiers
+ * ---------------------------------------------------------
+ *
+ * Defines how each playable species modifies each playable
+ * stat relative to the universal stat baseline.
+ *
+ * Each row represents one species-to-stat modifier.
+ *
+ * Example interpretation:
+ * - dwarf + defense = +2
+ * - dwarf + speed = -1
+ * - elf + intelligence = +1
+ *
+ * These values are not final character stats. They are
+ * canonical modifier contributions that should be combined
+ * later with universal baselines, class modifiers, and other
+ * runtime systems.
+ */
+export const playableSpeciesStatModifiers = mysqlTable(
+  'playable_species_stat_modifiers',
+  {
+    speciesId: varchar('species_id', { length: 36 }).notNull(),
+    statId: varchar('stat_id', { length: 36 }).notNull(),
+
+    // Flat modifier applied to the referenced stat.
+    modifierValue: int('modifier_value').notNull().default(0),
+
+    createdAt: timestamp('created_at').defaultNow(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+  },
+  (table) => ({
+    pk: primaryKey({
+      columns: [table.speciesId, table.statId],
+    }),
+  })
+);
+
+/**
+ * ---------------------------------------------------------
+ * playable_class_stat_modifiers
+ * ---------------------------------------------------------
+ *
+ * Defines how each playable class modifies each playable
+ * stat relative to the universal stat baseline.
+ *
+ * Each row represents one class-to-stat modifier.
+ *
+ * Example interpretation:
+ * - warrior + health = +3
+ * - warrior + attack = +2
+ * - mage + intelligence = +3
+ *
+ * These values are not final character stats. They are
+ * canonical modifier contributions that should be combined
+ * later with universal baselines, species modifiers, and
+ * other runtime systems.
+ */
+export const playableClassStatModifiers = mysqlTable(
+  'playable_class_stat_modifiers',
+  {
+    classId: varchar('class_id', { length: 36 }).notNull(),
+    statId: varchar('stat_id', { length: 36 }).notNull(),
+
+    // Flat modifier applied to the referenced stat.
+    modifierValue: int('modifier_value').notNull().default(0),
+
+    createdAt: timestamp('created_at').defaultNow(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+  },
+  (table) => ({
+    pk: primaryKey({
+      columns: [table.classId, table.statId],
+    }),
+  })
+);
