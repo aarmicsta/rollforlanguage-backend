@@ -1,6 +1,7 @@
 import { seedCharacterTraitsReference } from './reference/character-traits.seed';
 import { seedCreatureEncounterReference } from './reference/creature-encounter.seed';
 import { seedItemEquipmentReference } from './reference/item-equipment.seed';
+import { seedPlayableIdentity } from './canon-bridge/playable-identity.seed';
 
 /**
  * =========================================================
@@ -12,10 +13,21 @@ import { seedItemEquipmentReference } from './reference/item-equipment.seed';
  *
  * Current scope:
  * - Canon Bridge reference tables
+ * - Canon Bridge playable identity tables
  *
  * Notes:
  * - Seed runners are intentionally separated by domain.
  * - This file coordinates execution only.
+ * - Execution order should remain dependency-aware:
+ *   reference tables first, then canonical entity systems,
+ *   then dependent relationship/runtime systems later.
+ *
+ * Planned future seed domains:
+ * - Canon Bridge creature systems
+ * - Canon Bridge item/equipment systems
+ * - Canon Bridge region/location systems
+ * - Lore layer tables
+ * - Portal layer runtime/bootstrap tables
  *
  * =========================================================
  */
@@ -23,9 +35,37 @@ import { seedItemEquipmentReference } from './reference/item-equipment.seed';
 async function seed() {
   console.log('Starting RFL seed process...');
 
+  // -------------------------------------------------------
+  // CANON BRIDGE — REFERENCE TABLES
+  // -------------------------------------------------------
   await seedCharacterTraitsReference();
   await seedCreatureEncounterReference();
   await seedItemEquipmentReference();
+
+  // -------------------------------------------------------
+  // CANON BRIDGE — PLAYABLE IDENTITY
+  // -------------------------------------------------------
+  await seedPlayableIdentity();
+
+  // -------------------------------------------------------
+  // CANON BRIDGE — FUTURE DOMAINS
+  // -------------------------------------------------------
+  // await seedCreatures();
+  // await seedItemsAndEquipment();
+  // await seedRegionsAndLocations();
+
+  // -------------------------------------------------------
+  // LORE LAYER — FUTURE DOMAINS
+  // -------------------------------------------------------
+  // await seedSpeciesLore();
+  // await seedRegionLore();
+  // await seedLocationLore();
+
+  // -------------------------------------------------------
+  // PORTAL LAYER — FUTURE DOMAINS
+  // -------------------------------------------------------
+  // await seedPortalBootstrap();
+  // await seedClassroomDefaults();
 
   console.log('RFL seed process complete.');
 }
