@@ -84,14 +84,6 @@ export const playableSpecies = mysqlTable('playable_species', {
   // Optional longer explanation of the species.
   description: text('description'),
 
-  // Baseline stat profile applied by species identity.
-  baseHealth: int('base_health').notNull().default(0),
-  baseAttack: int('base_attack').notNull().default(0),
-  baseDefense: int('base_defense').notNull().default(0),
-  baseSpeed: int('base_speed').notNull().default(0),
-  baseIntelligence: int('base_intelligence').notNull().default(0),
-  baseCharisma: int('base_charisma').notNull().default(0),
-
   // Stored as an ID string for now; FK can be added later
   // once the media/assets layer is implemented.
   iconMediaAssetId: varchar('icon_media_asset_id', { length: 36 }),
@@ -130,14 +122,6 @@ export const playableClasses = mysqlTable('playable_classes', {
   slug: varchar('slug', { length: 100 }).notNull().unique(),
   displayName: varchar('display_name', { length: 100 }).notNull(),
   description: text('description'),
-
-  // Baseline stat profile applied by class identity.
-  baseHealth: int('base_health').notNull().default(0),
-  baseAttack: int('base_attack').notNull().default(0),
-  baseDefense: int('base_defense').notNull().default(0),
-  baseSpeed: int('base_speed').notNull().default(0),
-  baseIntelligence: int('base_intelligence').notNull().default(0),
-  baseCharisma: int('base_charisma').notNull().default(0),
 
   // Reserved for future linkage to canonical items/equipment.
   startingWeaponItemId: varchar('starting_weapon_item_id', { length: 36 }),
