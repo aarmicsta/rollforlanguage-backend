@@ -315,3 +315,33 @@ export const playableClassPassives = mysqlTable(
     }),
   })
 );
+
+/**
+ * ---------------------------------------------------------
+ * playable_stat_baselines
+ * ---------------------------------------------------------
+ *
+ * Defines the universal baseline value for each playable
+ * stat before species, class, or other modifier systems are
+ * applied.
+ *
+ * This table should contain one row per playable stat.
+ *
+ * Example interpretation:
+ * - health = 10
+ * - attack = 5
+ * - defense = 5
+ *
+ * These values represent the default starting point shared
+ * by all playable characters prior to identity-based or
+ * runtime-based modifications.
+ */
+export const playableStatBaselines = mysqlTable('playable_stat_baselines', {
+  statId: varchar('stat_id', { length: 36 }).primaryKey(),
+
+  // Universal default value for the stat.
+  baseValue: int('base_value').notNull().default(0),
+
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+});
