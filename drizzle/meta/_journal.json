@@ -71,6 +71,13 @@
       "when": 1773687321535,
       "tag": "0009_daily_slapstick",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1773756081173,
+      "tag": "0010_pretty_retro_girl",
+      "breakpoints": true
     }
   ]
 }
