@@ -1006,11 +1006,41 @@ export const playableClassStatModifiersSeed = [
  * Species ↔ Tags
  */
 export const playableSpeciesTagsSeed = [
-  // Example structure:
-  // {
-  //   speciesId: 'uuid',
-  //   tagId: 'uuid',
-  // }
+  { speciesId: 'species_dragonborn', tagId: 'tag_draconic' },
+  { speciesId: 'species_dragonborn', tagId: 'tag_resilient' },
+  { speciesId: 'species_dragonborn', tagId: 'tag_honorable' },
+
+  { speciesId: 'species_dwarf', tagId: 'tag_defensive' },
+  { speciesId: 'species_dwarf', tagId: 'tag_resilient' },
+  { speciesId: 'species_dwarf', tagId: 'tag_disciplined' },
+
+  { speciesId: 'species_elf', tagId: 'tag_agile' },
+  { speciesId: 'species_elf', tagId: 'tag_mystical' },
+  { speciesId: 'species_elf', tagId: 'tag_scholarly' },
+
+  { speciesId: 'species_gnome', tagId: 'tag_scholarly' },
+  { speciesId: 'species_gnome', tagId: 'tag_cunning' },
+  { speciesId: 'species_gnome', tagId: 'tag_mystical' },
+
+  { speciesId: 'species_halfling', tagId: 'tag_agile' },
+  { speciesId: 'species_halfling', tagId: 'tag_charismatic' },
+  { speciesId: 'species_halfling', tagId: 'tag_cunning' },
+
+  { speciesId: 'species_half_orc', tagId: 'tag_aggressive' },
+  { speciesId: 'species_half_orc', tagId: 'tag_resilient' },
+  { speciesId: 'species_half_orc', tagId: 'tag_wild' },
+
+  { speciesId: 'species_human', tagId: 'tag_mortal' },
+  { speciesId: 'species_human', tagId: 'tag_charismatic' },
+  { speciesId: 'species_human', tagId: 'tag_disciplined' },
+
+  { speciesId: 'species_tiefling', tagId: 'tag_infernal' },
+  { speciesId: 'species_tiefling', tagId: 'tag_charismatic' },
+  { speciesId: 'species_tiefling', tagId: 'tag_mystical' },
+
+  { speciesId: 'species_cornling', tagId: 'tag_primal' },
+  { speciesId: 'species_cornling', tagId: 'tag_resilient' },
+  { speciesId: 'species_cornling', tagId: 'tag_mystical' },
 ];
 
 /**

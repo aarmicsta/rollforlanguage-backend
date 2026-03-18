@@ -322,9 +322,28 @@ export async function seedPlayableIdentity(): Promise<void> {
   // RELATIONSHIP TABLES
   // -------------------------------------------------------
 
-  // TODO: Seed playable_species_tags
-  void playableSpeciesTagsSeed;
-  void playableSpeciesTags;
+  for (const link of playableSpeciesTagsSeed) {
+    const existingLink = await db
+      .select({
+        speciesId: playableSpeciesTags.speciesId,
+        tagId: playableSpeciesTags.tagId,
+      })
+      .from(playableSpeciesTags)
+      .where(
+        and(
+          eq(playableSpeciesTags.speciesId, link.speciesId),
+          eq(playableSpeciesTags.tagId, link.tagId)
+        )
+      )
+      .limit(1);
+
+    if (existingLink.length === 0) {
+      await db.insert(playableSpeciesTags).values({
+        speciesId: link.speciesId,
+        tagId: link.tagId,
+      });
+    }
+  }
 
   // TODO: Seed playable_class_tags
   void playableClassTagsSeed;
