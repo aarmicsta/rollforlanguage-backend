@@ -112,9 +112,41 @@ export async function seedPlayableIdentity(): Promise<void> {
     }
   }
 
-  // TODO: Seed playable_classes
-  void playableClassesSeed;
-  void playableClasses;
+  for (const playableClass of playableClassesSeed) {
+    const existingClass = await db
+      .select({ id: playableClasses.id })
+      .from(playableClasses)
+      .where(eq(playableClasses.slug, playableClass.slug))
+      .limit(1);
+
+    if (existingClass.length > 0) {
+      await db
+        .update(playableClasses)
+        .set({
+          name: playableClass.name,
+          displayName: playableClass.displayName,
+          description: playableClass.description,
+          startingWeaponItemId: playableClass.startingWeaponItemId,
+          iconMediaAssetId: playableClass.iconMediaAssetId,
+          isActive: playableClass.isActive,
+          sortOrder: playableClass.sortOrder,
+          updatedAt: new Date(),
+        })
+        .where(eq(playableClasses.slug, playableClass.slug));
+    } else {
+      await db.insert(playableClasses).values({
+        id: playableClass.id,
+        name: playableClass.name,
+        slug: playableClass.slug,
+        displayName: playableClass.displayName,
+        description: playableClass.description,
+        startingWeaponItemId: playableClass.startingWeaponItemId,
+        iconMediaAssetId: playableClass.iconMediaAssetId,
+        isActive: playableClass.isActive,
+        sortOrder: playableClass.sortOrder,
+      });
+    }
+  }
 
   // TODO: Seed playable_tags
   void playableTagsSeed;

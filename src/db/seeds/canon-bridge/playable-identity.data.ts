@@ -152,18 +152,150 @@ export const playableSpeciesSeed = [
  * Playable class definitions.
  */
 export const playableClassesSeed = [
-  // Example structure:
-  // {
-  //   id: 'uuid',
-  //   name: 'warrior',
-  //   slug: 'warrior',
-  //   displayName: 'Warrior',
-  //   description: 'Frontline combat specialist.',
-  //   startingWeaponItemId: null,
-  //   iconMediaAssetId: null,
-  //   isActive: true,
-  //   sortOrder: 0,
-  // }
+  {
+    id: 'class_barbarian',
+    name: 'barbarian',
+    slug: 'barbarian',
+    displayName: 'Barbarian',
+    description:
+      'Barbarians, known among themselves as Wilders, reject comfort and refinement, forging themselves through hardship, endurance, and direct confrontation with the wild.',
+    startingWeaponItemId: null,
+    iconMediaAssetId: null,
+    isActive: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'class_bard',
+    name: 'bard',
+    slug: 'bard',
+    displayName: 'Bard',
+    description:
+      'Bards are travelers who carry stories, music, and cultural memory between peoples, shaping meaning through performance, narrative, and shared understanding.',
+    startingWeaponItemId: null,
+    iconMediaAssetId: null,
+    isActive: true,
+    sortOrder: 2,
+  },
+  {
+    id: 'class_cleric',
+    name: 'cleric',
+    slug: 'cleric',
+    displayName: 'Cleric',
+    description:
+      'Clerics channel divine power through the traditions of their order, serving as healers, guides, and interpreters of faith while quietly bearing deeper knowledge of the divine.',
+    startingWeaponItemId: null,
+    iconMediaAssetId: null,
+    isActive: true,
+    sortOrder: 3,
+  },
+  {
+    id: 'class_druid',
+    name: 'druid',
+    slug: 'druid',
+    displayName: 'Druid',
+    description:
+      'Druids are chosen by nature itself and serve as stewards of balance, wielding power that grows as a living expression of the Many-Faced God through the natural world.',
+    startingWeaponItemId: null,
+    iconMediaAssetId: null,
+    isActive: true,
+    sortOrder: 4,
+  },
+  {
+    id: 'class_fighter',
+    name: 'fighter',
+    slug: 'fighter',
+    displayName: 'Fighter',
+    description:
+      'Fighters are disciplined martial practitioners who master many forms of combat, using adaptability, judgment, and skill to protect others before resorting to violence.',
+    startingWeaponItemId: null,
+    iconMediaAssetId: null,
+    isActive: true,
+    sortOrder: 5,
+  },
+  {
+    id: 'class_monk',
+    name: 'monk',
+    slug: 'monk',
+    displayName: 'Monk',
+    description:
+      'Monks pursue harmony of body, mind, and soul, refining themselves through disciplined practice until every action is guided by precision, balance, and intention.',
+    startingWeaponItemId: null,
+    iconMediaAssetId: null,
+    isActive: true,
+    sortOrder: 6,
+  },
+  {
+    id: 'class_paladin',
+    name: 'paladin',
+    slug: 'paladin',
+    displayName: 'Paladin',
+    description:
+      'Paladins are warriors bound to justice and fairness, drawing strength from unwavering moral conviction so long as they remain true to their oath.',
+    startingWeaponItemId: null,
+    iconMediaAssetId: null,
+    isActive: true,
+    sortOrder: 7,
+  },
+  {
+    id: 'class_ranger',
+    name: 'ranger',
+    slug: 'ranger',
+    displayName: 'Ranger',
+    description:
+      'Rangers are solitary wanderers who combine martial skill with limited nature magic, acting as independent agents of consequence when the natural world is pushed too far.',
+    startingWeaponItemId: null,
+    iconMediaAssetId: null,
+    isActive: true,
+    sortOrder: 8,
+  },
+  {
+    id: 'class_rogue',
+    name: 'rogue',
+    slug: 'rogue',
+    displayName: 'Rogue',
+    description:
+      'Rogues operate in the spaces between sight and shadow, using awareness, patience, deception, and timing to shape events without direct confrontation.',
+    startingWeaponItemId: null,
+    iconMediaAssetId: null,
+    isActive: true,
+    sortOrder: 9,
+  },
+  {
+    id: 'class_sorcerer',
+    name: 'sorcerer',
+    slug: 'sorcerer',
+    displayName: 'Sorcerer',
+    description:
+      'Sorcerers are born with arcane power woven into their being and must learn to master themselves in order to control the magic that flows instinctively from within.',
+    startingWeaponItemId: null,
+    iconMediaAssetId: null,
+    isActive: true,
+    sortOrder: 10,
+  },
+  {
+    id: 'class_warlock',
+    name: 'warlock',
+    slug: 'warlock',
+    displayName: 'Warlock',
+    description:
+      'Warlocks wield arcane power through dangerous pacts with supernatural patrons, sustaining borrowed strength through sacrifice and uneasy dependence.',
+    startingWeaponItemId: null,
+    iconMediaAssetId: null,
+    isActive: true,
+    sortOrder: 11,
+  },
+  {
+    id: 'class_wizard',
+    name: 'wizard',
+    slug: 'wizard',
+    displayName: 'Wizard',
+    description:
+      'Wizards unlock arcane power through study, discipline, and understanding, mastering magic through one of several philosophical traditions of scholarly practice.',
+    startingWeaponItemId: null,
+    iconMediaAssetId: null,
+    isActive: true,
+    sortOrder: 12,
+  },
 ];
 
 /**
