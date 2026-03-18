@@ -1100,20 +1100,66 @@ export const playableClassTagsSeed = [
  * Species ↔ Passives
  */
 export const playableSpeciesPassivesSeed = [
-  // Example structure:
-  // {
-  //   speciesId: 'uuid',
-  //   passiveId: 'uuid',
-  // }
+  {
+    speciesId: 'species_dragonborn',
+    passiveId: 'passive_commanding_presence',
+  },
+  {
+    speciesId: 'species_dragonborn',
+    passiveId: 'passive_elemental_tolerance',
+  },
+  {
+    speciesId: 'species_dwarf',
+    passiveId: 'passive_hardy',
+  },
+  {
+    speciesId: 'species_elf',
+    passiveId: 'passive_keen_senses',
+  },
+  {
+    speciesId: 'species_gnome',
+    passiveId: 'passive_intuitive_grasp',
+  },
+  {
+    speciesId: 'species_halfling',
+    passiveId: 'passive_quick_reflexes',
+  },
+  {
+    speciesId: 'species_half_orc',
+    passiveId: 'passive_inner_fire',
+  },
+  {
+    speciesId: 'species_human',
+    passiveId: 'passive_cultural_adaptability',
+  },
+  {
+    speciesId: 'species_tiefling',
+    passiveId: 'passive_spell_resilience',
+  },
+  {
+    speciesId: 'species_cornling',
+    passiveId: 'passive_primal_attunement',
+  },
+  {
+    speciesId: 'species_cornling',
+    passiveId: 'passive_hardy',
+  },
 ];
 
 /**
  * Class ↔ Passives
  */
 export const playableClassPassivesSeed = [
-  // Example structure:
-  // {
-  //   classId: 'uuid',
-  //   passiveId: 'uuid',
-  // }
+  { classId: 'class_barbarian', passiveId: 'passive_battle_hardened' },
+  { classId: 'class_bard', passiveId: 'passive_silver_tongue' },
+  { classId: 'class_cleric', passiveId: 'passive_spell_resilience' },
+  { classId: 'class_druid', passiveId: 'passive_primal_attunement' },
+  { classId: 'class_fighter', passiveId: 'passive_hardy' },
+  { classId: 'class_monk', passiveId: 'passive_disciplined_mind' },
+  { classId: 'class_paladin', passiveId: 'passive_commanding_presence' },
+  { classId: 'class_ranger', passiveId: 'passive_pathfinder' },
+  { classId: 'class_rogue', passiveId: 'passive_quick_reflexes' },
+  { classId: 'class_sorcerer', passiveId: 'passive_mana_affinity' },
+  { classId: 'class_warlock', passiveId: 'passive_inner_fire' },
+  { classId: 'class_wizard', passiveId: 'passive_quick_learner' },
 ];

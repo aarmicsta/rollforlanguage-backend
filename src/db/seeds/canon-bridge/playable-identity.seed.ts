@@ -368,13 +368,51 @@ export async function seedPlayableIdentity(): Promise<void> {
     }
   }
 
-  // TODO: Seed playable_species_passives
-  void playableSpeciesPassivesSeed;
-  void playableSpeciesPassives;
+  for (const link of playableSpeciesPassivesSeed) {
+    const existingLink = await db
+      .select({
+        speciesId: playableSpeciesPassives.speciesId,
+        passiveId: playableSpeciesPassives.passiveId,
+      })
+      .from(playableSpeciesPassives)
+      .where(
+        and(
+          eq(playableSpeciesPassives.speciesId, link.speciesId),
+          eq(playableSpeciesPassives.passiveId, link.passiveId)
+        )
+      )
+      .limit(1);
 
-  // TODO: Seed playable_class_passives
-  void playableClassPassivesSeed;
-  void playableClassPassives;
+    if (existingLink.length === 0) {
+      await db.insert(playableSpeciesPassives).values({
+        speciesId: link.speciesId,
+        passiveId: link.passiveId,
+      });
+    }
+  }
+
+  for (const link of playableClassPassivesSeed) {
+    const existingLink = await db
+      .select({
+        classId: playableClassPassives.classId,
+        passiveId: playableClassPassives.passiveId,
+      })
+      .from(playableClassPassives)
+      .where(
+        and(
+          eq(playableClassPassives.classId, link.classId),
+          eq(playableClassPassives.passiveId, link.passiveId)
+        )
+      )
+      .limit(1);
+
+    if (existingLink.length === 0) {
+      await db.insert(playableClassPassives).values({
+        classId: link.classId,
+        passiveId: link.passiveId,
+      });
+    }
+  }
 
   console.log('Finished seeding playable identity tables.');
 }
