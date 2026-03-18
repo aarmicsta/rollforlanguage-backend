@@ -148,9 +148,39 @@ export async function seedPlayableIdentity(): Promise<void> {
     }
   }
 
-  // TODO: Seed playable_tags
-  void playableTagsSeed;
-  void playableTags;
+  for (const tag of playableTagsSeed) {
+    const existingTag = await db
+      .select({ id: playableTags.id })
+      .from(playableTags)
+      .where(eq(playableTags.slug, tag.slug))
+      .limit(1);
+
+    if (existingTag.length > 0) {
+      await db
+        .update(playableTags)
+        .set({
+          name: tag.name,
+          displayName: tag.displayName,
+          description: tag.description,
+          tagCategory: tag.tagCategory,
+          isActive: tag.isActive,
+          sortOrder: tag.sortOrder,
+          updatedAt: new Date(),
+        })
+        .where(eq(playableTags.slug, tag.slug));
+    } else {
+      await db.insert(playableTags).values({
+        id: tag.id,
+        name: tag.name,
+        slug: tag.slug,
+        displayName: tag.displayName,
+        description: tag.description,
+        tagCategory: tag.tagCategory,
+        isActive: tag.isActive,
+        sortOrder: tag.sortOrder,
+      });
+    }
+  }
 
   // TODO: Seed playable_passives
   void playablePassivesSeed;

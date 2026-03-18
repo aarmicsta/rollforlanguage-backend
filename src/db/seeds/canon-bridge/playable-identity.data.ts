@@ -302,17 +302,237 @@ export const playableClassesSeed = [
  * Playable tag definitions.
  */
 export const playableTagsSeed = [
-  // Example structure:
-  // {
-  //   id: 'uuid',
-  //   name: 'agile',
-  //   slug: 'agile',
-  //   displayName: 'Agile',
-  //   description: 'Fast and nimble.',
-  //   tagCategory: 'attribute',
-  //   isActive: true,
-  //   sortOrder: 0,
-  // }
+  {
+    id: 'tag_martial',
+    name: 'martial',
+    slug: 'martial',
+    displayName: 'Martial',
+    description:
+      'Defined by weapon skill, physical combat training, and direct engagement in battle.',
+    tagCategory: 'combat_style',
+    isActive: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'tag_agile',
+    name: 'agile',
+    slug: 'agile',
+    displayName: 'Agile',
+    description:
+      'Marked by speed, dexterity, nimbleness, and fluid movement.',
+    tagCategory: 'combat_style',
+    isActive: true,
+    sortOrder: 2,
+  },
+  {
+    id: 'tag_stealth',
+    name: 'stealth',
+    slug: 'stealth',
+    displayName: 'Stealth',
+    description:
+      'Skilled in subtle movement, concealment, infiltration, or striking unnoticed.',
+    tagCategory: 'combat_style',
+    isActive: true,
+    sortOrder: 3,
+  },
+  {
+    id: 'tag_defensive',
+    name: 'defensive',
+    slug: 'defensive',
+    displayName: 'Defensive',
+    description:
+      'Oriented toward protection, durability, guarding, or absorbing pressure.',
+    tagCategory: 'combat_style',
+    isActive: true,
+    sortOrder: 4,
+  },
+  {
+    id: 'tag_aggressive',
+    name: 'aggressive',
+    slug: 'aggressive',
+    displayName: 'Aggressive',
+    description:
+      'Inclined toward forceful, relentless, or high-pressure offense.',
+    tagCategory: 'combat_style',
+    isActive: true,
+    sortOrder: 5,
+  },
+  {
+    id: 'tag_ranged',
+    name: 'ranged',
+    slug: 'ranged',
+    displayName: 'Ranged',
+    description:
+      'Prefers attacking or operating effectively from a distance.',
+    tagCategory: 'combat_style',
+    isActive: true,
+    sortOrder: 6,
+  },
+  {
+    id: 'tag_arcane',
+    name: 'arcane',
+    slug: 'arcane',
+    displayName: 'Arcane',
+    description:
+      'Draws upon learned, shaped, or channeled magical power.',
+    tagCategory: 'power_source',
+    isActive: true,
+    sortOrder: 7,
+  },
+  {
+    id: 'tag_divine',
+    name: 'divine',
+    slug: 'divine',
+    displayName: 'Divine',
+    description:
+      'Connected to sacred power, faith, devotion, or holy calling.',
+    tagCategory: 'power_source',
+    isActive: true,
+    sortOrder: 8,
+  },
+  {
+    id: 'tag_primal',
+    name: 'primal',
+    slug: 'primal',
+    displayName: 'Primal',
+    description:
+      'Rooted in nature, instinct, the wild, or ancient living forces.',
+    tagCategory: 'power_source',
+    isActive: true,
+    sortOrder: 9,
+  },
+  {
+    id: 'tag_scholarly',
+    name: 'scholarly',
+    slug: 'scholarly',
+    displayName: 'Scholarly',
+    description:
+      'Associated with study, knowledge, research, and disciplined learning.',
+    tagCategory: 'mental_social',
+    isActive: true,
+    sortOrder: 10,
+  },
+  {
+    id: 'tag_charismatic',
+    name: 'charismatic',
+    slug: 'charismatic',
+    displayName: 'Charismatic',
+    description:
+      'Influences others through presence, expression, confidence, or charm.',
+    tagCategory: 'mental_social',
+    isActive: true,
+    sortOrder: 11,
+  },
+  {
+    id: 'tag_disciplined',
+    name: 'disciplined',
+    slug: 'disciplined',
+    displayName: 'Disciplined',
+    description:
+      'Defined by control, routine, training, restraint, or practiced focus.',
+    tagCategory: 'mental_social',
+    isActive: true,
+    sortOrder: 12,
+  },
+  {
+    id: 'tag_perceptive',
+    name: 'perceptive',
+    slug: 'perceptive',
+    displayName: 'Perceptive',
+    description:
+      'Noted for awareness, observation, intuition, or reading situations well.',
+    tagCategory: 'mental_social',
+    isActive: true,
+    sortOrder: 13,
+  },
+  {
+    id: 'tag_wild',
+    name: 'wild',
+    slug: 'wild',
+    displayName: 'Wild',
+    description:
+      'Untamed, instinctive, free-spirited, or strongly associated with the wilderness.',
+    tagCategory: 'temperament',
+    isActive: true,
+    sortOrder: 14,
+  },
+  {
+    id: 'tag_honorable',
+    name: 'honorable',
+    slug: 'honorable',
+    displayName: 'Honorable',
+    description:
+      'Guided by duty, principle, oath, or a strong moral code.',
+    tagCategory: 'temperament',
+    isActive: true,
+    sortOrder: 15,
+  },
+  {
+    id: 'tag_cunning',
+    name: 'cunning',
+    slug: 'cunning',
+    displayName: 'Cunning',
+    description:
+      'Clever, sly, tactical, or adept at indirect problem-solving.',
+    tagCategory: 'temperament',
+    isActive: true,
+    sortOrder: 16,
+  },
+  {
+    id: 'tag_resilient',
+    name: 'resilient',
+    slug: 'resilient',
+    displayName: 'Resilient',
+    description:
+      'Enduring, hardy, stubborn, or able to withstand hardship and strain.',
+    tagCategory: 'temperament',
+    isActive: true,
+    sortOrder: 17,
+  },
+  {
+    id: 'tag_draconic',
+    name: 'draconic',
+    slug: 'draconic',
+    displayName: 'Draconic',
+    description:
+      'Bearing a strong connection to dragons or draconic heritage.',
+    tagCategory: 'nature',
+    isActive: true,
+    sortOrder: 18,
+  },
+  {
+    id: 'tag_infernal',
+    name: 'infernal',
+    slug: 'infernal',
+    displayName: 'Infernal',
+    description:
+      'Marked by infernal influence, ancestry, or associations.',
+    tagCategory: 'nature',
+    isActive: true,
+    sortOrder: 19,
+  },
+  {
+    id: 'tag_mortal',
+    name: 'mortal',
+    slug: 'mortal',
+    displayName: 'Mortal',
+    description:
+      'Grounded in ordinary mortal life rather than clearly supernatural heritage.',
+    tagCategory: 'nature',
+    isActive: true,
+    sortOrder: 20,
+  },
+  {
+    id: 'tag_mystical',
+    name: 'mystical',
+    slug: 'mystical',
+    displayName: 'Mystical',
+    description:
+      'Possessing an innate aura of wonder, enchantment, or otherworldly strangeness.',
+    tagCategory: 'nature',
+    isActive: true,
+    sortOrder: 21,
+  },
 ];
 
 /**
