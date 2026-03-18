@@ -345,9 +345,28 @@ export async function seedPlayableIdentity(): Promise<void> {
     }
   }
 
-  // TODO: Seed playable_class_tags
-  void playableClassTagsSeed;
-  void playableClassTags;
+  for (const link of playableClassTagsSeed) {
+    const existingLink = await db
+      .select({
+        classId: playableClassTags.classId,
+        tagId: playableClassTags.tagId,
+      })
+      .from(playableClassTags)
+      .where(
+        and(
+          eq(playableClassTags.classId, link.classId),
+          eq(playableClassTags.tagId, link.tagId)
+        )
+      )
+      .limit(1);
+
+    if (existingLink.length === 0) {
+      await db.insert(playableClassTags).values({
+        classId: link.classId,
+        tagId: link.tagId,
+      });
+    }
+  }
 
   // TODO: Seed playable_species_passives
   void playableSpeciesPassivesSeed;

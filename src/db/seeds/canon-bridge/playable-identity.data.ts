@@ -1047,11 +1047,53 @@ export const playableSpeciesTagsSeed = [
  * Class ↔ Tags
  */
 export const playableClassTagsSeed = [
-  // Example structure:
-  // {
-  //   classId: 'uuid',
-  //   tagId: 'uuid',
-  // }
+  { classId: 'class_barbarian', tagId: 'tag_martial' },
+  { classId: 'class_barbarian', tagId: 'tag_aggressive' },
+  { classId: 'class_barbarian', tagId: 'tag_wild' },
+
+  { classId: 'class_bard', tagId: 'tag_charismatic' },
+  { classId: 'class_bard', tagId: 'tag_scholarly' },
+  { classId: 'class_bard', tagId: 'tag_mystical' },
+
+  { classId: 'class_cleric', tagId: 'tag_divine' },
+  { classId: 'class_cleric', tagId: 'tag_defensive' },
+  { classId: 'class_cleric', tagId: 'tag_disciplined' },
+
+  { classId: 'class_druid', tagId: 'tag_primal' },
+  { classId: 'class_druid', tagId: 'tag_mystical' },
+  { classId: 'class_druid', tagId: 'tag_wild' },
+
+  { classId: 'class_fighter', tagId: 'tag_martial' },
+  { classId: 'class_fighter', tagId: 'tag_disciplined' },
+  { classId: 'class_fighter', tagId: 'tag_resilient' },
+
+  { classId: 'class_monk', tagId: 'tag_agile' },
+  { classId: 'class_monk', tagId: 'tag_disciplined' },
+  { classId: 'class_monk', tagId: 'tag_mystical' },
+
+  { classId: 'class_paladin', tagId: 'tag_divine' },
+  { classId: 'class_paladin', tagId: 'tag_honorable' },
+  { classId: 'class_paladin', tagId: 'tag_defensive' },
+
+  { classId: 'class_ranger', tagId: 'tag_ranged' },
+  { classId: 'class_ranger', tagId: 'tag_perceptive' },
+  { classId: 'class_ranger', tagId: 'tag_primal' },
+
+  { classId: 'class_rogue', tagId: 'tag_stealth' },
+  { classId: 'class_rogue', tagId: 'tag_agile' },
+  { classId: 'class_rogue', tagId: 'tag_cunning' },
+
+  { classId: 'class_sorcerer', tagId: 'tag_arcane' },
+  { classId: 'class_sorcerer', tagId: 'tag_charismatic' },
+  { classId: 'class_sorcerer', tagId: 'tag_mystical' },
+
+  { classId: 'class_warlock', tagId: 'tag_arcane' },
+  { classId: 'class_warlock', tagId: 'tag_charismatic' },
+  { classId: 'class_warlock', tagId: 'tag_cunning' },
+
+  { classId: 'class_wizard', tagId: 'tag_arcane' },
+  { classId: 'class_wizard', tagId: 'tag_scholarly' },
+  { classId: 'class_wizard', tagId: 'tag_disciplined' },
 ];
 
 /**
