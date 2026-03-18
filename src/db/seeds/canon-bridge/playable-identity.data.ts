@@ -539,18 +539,240 @@ export const playableTagsSeed = [
  * Playable passive definitions.
  */
 export const playablePassivesSeed = [
-  // Example structure:
-  // {
-  //   id: 'uuid',
-  //   name: 'night_vision',
-  //   slug: 'night-vision',
-  //   displayName: 'Night Vision',
-  //   description: 'Can see in low light conditions.',
-  //   effectText: 'Grants visibility in darkness.',
-  //   effectType: 'utility',
-  //   isActive: true,
-  //   sortOrder: 0,
-  // }
+  {
+    id: 'passive_night_vision',
+    name: 'night_vision',
+    slug: 'night_vision',
+    displayName: 'Night Vision',
+    description:
+      'Can see in low-light or darkness where others cannot.',
+    effectText:
+      'Functions effectively in low-light and darkness without standard visibility penalties.',
+    effectType: 'utility',
+    isActive: true,
+    sortOrder: 1,
+  },
+  {
+    id: 'passive_keen_senses',
+    name: 'keen_senses',
+    slug: 'keen_senses',
+    displayName: 'Keen Senses',
+    description:
+      'Heightened awareness of surroundings.',
+    effectText:
+      'Improved detection of hidden elements, movement, and environmental details.',
+    effectType: 'utility',
+    isActive: true,
+    sortOrder: 2,
+  },
+  {
+    id: 'passive_pathfinder',
+    name: 'pathfinder',
+    slug: 'pathfinder',
+    displayName: 'Pathfinder',
+    description:
+      'Naturally adept at navigating environments.',
+    effectText:
+      'Reduced penalties when navigating difficult or unfamiliar terrain.',
+    effectType: 'utility',
+    isActive: true,
+    sortOrder: 3,
+  },
+  {
+    id: 'passive_battle_hardened',
+    name: 'battle_hardened',
+    slug: 'battle_hardened',
+    displayName: 'Battle Hardened',
+    description:
+      'Experienced in enduring physical hardship.',
+    effectText:
+      'Reduced damage taken from physical attacks.',
+    effectType: 'defense',
+    isActive: true,
+    sortOrder: 4,
+  },
+  {
+    id: 'passive_quick_reflexes',
+    name: 'quick_reflexes',
+    slug: 'quick_reflexes',
+    displayName: 'Quick Reflexes',
+    description:
+      'Reacts rapidly to changing situations.',
+    effectText:
+      'Improved reaction speed in time-sensitive or danger-based situations.',
+    effectType: 'offense',
+    isActive: true,
+    sortOrder: 5,
+  },
+  {
+    id: 'passive_steady_aim',
+    name: 'steady_aim',
+    slug: 'steady_aim',
+    displayName: 'Steady Aim',
+    description:
+      'Maintains precision under pressure.',
+    effectText:
+      'Increased accuracy in ranged or precision-based actions.',
+    effectType: 'offense',
+    isActive: true,
+    sortOrder: 6,
+  },
+  {
+    id: 'passive_mana_affinity',
+    name: 'mana_affinity',
+    slug: 'mana_affinity',
+    displayName: 'Mana Affinity',
+    description:
+      'Naturally attuned to magical energy.',
+    effectText:
+      'Reduced resource cost or increased efficiency when using magical abilities.',
+    effectType: 'magic',
+    isActive: true,
+    sortOrder: 7,
+  },
+  {
+    id: 'passive_spell_resilience',
+    name: 'spell_resilience',
+    slug: 'spell_resilience',
+    displayName: 'Spell Resilience',
+    description:
+      'Resistant to magical interference.',
+    effectText:
+      'Reduced impact of incoming magical effects.',
+    effectType: 'defense',
+    isActive: true,
+    sortOrder: 8,
+  },
+  {
+    id: 'passive_primal_attunement',
+    name: 'primal_attunement',
+    slug: 'primal_attunement',
+    displayName: 'Primal Attunement',
+    description:
+      'Deep connection to natural forces.',
+    effectText:
+      'Increased effectiveness when interacting with natural or environment-based systems.',
+    effectType: 'magic',
+    isActive: true,
+    sortOrder: 9,
+  },
+  {
+    id: 'passive_silver_tongue',
+    name: 'silver_tongue',
+    slug: 'silver_tongue',
+    displayName: 'Silver Tongue',
+    description:
+      'Gifted in persuasion and communication.',
+    effectText:
+      'Improved outcomes in persuasion, negotiation, and dialogue-based interactions.',
+    effectType: 'social',
+    isActive: true,
+    sortOrder: 10,
+  },
+  {
+    id: 'passive_cultural_adaptability',
+    name: 'cultural_adaptability',
+    slug: 'cultural_adaptability',
+    displayName: 'Cultural Adaptability',
+    description:
+      'Easily navigates different social and cultural contexts.',
+    effectText:
+      'Reduced penalties when interacting with unfamiliar cultures or social contexts.',
+    effectType: 'social',
+    isActive: true,
+    sortOrder: 11,
+  },
+  {
+    id: 'passive_commanding_presence',
+    name: 'commanding_presence',
+    slug: 'commanding_presence',
+    displayName: 'Commanding Presence',
+    description:
+      'Naturally inspires attention and authority.',
+    effectText:
+      'Increased influence in leadership, authority, or group-based interactions.',
+    effectType: 'social',
+    isActive: true,
+    sortOrder: 12,
+  },
+  {
+    id: 'passive_quick_learner',
+    name: 'quick_learner',
+    slug: 'quick_learner',
+    displayName: 'Quick Learner',
+    description:
+      'Grasps new concepts rapidly.',
+    effectText:
+      'Increased rate of experience gain or skill acquisition.',
+    effectType: 'progression',
+    isActive: true,
+    sortOrder: 13,
+  },
+  {
+    id: 'passive_disciplined_mind',
+    name: 'disciplined_mind',
+    slug: 'disciplined_mind',
+    displayName: 'Disciplined Mind',
+    description:
+      'Maintains focus and consistency.',
+    effectText:
+      'Reduced negative effects from distraction, stress, or mental fatigue.',
+    effectType: 'progression',
+    isActive: true,
+    sortOrder: 14,
+  },
+  {
+    id: 'passive_intuitive_grasp',
+    name: 'intuitive_grasp',
+    slug: 'intuitive_grasp',
+    displayName: 'Intuitive Grasp',
+    description:
+      'Understands patterns without formal instruction.',
+    effectText:
+      'Faster recognition and understanding of patterns, systems, or new mechanics.',
+    effectType: 'progression',
+    isActive: true,
+    sortOrder: 15,
+  },
+  {
+    id: 'passive_hardy',
+    name: 'hardy',
+    slug: 'hardy',
+    displayName: 'Hardy',
+    description:
+      'Naturally tough and resilient.',
+    effectText:
+      'Increased resistance to physical strain, exhaustion, and environmental hardship.',
+    effectType: 'defense',
+    isActive: true,
+    sortOrder: 16,
+  },
+  {
+    id: 'passive_elemental_tolerance',
+    name: 'elemental_tolerance',
+    slug: 'elemental_tolerance',
+    displayName: 'Elemental Tolerance',
+    description:
+      'Better withstands environmental extremes.',
+    effectText:
+      'Reduced impact from environmental effects such as heat, cold, or similar conditions.',
+    effectType: 'defense',
+    isActive: true,
+    sortOrder: 17,
+  },
+  {
+    id: 'passive_inner_fire',
+    name: 'inner_fire',
+    slug: 'inner_fire',
+    displayName: 'Inner Fire',
+    description:
+      'Driven by strong internal motivation or emotion.',
+    effectText:
+      'Increased effectiveness when under pressure or in high-stakes situations.',
+    effectType: 'progression',
+    isActive: true,
+    sortOrder: 18,
+  },
 ];
 
 //

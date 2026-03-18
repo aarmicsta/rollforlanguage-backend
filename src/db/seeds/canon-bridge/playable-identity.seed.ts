@@ -182,9 +182,41 @@ export async function seedPlayableIdentity(): Promise<void> {
     }
   }
 
-  // TODO: Seed playable_passives
-  void playablePassivesSeed;
-  void playablePassives;
+  for (const passive of playablePassivesSeed) {
+    const existingPassive = await db
+      .select({ id: playablePassives.id })
+      .from(playablePassives)
+      .where(eq(playablePassives.slug, passive.slug))
+      .limit(1);
+
+    if (existingPassive.length > 0) {
+      await db
+        .update(playablePassives)
+        .set({
+          name: passive.name,
+          displayName: passive.displayName,
+          description: passive.description,
+          effectText: passive.effectText,
+          effectType: passive.effectType,
+          isActive: passive.isActive,
+          sortOrder: passive.sortOrder,
+          updatedAt: new Date(),
+        })
+        .where(eq(playablePassives.slug, passive.slug));
+    } else {
+      await db.insert(playablePassives).values({
+        id: passive.id,
+        name: passive.name,
+        slug: passive.slug,
+        displayName: passive.displayName,
+        description: passive.description,
+        effectText: passive.effectText,
+        effectType: passive.effectType,
+        isActive: passive.isActive,
+        sortOrder: passive.sortOrder,
+      });
+    }
+  }
 
   // -------------------------------------------------------
   // STAT SYSTEM TABLES
