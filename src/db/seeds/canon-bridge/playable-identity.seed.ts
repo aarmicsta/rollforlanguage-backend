@@ -222,9 +222,27 @@ export async function seedPlayableIdentity(): Promise<void> {
   // STAT SYSTEM TABLES
   // -------------------------------------------------------
 
-  // TODO: Seed playable_stat_baselines
-  void playableStatBaselinesSeed;
-  void playableStatBaselines;
+  for (const baseline of playableStatBaselinesSeed) {
+    const existingBaseline = await db
+      .select({ statId: playableStatBaselines.statId })
+      .from(playableStatBaselines)
+      .where(eq(playableStatBaselines.statId, baseline.statId))
+      .limit(1);
+
+    if (existingBaseline.length > 0) {
+      await db
+        .update(playableStatBaselines)
+        .set({
+          baseValue: baseline.baseValue,
+        })
+        .where(eq(playableStatBaselines.statId, baseline.statId));
+    } else {
+      await db.insert(playableStatBaselines).values({
+        statId: baseline.statId,
+        baseValue: baseline.baseValue,
+      });
+    }
+  }
 
   // TODO: Seed playable_species_stat_modifiers
   void playableSpeciesStatModifiersSeed;

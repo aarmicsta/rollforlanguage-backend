@@ -787,11 +787,30 @@ export const playablePassivesSeed = [
  * One entry per playable stat.
  */
 export const playableStatBaselinesSeed = [
-  // Example structure:
-  // {
-  //   statId: 'uuid',
-  //   baseValue: 10,
-  // }
+  {
+    statId: 'hp',
+    baseValue: 10,
+  },
+  {
+    statId: 'attack',
+    baseValue: 5,
+  },
+  {
+    statId: 'defense',
+    baseValue: 5,
+  },
+  {
+    statId: 'speed',
+    baseValue: 5,
+  },
+  {
+    statId: 'intelligence',
+    baseValue: 5,
+  },
+  {
+    statId: 'charisma',
+    baseValue: 5,
+  },
 ];
 
 /**
