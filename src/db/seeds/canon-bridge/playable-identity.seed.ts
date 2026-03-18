@@ -37,7 +37,7 @@
  */
 
 import { db } from '../../index';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
 import {
   playableSpeciesSeed,
@@ -244,9 +244,42 @@ export async function seedPlayableIdentity(): Promise<void> {
     }
   }
 
-  // TODO: Seed playable_species_stat_modifiers
-  void playableSpeciesStatModifiersSeed;
-  void playableSpeciesStatModifiers;
+  for (const modifier of playableSpeciesStatModifiersSeed) {
+    const existingModifier = await db
+      .select({
+        speciesId: playableSpeciesStatModifiers.speciesId,
+        statId: playableSpeciesStatModifiers.statId,
+      })
+      .from(playableSpeciesStatModifiers)
+      .where(
+        and(
+          eq(playableSpeciesStatModifiers.speciesId, modifier.speciesId),
+          eq(playableSpeciesStatModifiers.statId, modifier.statId)
+        )
+      )
+      .limit(1);
+
+    if (existingModifier.length > 0) {
+      await db
+        .update(playableSpeciesStatModifiers)
+        .set({
+          modifierValue: modifier.modifierValue,
+          updatedAt: new Date(),
+        })
+        .where(
+          and(
+            eq(playableSpeciesStatModifiers.speciesId, modifier.speciesId),
+            eq(playableSpeciesStatModifiers.statId, modifier.statId)
+          )
+        );
+    } else {
+      await db.insert(playableSpeciesStatModifiers).values({
+        speciesId: modifier.speciesId,
+        statId: modifier.statId,
+        modifierValue: modifier.modifierValue,
+      });
+    }
+  }
 
   // TODO: Seed playable_class_stat_modifiers
   void playableClassStatModifiersSeed;

@@ -819,12 +819,126 @@ export const playableStatBaselinesSeed = [
  * Defines how each species modifies each stat.
  */
 export const playableSpeciesStatModifiersSeed = [
-  // Example structure:
-  // {
-  //   speciesId: 'uuid',
-  //   statId: 'uuid',
-  //   modifierValue: 2,
-  // }
+  {
+    speciesId: 'species_dragonborn',
+    statId: 'hp',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_dragonborn',
+    statId: 'charisma',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_dragonborn',
+    statId: 'speed',
+    modifierValue: -1,
+  },
+  {
+    speciesId: 'species_dwarf',
+    statId: 'hp',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_dwarf',
+    statId: 'defense',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_dwarf',
+    statId: 'speed',
+    modifierValue: -1,
+  },
+  {
+    speciesId: 'species_elf',
+    statId: 'speed',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_elf',
+    statId: 'intelligence',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_elf',
+    statId: 'hp',
+    modifierValue: -1,
+  },
+  {
+    speciesId: 'species_gnome',
+    statId: 'intelligence',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_gnome',
+    statId: 'charisma',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_gnome',
+    statId: 'attack',
+    modifierValue: -1,
+  },
+  {
+    speciesId: 'species_halfling',
+    statId: 'speed',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_halfling',
+    statId: 'charisma',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_halfling',
+    statId: 'defense',
+    modifierValue: -1,
+  },
+  {
+    speciesId: 'species_half_orc',
+    statId: 'attack',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_half_orc',
+    statId: 'hp',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_half_orc',
+    statId: 'charisma',
+    modifierValue: -1,
+  },
+  {
+    speciesId: 'species_tiefling',
+    statId: 'intelligence',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_tiefling',
+    statId: 'charisma',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_tiefling',
+    statId: 'hp',
+    modifierValue: -1,
+  },
+  {
+    speciesId: 'species_cornling',
+    statId: 'defense',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_cornling',
+    statId: 'intelligence',
+    modifierValue: 1,
+  },
+  {
+    speciesId: 'species_cornling',
+    statId: 'speed',
+    modifierValue: -1,
+  },
 ];
 
 /**
