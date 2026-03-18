@@ -281,9 +281,42 @@ export async function seedPlayableIdentity(): Promise<void> {
     }
   }
 
-  // TODO: Seed playable_class_stat_modifiers
-  void playableClassStatModifiersSeed;
-  void playableClassStatModifiers;
+  for (const modifier of playableClassStatModifiersSeed) {
+    const existingModifier = await db
+      .select({
+        classId: playableClassStatModifiers.classId,
+        statId: playableClassStatModifiers.statId,
+      })
+      .from(playableClassStatModifiers)
+      .where(
+        and(
+          eq(playableClassStatModifiers.classId, modifier.classId),
+          eq(playableClassStatModifiers.statId, modifier.statId)
+        )
+      )
+      .limit(1);
+
+    if (existingModifier.length > 0) {
+      await db
+        .update(playableClassStatModifiers)
+        .set({
+          modifierValue: modifier.modifierValue,
+          updatedAt: new Date(),
+        })
+        .where(
+          and(
+            eq(playableClassStatModifiers.classId, modifier.classId),
+            eq(playableClassStatModifiers.statId, modifier.statId)
+          )
+        );
+    } else {
+      await db.insert(playableClassStatModifiers).values({
+        classId: modifier.classId,
+        statId: modifier.statId,
+        modifierValue: modifier.modifierValue,
+      });
+    }
+  }
 
   // -------------------------------------------------------
   // RELATIONSHIP TABLES

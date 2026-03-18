@@ -947,12 +947,53 @@ export const playableSpeciesStatModifiersSeed = [
  * Defines how each class modifies each stat.
  */
 export const playableClassStatModifiersSeed = [
-  // Example structure:
-  // {
-  //   classId: 'uuid',
-  //   statId: 'uuid',
-  //   modifierValue: 3,
-  // }
+  { classId: 'class_barbarian', statId: 'hp', modifierValue: 2 },
+  { classId: 'class_barbarian', statId: 'attack', modifierValue: 1 },
+  { classId: 'class_barbarian', statId: 'intelligence', modifierValue: -1 },
+
+  { classId: 'class_fighter', statId: 'attack', modifierValue: 2 },
+  { classId: 'class_fighter', statId: 'defense', modifierValue: 1 },
+  { classId: 'class_fighter', statId: 'intelligence', modifierValue: -1 },
+
+  { classId: 'class_paladin', statId: 'defense', modifierValue: 2 },
+  { classId: 'class_paladin', statId: 'charisma', modifierValue: 1 },
+  { classId: 'class_paladin', statId: 'speed', modifierValue: -1 },
+
+  { classId: 'class_monk', statId: 'speed', modifierValue: 2 },
+  { classId: 'class_monk', statId: 'defense', modifierValue: 1 },
+  { classId: 'class_monk', statId: 'attack', modifierValue: -1 },
+
+  { classId: 'class_ranger', statId: 'attack', modifierValue: 2 },
+  { classId: 'class_ranger', statId: 'speed', modifierValue: 1 },
+  { classId: 'class_ranger', statId: 'charisma', modifierValue: -1 },
+
+  { classId: 'class_druid', statId: 'intelligence', modifierValue: 2 },
+  { classId: 'class_druid', statId: 'defense', modifierValue: 1 },
+  { classId: 'class_druid', statId: 'attack', modifierValue: -1 },
+
+  { classId: 'class_rogue', statId: 'speed', modifierValue: 2 },
+  { classId: 'class_rogue', statId: 'attack', modifierValue: 1 },
+  { classId: 'class_rogue', statId: 'defense', modifierValue: -1 },
+
+  { classId: 'class_bard', statId: 'charisma', modifierValue: 2 },
+  { classId: 'class_bard', statId: 'intelligence', modifierValue: 1 },
+  { classId: 'class_bard', statId: 'defense', modifierValue: -1 },
+
+  { classId: 'class_wizard', statId: 'intelligence', modifierValue: 2 },
+  { classId: 'class_wizard', statId: 'speed', modifierValue: 1 },
+  { classId: 'class_wizard', statId: 'hp', modifierValue: -1 },
+
+  { classId: 'class_sorcerer', statId: 'intelligence', modifierValue: 2 },
+  { classId: 'class_sorcerer', statId: 'charisma', modifierValue: 1 },
+  { classId: 'class_sorcerer', statId: 'defense', modifierValue: -1 },
+
+  { classId: 'class_warlock', statId: 'charisma', modifierValue: 2 },
+  { classId: 'class_warlock', statId: 'intelligence', modifierValue: 1 },
+  { classId: 'class_warlock', statId: 'hp', modifierValue: -1 },
+
+  { classId: 'class_cleric', statId: 'defense', modifierValue: 2 },
+  { classId: 'class_cleric', statId: 'intelligence', modifierValue: 1 },
+  { classId: 'class_cleric', statId: 'speed', modifierValue: -1 },
 ];
 
 //
