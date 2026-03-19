@@ -191,6 +191,7 @@ export const locationConnections = mysqlTable(
   },
   (table) => ({
     pk: primaryKey({
+      name: 'loc_conn_pk',
       columns: [
         table.fromLocationId,
         table.toLocationId,
