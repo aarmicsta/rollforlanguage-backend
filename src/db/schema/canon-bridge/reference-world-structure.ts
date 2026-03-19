@@ -19,13 +19,13 @@
  *   classifications.
  *
  * Tables Defined Here:
- * - location_types
+ * - ref_location_types
  * - ref_location_tags
  *
  * Notes:
  * - These tables intentionally do not require foreign keys
  *   at this stage.
- * - `location_types` is modeled as a controlled canonical
+ * - `ref_location_types` is modeled as a controlled canonical
  *   table rather than a free-text field because world
  *   structure depends heavily on consistent place typing.
  * - `parent_location_type_id` is currently stored as a plain

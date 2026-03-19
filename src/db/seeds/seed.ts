@@ -1,6 +1,7 @@
 import { seedCharacterTraitsReference } from './reference/character-traits.seed';
 import { seedCreatureEncounterReference } from './reference/creature-encounter.seed';
 import { seedItemEquipmentReference } from './reference/item-equipment.seed';
+import { seedWorldStructureReference } from './reference/world-structure.seed';
 import { seedPlayableIdentity } from './canon-bridge/playable-identity.seed';
 
 /**
@@ -25,7 +26,7 @@ import { seedPlayableIdentity } from './canon-bridge/playable-identity.seed';
  * Planned future seed domains:
  * - Canon Bridge creature systems
  * - Canon Bridge item/equipment systems
- * - Canon Bridge region/location systems
+ * - Canon Bridge world/location systems
  * - Lore layer tables
  * - Portal layer runtime/bootstrap tables
  *
@@ -41,6 +42,7 @@ async function seed() {
   await seedCharacterTraitsReference();
   await seedCreatureEncounterReference();
   await seedItemEquipmentReference();
+  await seedWorldStructureReference();
 
   // -------------------------------------------------------
   // CANON BRIDGE — PLAYABLE IDENTITY
@@ -52,7 +54,7 @@ async function seed() {
   // -------------------------------------------------------
   // await seedCreatures();
   // await seedItemsAndEquipment();
-  // await seedRegionsAndLocations();
+  // await seedWorldStructure();
 
   // -------------------------------------------------------
   // LORE LAYER — FUTURE DOMAINS
