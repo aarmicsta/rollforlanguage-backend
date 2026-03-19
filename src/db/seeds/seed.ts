@@ -2,6 +2,7 @@ import { seedCharacterTraitsReference } from './reference/character-traits.seed'
 import { seedCreatureEncounterReference } from './reference/creature-encounter.seed';
 import { seedItemEquipmentReference } from './reference/item-equipment.seed';
 import { seedWorldStructureReference } from './reference/world-structure.seed';
+import { seedWorldStructure } from './canon-bridge/world-structure.seed';
 import { seedPlayableIdentity } from './canon-bridge/playable-identity.seed';
 
 /**
