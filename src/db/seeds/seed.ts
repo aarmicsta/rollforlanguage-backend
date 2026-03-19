@@ -50,6 +50,11 @@ async function seed() {
   await seedPlayableIdentity();
 
   // -------------------------------------------------------
+  // CANON BRIDGE — WORLD STRUCTURE
+  // -------------------------------------------------------
+  await seedWorldStructure();
+
+  // -------------------------------------------------------
   // CANON BRIDGE — FUTURE DOMAINS
   // -------------------------------------------------------
   // await seedCreatures();

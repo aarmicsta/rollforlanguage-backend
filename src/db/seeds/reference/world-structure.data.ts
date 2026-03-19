@@ -323,6 +323,16 @@ export const locationTypesSeed = [
     isActive: true,
     sortOrder: 63,
   },
+  {
+    id: 'loc_type_district',
+    name: 'district',
+    slug: 'district',
+    displayName: 'District',
+    description: 'A defined subdivision within a larger settlement, typically organized around a shared function, identity, or geographic boundary.',
+    parentLocationTypeId: 'loc_type_settlement',
+    isActive: true,
+    sortOrder: 64,
+  },
 ];
 
 export const locationTagsSeed = [
