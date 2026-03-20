@@ -1,11 +1,11 @@
 import { eq } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 
-import { db } from '../../index';
+import { db } from '../../../index';
 import {
   refLocationTypes,
   refLocationTags,
-} from '../../schema/canon-bridge/reference/reference-world-structure';
+} from '../../../schema/canon-bridge/reference/reference-world-structure';
 
 import {
   locationTypesSeed,
