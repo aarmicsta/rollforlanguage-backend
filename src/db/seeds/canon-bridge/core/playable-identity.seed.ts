@@ -36,7 +36,7 @@
  * =========================================================
  */
 
-import { db } from '../../../index';
+import { db } from '@/db/index';
 import { and, eq } from 'drizzle-orm';
 
 import {
@@ -65,7 +65,7 @@ import {
   playableClassTags,
   playableSpeciesPassives,
   playableClassPassives,
-} from '../../../schema/canon-bridge/core/playable-identity';
+} from '@/db/schema/canon-bridge/core/playable-identity';
 
 /**
  * Seeds the full playable identity domain in dependency-safe

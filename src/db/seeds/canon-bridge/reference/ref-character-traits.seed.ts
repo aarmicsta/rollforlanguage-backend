@@ -1,13 +1,13 @@
 import { eq } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 
-import { db } from '../../../index';
+import { db } from '@/db/index';
 import {
   refPlayableStats,
   refDamageTypes,
   refAlignments,
   refStatusEffects,
-} from '../../../schema/canon-bridge/reference/reference-character-trait';
+} from '@/db/schema/canon-bridge/reference/reference-character-trait';
 
 import {
   playableStatsSeed,

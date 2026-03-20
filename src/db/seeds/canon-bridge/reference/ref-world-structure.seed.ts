@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 
-import { db } from '../../../index';
+import { db } from '@/db/index';
 import {
   refLocationTypes,
   refLocationTags,

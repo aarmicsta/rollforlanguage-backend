@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 
-import { db } from '../../../index';
-import { refFactionTags } from '../../../schema/canon-bridge/reference/reference-faction';
+import { db } from '@/db/index';
+import { refFactionTags } from '@/db/schema/canon-bridge/reference/reference-faction';
 
 import { factionTagsSeed } from './ref-faction.data';
 

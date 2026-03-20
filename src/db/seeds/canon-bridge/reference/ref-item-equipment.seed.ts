@@ -1,12 +1,12 @@
 import { eq } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 
-import { db } from '../../../index';
+import { db } from '@/db/index';
 import {
   refRarityLevels,
   refEquipmentSlots,
   refItemTypes,
-} from '../../../schema/canon-bridge/reference/reference-item-equipment';
+} from '@/db/schema/canon-bridge/reference/reference-item-equipment';
 
 import {
   rarityLevelsSeed,

@@ -1,14 +1,14 @@
 import { eq } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 
-import { db } from '../../../index';
+import { db } from '@/db/index';
 import {
   refCreatureTypes,
   refSizeCategories,
   refMovementTypes,
   refIntelligenceCategories,
   refThreatLevels,
-} from '../../../schema/canon-bridge/reference/reference-creature-encounter';
+} from '@/db/schema/canon-bridge/reference/reference-creature-encounter';
 
 import {
   creatureTypesSeed,
