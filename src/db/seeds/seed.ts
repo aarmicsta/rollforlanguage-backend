@@ -2,9 +2,11 @@ import { seedCharacterTraitsReference } from './canon-bridge/reference/ref-chara
 import { seedCreatureEncounterReference } from './canon-bridge/reference/ref-creature-encounter.seed';
 import { seedItemEquipmentReference } from './canon-bridge/reference/ref-item-equipment.seed';
 import { seedWorldStructureReference } from './canon-bridge/reference/ref-world-structure.seed';
-import { seedWorldStructure } from './canon-bridge/core/world-structure.seed';
-import { seedPlayableIdentity } from './canon-bridge/core/playable-identity.seed';
 import { seedFactionReference } from './canon-bridge/reference/ref-faction.seed';
+
+import { seedPlayableIdentity } from './canon-bridge/core/playable-identity.seed';
+import { seedWorldStructure } from './canon-bridge/core/world-structure.seed';
+import { seedFactions } from './canon-bridge/core/faction.seed';
 
 /**
  * =========================================================
@@ -45,6 +47,7 @@ async function seed() {
   await seedCreatureEncounterReference();
   await seedItemEquipmentReference();
   await seedWorldStructureReference();
+  await seedFactionReference();
 
   // -------------------------------------------------------
   // CANON BRIDGE — PLAYABLE IDENTITY
@@ -57,16 +60,16 @@ async function seed() {
   await seedWorldStructure();
 
   // -------------------------------------------------------
-  // CANON BRIDGE — WORLD STRUCTURE
+  // CANON BRIDGE — FACTIONS
   // -------------------------------------------------------
-  await seedFactionReference();
+  await seedFactions();
 
   // -------------------------------------------------------
   // CANON BRIDGE — FUTURE DOMAINS
   // -------------------------------------------------------
   // await seedCreatures();
   // await seedItemsAndEquipment();
-  
+
   // -------------------------------------------------------
   // LORE LAYER — FUTURE DOMAINS
   // -------------------------------------------------------

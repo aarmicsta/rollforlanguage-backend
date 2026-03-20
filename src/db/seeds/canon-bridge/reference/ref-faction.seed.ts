@@ -1,5 +1,4 @@
 import { eq } from 'drizzle-orm';
-import { randomUUID } from 'crypto';
 
 import { db } from '../../../index';
 import { refFactionTags } from '../../../schema/canon-bridge/reference/reference-faction';
@@ -20,7 +19,7 @@ import { factionTagsSeed } from './ref-faction.data';
  *
  * Seed strategy:
  * - Match existing rows by unique slug
- * - Insert if not found
+ * - Insert if not found (using canonical ID)
  * - Update if found
  *
  * =========================================================
@@ -38,6 +37,7 @@ async function upsertFactionTags() {
       await db
         .update(refFactionTags)
         .set({
+          id: row.id, // reinforce canonical ID consistency
           name: row.name,
           slug: row.slug,
           displayName: row.displayName,
@@ -49,7 +49,7 @@ async function upsertFactionTags() {
         .where(eq(refFactionTags.slug, row.slug));
     } else {
       await db.insert(refFactionTags).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,

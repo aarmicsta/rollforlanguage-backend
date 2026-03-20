@@ -13,8 +13,8 @@
  * Notes:
  * - These objects use application-side property names
  *   (displayName, sortOrder, etc.) rather than raw SQL names.
- * - IDs and timestamps are intentionally omitted and handled
- *   by the schema defaults / seed runner.
+ * - Canonical IDs are included where needed for stable cross-table reference integrity.
+ * - Timestamps are handled by the schema defaults / seed runner.
  * - Reference tables define controlled vocabularies used
  *   throughout the Canon Bridge and Portal layers.
  *
@@ -23,6 +23,7 @@
 
 export const factionTagsSeed = [
   {
+    id: 'ref_faction_tag_political',
     name: 'political',
     slug: 'political',
     displayName: 'Political',
@@ -32,6 +33,7 @@ export const factionTagsSeed = [
     sortOrder: 10,
   },
   {
+    id: 'ref_faction_tag_military',
     name: 'military',
     slug: 'military',
     displayName: 'Military',
@@ -41,6 +43,7 @@ export const factionTagsSeed = [
     sortOrder: 20,
   },
   {
+    id: 'ref_faction_tag_religious',
     name: 'religious',
     slug: 'religious',
     displayName: 'Religious',
@@ -50,6 +53,7 @@ export const factionTagsSeed = [
     sortOrder: 30,
   },
   {
+    id: 'ref_faction_tag_cultural',
     name: 'cultural',
     slug: 'cultural',
     displayName: 'Cultural',
@@ -59,6 +63,7 @@ export const factionTagsSeed = [
     sortOrder: 40,
   },
   {
+    id: 'ref_faction_tag_mercantile',
     name: 'mercantile',
     slug: 'mercantile',
     displayName: 'Mercantile',
@@ -68,6 +73,7 @@ export const factionTagsSeed = [
     sortOrder: 50,
   },
   {
+    id: 'ref_faction_tag_scholarly',
     name: 'scholarly',
     slug: 'scholarly',
     displayName: 'Scholarly',
@@ -77,6 +83,7 @@ export const factionTagsSeed = [
     sortOrder: 60,
   },
   {
+    id: 'ref_faction_tag_arcane',
     name: 'arcane',
     slug: 'arcane',
     displayName: 'Arcane',
@@ -86,6 +93,7 @@ export const factionTagsSeed = [
     sortOrder: 70,
   },
   {
+    id: 'ref_faction_tag_criminal',
     name: 'criminal',
     slug: 'criminal',
     displayName: 'Criminal',
@@ -95,6 +103,7 @@ export const factionTagsSeed = [
     sortOrder: 80,
   },
   {
+    id: 'ref_faction_tag_maritime',
     name: 'maritime',
     slug: 'maritime',
     displayName: 'Maritime',
@@ -104,6 +113,7 @@ export const factionTagsSeed = [
     sortOrder: 90,
   },
   {
+    id: 'ref_faction_tag_nomadic',
     name: 'nomadic',
     slug: 'nomadic',
     displayName: 'Nomadic',
@@ -113,6 +123,7 @@ export const factionTagsSeed = [
     sortOrder: 100,
   },
   {
+    id: 'ref_faction_tag_tribal',
     name: 'tribal',
     slug: 'tribal',
     displayName: 'Tribal',
@@ -122,6 +133,7 @@ export const factionTagsSeed = [
     sortOrder: 110,
   },
   {
+    id: 'ref_faction_tag_civic',
     name: 'civic',
     slug: 'civic',
     displayName: 'Civic',
@@ -131,6 +143,7 @@ export const factionTagsSeed = [
     sortOrder: 120,
   },
   {
+    id: 'ref_faction_tag_secretive',
     name: 'secretive',
     slug: 'secretive',
     displayName: 'Secretive',
@@ -140,6 +153,7 @@ export const factionTagsSeed = [
     sortOrder: 130,
   },
   {
+    id: 'ref_faction_tag_revolutionary',
     name: 'revolutionary',
     slug: 'revolutionary',
     displayName: 'Revolutionary',
@@ -149,6 +163,7 @@ export const factionTagsSeed = [
     sortOrder: 140,
   },
   {
+    id: 'ref_faction_tag_guardian',
     name: 'guardian',
     slug: 'guardian',
     displayName: 'Guardian',
