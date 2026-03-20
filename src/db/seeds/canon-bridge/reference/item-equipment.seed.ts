@@ -6,7 +6,7 @@ import {
   refRarityLevels,
   refEquipmentSlots,
   refItemTypes,
-} from '../../schema/canon-bridge/reference-item-equipment';
+} from '../../schema/canon-bridge/reference/reference-item-equipment';
 
 import {
   rarityLevelsSeed,

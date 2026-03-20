@@ -1,8 +1,8 @@
 import { eq } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 
-import { db } from '../../index';
-import { refFactionTags } from '../../schema/canon-bridge/reference-faction';
+import { db } from '../../../index';
+import { refFactionTags } from '../../../schema/canon-bridge/reference/reference-faction';
 
 import { factionTagsSeed } from './faction.data';
 

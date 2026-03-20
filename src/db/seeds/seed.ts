@@ -1,10 +1,10 @@
-import { seedCharacterTraitsReference } from './reference/character-traits.seed';
-import { seedCreatureEncounterReference } from './reference/creature-encounter.seed';
-import { seedItemEquipmentReference } from './reference/item-equipment.seed';
-import { seedWorldStructureReference } from './reference/world-structure.seed';
-import { seedWorldStructure } from './canon-bridge/world-structure.seed';
-import { seedPlayableIdentity } from './canon-bridge/playable-identity.seed';
-import { seedFactionReference } from './reference/faction.seed';
+import { seedCharacterTraitsReference } from './canon-bridge/reference/character-traits.seed';
+import { seedCreatureEncounterReference } from './canon-bridge/reference/creature-encounter.seed';
+import { seedItemEquipmentReference } from './canon-bridge/reference/item-equipment.seed';
+import { seedWorldStructureReference } from './canon-bridge/reference/world-structure.seed';
+import { seedWorldStructure } from './canon-bridge/core/world-structure.seed';
+import { seedPlayableIdentity } from './canon-bridge/core/playable-identity.seed';
+import { seedFactionReference } from './canon-bridge/reference/faction.seed';
 
 /**
  * =========================================================
