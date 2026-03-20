@@ -5,7 +5,7 @@ import {
   locations,
   locationTags,
   locationConnections,
-} from '@/db/schema/canon-bridge/core/world-structure';
+} from '@schema/canon-bridge/core/world-structure';
 
 import {
   locationsSeed,
