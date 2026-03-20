@@ -14,7 +14,7 @@ import {
   damageTypesSeed,
   alignmentsSeed,
   statusEffectsSeed,
-} from './character-traits.data';
+} from './ref-character-traits.data';
 
 /**
  * =========================================================

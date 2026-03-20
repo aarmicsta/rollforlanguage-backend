@@ -10,7 +10,7 @@ import {
 import {
   locationTypesSeed,
   locationTagsSeed,
-} from './world-structure.data';
+} from './ref-world-structure.data';
 
 /**
  * =========================================================

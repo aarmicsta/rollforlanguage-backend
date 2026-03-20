@@ -12,7 +12,7 @@ import {
   rarityLevelsSeed,
   equipmentSlotsSeed,
   itemTypesSeed,
-} from './item-equipment.data';
+} from './ref-item-equipment.data';
 
 /**
  * =========================================================

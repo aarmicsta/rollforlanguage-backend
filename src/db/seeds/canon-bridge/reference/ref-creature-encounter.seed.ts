@@ -16,7 +16,7 @@ import {
   movementTypesSeed,
   intelligenceCategoriesSeed,
   threatLevelsSeed,
-} from './creature-encounter.data';
+} from './ref-creature-encounter.data';
 
 /**
  * =========================================================
