@@ -65,7 +65,7 @@ import {
   playableClassTags,
   playableSpeciesPassives,
   playableClassPassives,
-} from '@/db/schema/canon-bridge/core/playable-identity';
+} from '@schema/canon-bridge/core/playable-identity';
 
 /**
  * Seeds the full playable identity domain in dependency-safe

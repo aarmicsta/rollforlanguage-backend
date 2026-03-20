@@ -2,7 +2,7 @@ import { and, eq } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 
 import { db } from '@/db/index';
-import { factions, factionTags } from '@/db/schema/canon-bridge/core/faction';
+import { factions, factionTags } from '@schema/canon-bridge/core/faction';
 
 import { factionsSeed, factionTagsSeed } from './faction.data';
 
