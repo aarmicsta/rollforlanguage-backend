@@ -3,6 +3,7 @@ import { seedCreatureEncounterReference } from './canon-bridge/reference/ref-cre
 import { seedItemEquipmentReference } from './canon-bridge/reference/ref-item-equipment.seed';
 import { seedWorldStructureReference } from './canon-bridge/reference/ref-world-structure.seed';
 import { seedFactionReference } from './canon-bridge/reference/ref-faction.seed';
+import { seedOrganizationReference } from './canon-bridge/reference/ref-organization.seed';
 
 import { seedPlayableIdentity } from './canon-bridge/core/playable-identity.seed';
 import { seedWorldStructure } from './canon-bridge/core/world-structure.seed';
@@ -48,6 +49,7 @@ async function seed() {
   await seedItemEquipmentReference();
   await seedWorldStructureReference();
   await seedFactionReference();
+  await seedOrganizationReference();
 
   // -------------------------------------------------------
   // CANON BRIDGE — PLAYABLE IDENTITY
@@ -69,6 +71,7 @@ async function seed() {
   // -------------------------------------------------------
   // await seedCreatures();
   // await seedItemsAndEquipment();
+  // await seedOrganizations();
 
   // -------------------------------------------------------
   // LORE LAYER — FUTURE DOMAINS
