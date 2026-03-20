@@ -5,7 +5,7 @@ import { db } from '../../../index';
 import {
   refLocationTypes,
   refLocationTags,
-} from '../../../schema/canon-bridge/reference/reference-world-structure';
+} from '@/db/schema/canon-bridge/reference/reference-world-structure';
 
 import {
   locationTypesSeed,
