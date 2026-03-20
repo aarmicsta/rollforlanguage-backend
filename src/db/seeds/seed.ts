@@ -8,6 +8,7 @@ import { seedOrganizationReference } from './canon-bridge/reference/ref-organiza
 import { seedPlayableIdentity } from './canon-bridge/core/playable-identity.seed';
 import { seedWorldStructure } from './canon-bridge/core/world-structure.seed';
 import { seedFactions } from './canon-bridge/core/faction.seed';
+import { seedOrganizations } from './canon-bridge/core/organization.seed';
 
 /**
  * =========================================================
@@ -67,11 +68,15 @@ async function seed() {
   await seedFactions();
 
   // -------------------------------------------------------
+  // CANON BRIDGE — ORGANIZATIONS
+  // -------------------------------------------------------
+  await seedOrganizations();
+
+  // -------------------------------------------------------
   // CANON BRIDGE — FUTURE DOMAINS
   // -------------------------------------------------------
   // await seedCreatures();
   // await seedItemsAndEquipment();
-  // await seedOrganizations();
 
   // -------------------------------------------------------
   // LORE LAYER — FUTURE DOMAINS
