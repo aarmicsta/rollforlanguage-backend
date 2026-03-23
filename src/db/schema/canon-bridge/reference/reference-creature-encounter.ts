@@ -23,7 +23,7 @@
  * - ref_movement_types
  * - ref_intelligence_categories
  * - ref_threat_levels
- *
+ * - ref_creature_tags
  * Notes:
  * - These tables intentionally do not require foreign keys
  *   at this stage.
