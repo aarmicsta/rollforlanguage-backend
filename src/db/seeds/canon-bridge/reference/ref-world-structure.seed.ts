@@ -1,5 +1,4 @@
 import { eq } from 'drizzle-orm';
-import { randomUUID } from 'crypto';
 
 import { db } from '@/db/index';
 import {
@@ -34,8 +33,6 @@ import {
  * - `ref_location_types` uses canonical deterministic IDs
  *   from the seed data because hierarchical type references
  *   depend on stable parent IDs.
- * - `ref_location_tags` uses generated UUIDs on insert,
- *   consistent with other reference tables.
  *
  * =========================================================
  */
@@ -101,7 +98,7 @@ async function upsertLocationTags() {
         .where(eq(refLocationTags.slug, row.slug));
     } else {
       await db.insert(refLocationTags).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,

@@ -1,5 +1,4 @@
 import { eq } from 'drizzle-orm';
-import { randomUUID } from 'crypto';
 
 import { db } from '@/db/index';
 import {
@@ -38,10 +37,6 @@ import {
  * - ref_creature_tags
  *
  * Seed strategy:
- * - Existing legacy reference tables:
- *   - Match existing rows by unique slug
- *   - Insert if not found using generated UUID
- *   - Update if found
  * - New canonical reference tables:
  *   - Match existing rows by unique slug
  *   - Insert if not found using canonical ID
@@ -73,7 +68,7 @@ async function upsertCreatureTypes() {
         .where(eq(refCreatureTypes.slug, row.slug));
     } else {
       await db.insert(refCreatureTypes).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,
@@ -109,7 +104,7 @@ async function upsertSizeCategories() {
         .where(eq(refSizeCategories.slug, row.slug));
     } else {
       await db.insert(refSizeCategories).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,
@@ -146,7 +141,7 @@ async function upsertMovementTypes() {
         .where(eq(refMovementTypes.slug, row.slug));
     } else {
       await db.insert(refMovementTypes).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,
@@ -183,7 +178,7 @@ async function upsertIntelligenceCategories() {
         .where(eq(refIntelligenceCategories.slug, row.slug));
     } else {
       await db.insert(refIntelligenceCategories).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,
@@ -222,7 +217,7 @@ async function upsertThreatLevels() {
         .where(eq(refThreatLevels.slug, row.slug));
     } else {
       await db.insert(refThreatLevels).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,

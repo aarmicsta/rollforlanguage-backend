@@ -1,5 +1,4 @@
 import { eq } from 'drizzle-orm';
-import { randomUUID } from 'crypto';
 
 import { db } from '@/db/index';
 import {
@@ -61,7 +60,7 @@ async function upsertRarityLevels() {
         .where(eq(refRarityLevels.slug, row.slug));
     } else {
       await db.insert(refRarityLevels).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,
@@ -99,7 +98,7 @@ async function upsertEquipmentSlots() {
         .where(eq(refEquipmentSlots.slug, row.slug));
     } else {
       await db.insert(refEquipmentSlots).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,
@@ -139,7 +138,7 @@ async function upsertItemTypes() {
         .where(eq(refItemTypes.slug, row.slug));
     } else {
       await db.insert(refItemTypes).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,

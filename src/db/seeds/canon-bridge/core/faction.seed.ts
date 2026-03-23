@@ -1,5 +1,4 @@
 import { and, eq } from 'drizzle-orm';
-import { randomUUID } from 'crypto';
 
 import { db } from '@/db/index';
 import { factions, factionTags } from '@schema/canon-bridge/core/faction';
@@ -53,7 +52,7 @@ async function upsertFactions() {
         .where(eq(factions.slug, row.slug));
     } else {
       await db.insert(factions).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,

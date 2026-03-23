@@ -13,14 +13,15 @@
  * Notes:
  * - These objects use application-side property names
  *   (e.g. displayName, sortOrder) rather than raw SQL column names.
- * - IDs and timestamps are not included here; they are handled
- *   by the schema defaults / seed runner logic.
+ * - Reference-table records now use canonical, human-readable IDs
+ *   rather than schema defaults or seed-runner-generated IDs.
  *
  * =========================================================
  */
 
 export const playableStatsSeed = [
   {
+    id: 'ref_stat_hp',
     name: 'hp',
     slug: 'hp',
     displayName: 'HP',
@@ -29,6 +30,7 @@ export const playableStatsSeed = [
     sortOrder: 1,
   },
   {
+    id: 'ref_stat_attack',
     name: 'attack',
     slug: 'attack',
     displayName: 'ATK',
@@ -37,6 +39,7 @@ export const playableStatsSeed = [
     sortOrder: 2,
   },
   {
+    id: 'ref_stat_defense',
     name: 'defense',
     slug: 'defense',
     displayName: 'DEF',
@@ -45,6 +48,7 @@ export const playableStatsSeed = [
     sortOrder: 3,
   },
   {
+    id: 'ref_stat_speed',
     name: 'speed',
     slug: 'speed',
     displayName: 'SPD',
@@ -53,6 +57,7 @@ export const playableStatsSeed = [
     sortOrder: 4,
   },
   {
+    id: 'ref_stat_intelligence',
     name: 'intelligence',
     slug: 'intelligence',
     displayName: 'INT',
@@ -61,6 +66,7 @@ export const playableStatsSeed = [
     sortOrder: 5,
   },
   {
+    id: 'ref_stat_charisma',
     name: 'charisma',
     slug: 'charisma',
     displayName: 'CHA',
@@ -72,6 +78,7 @@ export const playableStatsSeed = [
 
 export const damageTypesSeed = [
   {
+    id: 'ref_damage_type_physical',
     name: 'physical',
     slug: 'physical',
     displayName: 'Physical',
@@ -80,6 +87,7 @@ export const damageTypesSeed = [
     sortOrder: 1,
   },
   {
+    id: 'ref_damage_type_fire',
     name: 'fire',
     slug: 'fire',
     displayName: 'Fire',
@@ -88,6 +96,7 @@ export const damageTypesSeed = [
     sortOrder: 2,
   },
   {
+    id: 'ref_damage_type_ice',
     name: 'ice',
     slug: 'ice',
     displayName: 'Ice',
@@ -96,6 +105,7 @@ export const damageTypesSeed = [
     sortOrder: 3,
   },
   {
+    id: 'ref_damage_type_lightning',
     name: 'lightning',
     slug: 'lightning',
     displayName: 'Lightning',
@@ -104,6 +114,7 @@ export const damageTypesSeed = [
     sortOrder: 4,
   },
   {
+    id: 'ref_damage_type_poison',
     name: 'poison',
     slug: 'poison',
     displayName: 'Poison',
@@ -112,6 +123,7 @@ export const damageTypesSeed = [
     sortOrder: 5,
   },
   {
+    id: 'ref_damage_type_arcane',
     name: 'arcane',
     slug: 'arcane',
     displayName: 'Arcane',
@@ -120,6 +132,7 @@ export const damageTypesSeed = [
     sortOrder: 6,
   },
   {
+    id: 'ref_damage_type_holy',
     name: 'holy',
     slug: 'holy',
     displayName: 'Holy',
@@ -128,6 +141,7 @@ export const damageTypesSeed = [
     sortOrder: 7,
   },
   {
+    id: 'ref_damage_type_shadow',
     name: 'shadow',
     slug: 'shadow',
     displayName: 'Shadow',
@@ -139,6 +153,7 @@ export const damageTypesSeed = [
 
 export const alignmentsSeed = [
   {
+    id: 'ref_alignment_lawful_good',
     name: 'lawful_good',
     slug: 'lawful_good',
     displayName: 'Lawful Good',
@@ -148,6 +163,7 @@ export const alignmentsSeed = [
     sortOrder: 1,
   },
   {
+    id: 'ref_alignment_neutral_good',
     name: 'neutral_good',
     slug: 'neutral_good',
     displayName: 'Neutral Good',
@@ -157,6 +173,7 @@ export const alignmentsSeed = [
     sortOrder: 2,
   },
   {
+    id: 'ref_alignment_chaotic_good',
     name: 'chaotic_good',
     slug: 'chaotic_good',
     displayName: 'Chaotic Good',
@@ -166,6 +183,7 @@ export const alignmentsSeed = [
     sortOrder: 3,
   },
   {
+    id: 'ref_alignment_lawful_neutral',
     name: 'lawful_neutral',
     slug: 'lawful_neutral',
     displayName: 'Lawful Neutral',
@@ -175,6 +193,7 @@ export const alignmentsSeed = [
     sortOrder: 4,
   },
   {
+    id: 'ref_alignment_true_neutral',
     name: 'true_neutral',
     slug: 'true_neutral',
     displayName: 'True Neutral',
@@ -184,6 +203,7 @@ export const alignmentsSeed = [
     sortOrder: 5,
   },
   {
+    id: 'ref_alignment_chaotic_neutral',
     name: 'chaotic_neutral',
     slug: 'chaotic_neutral',
     displayName: 'Chaotic Neutral',
@@ -193,6 +213,7 @@ export const alignmentsSeed = [
     sortOrder: 6,
   },
   {
+    id: 'ref_alignment_lawful_evil',
     name: 'lawful_evil',
     slug: 'lawful_evil',
     displayName: 'Lawful Evil',
@@ -202,6 +223,7 @@ export const alignmentsSeed = [
     sortOrder: 7,
   },
   {
+    id: 'ref_alignment_neutral_evil',
     name: 'neutral_evil',
     slug: 'neutral_evil',
     displayName: 'Neutral Evil',
@@ -211,6 +233,7 @@ export const alignmentsSeed = [
     sortOrder: 8,
   },
   {
+    id: 'ref_alignment_chaotic_evil',
     name: 'chaotic_evil',
     slug: 'chaotic_evil',
     displayName: 'Chaotic Evil',
@@ -223,6 +246,7 @@ export const alignmentsSeed = [
 
 export const statusEffectsSeed = [
   {
+    id: 'ref_status_effect_poisoned',
     name: 'poisoned',
     slug: 'poisoned',
     displayName: 'Poisoned',
@@ -233,6 +257,7 @@ export const statusEffectsSeed = [
     sortOrder: 1,
   },
   {
+    id: 'ref_status_effect_burning',
     name: 'burning',
     slug: 'burning',
     displayName: 'Burning',
@@ -243,6 +268,7 @@ export const statusEffectsSeed = [
     sortOrder: 2,
   },
   {
+    id: 'ref_status_effect_frozen',
     name: 'frozen',
     slug: 'frozen',
     displayName: 'Frozen',
@@ -253,6 +279,7 @@ export const statusEffectsSeed = [
     sortOrder: 3,
   },
   {
+    id: 'ref_status_effect_stunned',
     name: 'stunned',
     slug: 'stunned',
     displayName: 'Stunned',
@@ -263,6 +290,7 @@ export const statusEffectsSeed = [
     sortOrder: 4,
   },
   {
+    id: 'ref_status_effect_silenced',
     name: 'silenced',
     slug: 'silenced',
     displayName: 'Silenced',
@@ -273,6 +301,7 @@ export const statusEffectsSeed = [
     sortOrder: 5,
   },
   {
+    id: 'ref_status_effect_blinded',
     name: 'blinded',
     slug: 'blinded',
     displayName: 'Blinded',
@@ -283,6 +312,7 @@ export const statusEffectsSeed = [
     sortOrder: 6,
   },
   {
+    id: 'ref_status_effect_weakened',
     name: 'weakened',
     slug: 'weakened',
     displayName: 'Weakened',
@@ -293,6 +323,7 @@ export const statusEffectsSeed = [
     sortOrder: 7,
   },
   {
+    id: 'ref_status_effect_guarded',
     name: 'guarded',
     slug: 'guarded',
     displayName: 'Guarded',
@@ -303,6 +334,7 @@ export const statusEffectsSeed = [
     sortOrder: 8,
   },
   {
+    id: 'ref_status_effect_blessed',
     name: 'blessed',
     slug: 'blessed',
     displayName: 'Blessed',
@@ -313,6 +345,7 @@ export const statusEffectsSeed = [
     sortOrder: 9,
   },
   {
+    id: 'ref_status_effect_cursed',
     name: 'cursed',
     slug: 'cursed',
     displayName: 'Cursed',

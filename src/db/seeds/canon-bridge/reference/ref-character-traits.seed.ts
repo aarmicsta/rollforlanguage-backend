@@ -1,5 +1,4 @@
 import { eq } from 'drizzle-orm';
-import { randomUUID } from 'crypto';
 
 import { db } from '@/db/index';
 import {
@@ -67,7 +66,7 @@ async function upsertPlayableStats() {
         .where(eq(refPlayableStats.slug, row.slug));
     } else {
       await db.insert(refPlayableStats).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,
@@ -102,7 +101,7 @@ async function upsertDamageTypes() {
         .where(eq(refDamageTypes.slug, row.slug));
     } else {
       await db.insert(refDamageTypes).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,
@@ -138,7 +137,7 @@ async function upsertAlignments() {
         .where(eq(refAlignments.slug, row.slug));
     } else {
       await db.insert(refAlignments).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,
@@ -176,7 +175,7 @@ async function upsertStatusEffects() {
         .where(eq(refStatusEffects.slug, row.slug));
     } else {
       await db.insert(refStatusEffects).values({
-        id: randomUUID(),
+        id: row.id,
         name: row.name,
         slug: row.slug,
         displayName: row.displayName,
