@@ -8,7 +8,8 @@ import {
   refMovementTypes,
   refIntelligenceCategories,
   refThreatLevels,
-} from '@/db/schema/canon-bridge/reference/reference-creature-encounter';
+  refCreatureTags,
+} from '@schema/canon-bridge/reference/reference-creature-encounter';
 
 import {
   creatureTypesSeed,
@@ -16,7 +17,8 @@ import {
   movementTypesSeed,
   intelligenceCategoriesSeed,
   threatLevelsSeed,
-} from './ref-creature-encounter.data';
+  creatureTagsSeed,
+} from '@seeds/canon-bridge/reference/ref-creature-encounter.data';
 
 /**
  * =========================================================
@@ -33,11 +35,17 @@ import {
  * - ref_movement_types
  * - ref_intelligence_categories
  * - ref_threat_levels
+ * - ref_creature_tags
  *
  * Seed strategy:
- * - Match existing rows by unique slug
- * - Insert if not found
- * - Update if found
+ * - Existing legacy reference tables:
+ *   - Match existing rows by unique slug
+ *   - Insert if not found using generated UUID
+ *   - Update if found
+ * - New canonical reference tables:
+ *   - Match existing rows by unique slug
+ *   - Insert if not found using canonical ID
+ *   - Update if found
  *
  * =========================================================
  */
@@ -229,6 +237,41 @@ async function upsertThreatLevels() {
   }
 }
 
+async function upsertCreatureTags() {
+  for (const row of creatureTagsSeed) {
+    const existing = await db
+      .select({ id: refCreatureTags.id })
+      .from(refCreatureTags)
+      .where(eq(refCreatureTags.slug, row.slug))
+      .limit(1);
+
+    if (existing.length > 0) {
+      await db
+        .update(refCreatureTags)
+        .set({
+          name: row.name,
+          slug: row.slug,
+          displayName: row.displayName,
+          description: row.description,
+          isActive: row.isActive,
+          sortOrder: row.sortOrder,
+          updatedAt: new Date(),
+        })
+        .where(eq(refCreatureTags.slug, row.slug));
+    } else {
+      await db.insert(refCreatureTags).values({
+        id: row.id,
+        name: row.name,
+        slug: row.slug,
+        displayName: row.displayName,
+        description: row.description,
+        isActive: row.isActive,
+        sortOrder: row.sortOrder,
+      });
+    }
+  }
+}
+
 export async function seedCreatureEncounterReference() {
   console.log('Seeding creature/encounter reference tables...');
   await upsertCreatureTypes();
@@ -236,5 +279,6 @@ export async function seedCreatureEncounterReference() {
   await upsertMovementTypes();
   await upsertIntelligenceCategories();
   await upsertThreatLevels();
+  await upsertCreatureTags();
   console.log('Finished seeding creature/encounter reference tables.');
 }

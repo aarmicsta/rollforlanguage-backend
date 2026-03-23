@@ -232,3 +232,53 @@ export const refThreatLevels = mysqlTable('ref_threat_levels', {
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
 });
+
+/**
+ * ---------------------------------------------------------
+ * ref_creature_tags
+ * ---------------------------------------------------------
+ *
+ * Controlled list of tag definitions used to classify
+ * creatures across multiple dimensions.
+ *
+ * Example entries might include:
+ * - undead
+ * - beast
+ * - humanoid
+ * - elemental
+ * - aquatic
+ * - flying
+ * - nocturnal
+ * - venomous
+ * - armored
+ * - magical
+ * - territorial
+ * - pack_hunter
+ *
+ * These tags allow creatures to be flexibly categorized
+ * without forcing all meaning into a single type field.
+ */
+export const refCreatureTags = mysqlTable('ref_creature_tags', {
+  id: varchar('id', { length: 36 }).primaryKey(),
+
+  // Internal canonical name, intended to remain stable.
+  name: varchar('name', { length: 100 }).notNull().unique(),
+
+  // URL-safe / code-safe identifier.
+  slug: varchar('slug', { length: 100 }).notNull().unique(),
+
+  // Human-facing display label.
+  displayName: varchar('display_name', { length: 100 }).notNull(),
+
+  // Optional longer explanation of what the tag signifies.
+  description: text('description'),
+
+  // Allows tags to be soft-disabled without deleting them.
+  isActive: boolean('is_active').default(true),
+
+  // Useful for manual ordering in admin panels / UI display.
+  sortOrder: int('sort_order').default(0),
+
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+});

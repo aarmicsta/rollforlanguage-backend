@@ -332,3 +332,206 @@ export const threatLevelsSeed = [
     sortOrder: 6,
   },
 ];
+
+export const creatureTagsSeed = [
+  {
+    id: 'ref_creature_tag_humanoid',
+    name: 'humanoid',
+    slug: 'humanoid',
+    displayName: 'Humanoid',
+    description:
+      'Creatures with broadly person-like form, posture, and social or tool-using potential.',
+    isActive: true,
+    sortOrder: 10,
+  },
+  {
+    id: 'ref_creature_tag_beast',
+    name: 'beast',
+    slug: 'beast',
+    displayName: 'Beast',
+    description:
+      'Natural or animal-like creatures driven primarily by instinct, survival, and non-civilized behavior.',
+    isActive: true,
+    sortOrder: 20,
+  },
+  {
+    id: 'ref_creature_tag_undead',
+    name: 'undead',
+    slug: 'undead',
+    displayName: 'Undead',
+    description:
+      'Creatures animated beyond death through curse, necromancy, divine force, or other unnatural persistence.',
+    isActive: true,
+    sortOrder: 30,
+  },
+  {
+    id: 'ref_creature_tag_elemental',
+    name: 'elemental',
+    slug: 'elemental',
+    displayName: 'Elemental',
+    description:
+      'Creatures fundamentally tied to primal forces such as fire, water, earth, air, or similar essences.',
+    isActive: true,
+    sortOrder: 40,
+  },
+  {
+    id: 'ref_creature_tag_construct',
+    name: 'construct',
+    slug: 'construct',
+    displayName: 'Construct',
+    description:
+      'Artificially made beings formed through craft, magic, engineering, or deliberate assembly.',
+    isActive: true,
+    sortOrder: 50,
+  },
+  {
+    id: 'ref_creature_tag_magical',
+    name: 'magical',
+    slug: 'magical',
+    displayName: 'Magical',
+    description:
+      'Creatures whose nature, abilities, or existence are inherently shaped by supernatural or arcane power.',
+    isActive: true,
+    sortOrder: 60,
+  },
+  {
+    id: 'ref_creature_tag_aquatic',
+    name: 'aquatic',
+    slug: 'aquatic',
+    displayName: 'Aquatic',
+    description:
+      'Creatures adapted primarily for water-based life, movement, or hunting.',
+    isActive: true,
+    sortOrder: 70,
+  },
+  {
+    id: 'ref_creature_tag_flying',
+    name: 'flying',
+    slug: 'flying',
+    displayName: 'Flying',
+    description:
+      'Creatures capable of sustained aerial movement by wing, levitation, or comparable means.',
+    isActive: true,
+    sortOrder: 80,
+  },
+  {
+    id: 'ref_creature_tag_nocturnal',
+    name: 'nocturnal',
+    slug: 'nocturnal',
+    displayName: 'Nocturnal',
+    description:
+      'Creatures most active, alert, or dangerous during nighttime or low-light conditions.',
+    isActive: true,
+    sortOrder: 90,
+  },
+  {
+    id: 'ref_creature_tag_venomous',
+    name: 'venomous',
+    slug: 'venomous',
+    displayName: 'Venomous',
+    description:
+      'Creatures able to inject or deliver toxin as part of attack, defense, or hunting behavior.',
+    isActive: true,
+    sortOrder: 100,
+  },
+  {
+    id: 'ref_creature_tag_armored',
+    name: 'armored',
+    slug: 'armored',
+    displayName: 'Armored',
+    description:
+      'Creatures protected by heavy hide, shell, plating, scales, or other unusually durable natural defense.',
+    isActive: true,
+    sortOrder: 110,
+  },
+  {
+    id: 'ref_creature_tag_territorial',
+    name: 'territorial',
+    slug: 'territorial',
+    displayName: 'Territorial',
+    description:
+      'Creatures strongly inclined to defend nests, hunting grounds, dens, or claimed spaces from intrusion.',
+    isActive: true,
+    sortOrder: 120,
+  },
+  {
+    id: 'ref_creature_tag_pack_hunter',
+    name: 'pack_hunter',
+    slug: 'pack-hunter',
+    displayName: 'Pack Hunter',
+    description:
+      'Creatures that commonly hunt, track, or fight in coordinated groups rather than alone.',
+    isActive: true,
+    sortOrder: 130,
+  },
+  {
+    id: 'ref_creature_tag_solitary',
+    name: 'solitary',
+    slug: 'solitary',
+    displayName: 'Solitary',
+    description:
+      'Creatures that typically live, hunt, or roam alone outside of breeding or temporary aggregation.',
+    isActive: true,
+    sortOrder: 140,
+  },
+  {
+    id: 'ref_creature_tag_apex',
+    name: 'apex',
+    slug: 'apex',
+    displayName: 'Apex',
+    description:
+      'Creatures occupying a dominant predatory or ecological role within their environment.',
+    isActive: true,
+    sortOrder: 150,
+  },
+  {
+    id: 'ref_creature_tag_burrowing',
+    name: 'burrowing',
+    slug: 'burrowing',
+    displayName: 'Burrowing',
+    description:
+      'Creatures adapted to tunneling, subterranean nesting, or underground ambush behavior.',
+    isActive: true,
+    sortOrder: 160,
+  },
+  {
+    id: 'ref_creature_tag_swarming',
+    name: 'swarming',
+    slug: 'swarming',
+    displayName: 'Swarming',
+    description:
+      'Creatures that appear or attack in large coordinated numbers, often overwhelming by mass rather than size.',
+    isActive: true,
+    sortOrder: 170,
+  },
+  {
+    id: 'ref_creature_tag_domestic',
+    name: 'domestic',
+    slug: 'domestic',
+    displayName: 'Domestic',
+    description:
+      'Creatures commonly tamed, bred, herded, or kept in sustained proximity to settled peoples.',
+    isActive: true,
+    sortOrder: 180,
+  },
+  {
+    id: 'ref_creature_tag_monstrous',
+    name: 'monstrous',
+    slug: 'monstrous',
+    displayName: 'Monstrous',
+    description:
+      'Creatures regarded as unnatural, fearsome, or dangerously aberrant relative to ordinary fauna.',
+    isActive: true,
+    sortOrder: 190,
+  },
+  {
+    id: 'ref_creature_tag_sapient',
+    name: 'sapient',
+    slug: 'sapient',
+    displayName: 'Sapient',
+    description:
+      'Creatures capable of higher reasoning, culture, language, or organized social intelligence.',
+    isActive: true,
+    sortOrder: 200,
+  },
+];
