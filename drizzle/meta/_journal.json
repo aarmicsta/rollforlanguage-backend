@@ -141,6 +141,13 @@
       "when": 1774275296948,
       "tag": "0019_lucky_banshee",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "5",
+      "when": 1774323564016,
+      "tag": "0020_opposite_firebrand",
+      "breakpoints": true
     }
   ]
 }

@@ -10,6 +10,7 @@ import { seedWorldStructure } from './canon-bridge/core/world-structure.seed';
 import { seedFactions } from './canon-bridge/core/faction.seed';
 import { seedOrganizations } from './canon-bridge/core/organization.seed';
 import { seedCreatures } from './canon-bridge/core/creature.seed';
+import { seedItemEquipment } from './canon-bridge/core/item-equipment.seed';
 
 /**
  * =========================================================
@@ -19,14 +20,12 @@ import { seedCreatures } from './canon-bridge/core/creature.seed';
  * Purpose:
  * Runs all registered seed groups in a controlled order.
  *
- *
  * Notes:
  * - Seed runners are intentionally separated by domain.
  * - This file coordinates execution only.
  * - Execution order should remain dependency-aware:
  *   reference tables first, then canonical entity systems,
  *   then dependent relationship/runtime systems later.
- *
  *
  * =========================================================
  */
@@ -70,9 +69,9 @@ async function seed() {
   await seedCreatures();
 
   // -------------------------------------------------------
-  // CANON BRIDGE — FUTURE DOMAINS
+  // CANON BRIDGE — ITEMS & EQUIPMENT
   // -------------------------------------------------------
-  // await seedItemsAndEquipment();
+  await seedItemEquipment();
 
   // -------------------------------------------------------
   // LORE LAYER — FUTURE DOMAINS

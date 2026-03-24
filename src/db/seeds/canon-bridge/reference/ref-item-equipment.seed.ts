@@ -5,7 +5,7 @@ import {
   refRarityLevels,
   refEquipmentSlots,
   refItemTypes,
-} from '@/db/schema/canon-bridge/reference/reference-item-equipment';
+} from '@schema/canon-bridge/reference/reference-item-equipment';
 
 import {
   rarityLevelsSeed,
@@ -19,7 +19,7 @@ import {
  * =========================================================
  *
  * Domain: Canon Bridge
- * Subdomain: Reference Tables — Item / Equipment Systems
+ * Subdomain: Reference Tables — Items & Equipment
  *
  * Purpose:
  * Seeds canonical reference data for:
@@ -29,8 +29,12 @@ import {
  *
  * Seed strategy:
  * - Match existing rows by unique slug
- * - Insert if not found
+ * - Insert if not found (using canonical ID)
  * - Update if found
+ *
+ * Notes:
+ * - Canonical IDs are explicitly re-applied during updates
+ *   to reinforce seed-authoritative identity consistency.
  *
  * =========================================================
  */
@@ -47,6 +51,7 @@ async function upsertRarityLevels() {
       await db
         .update(refRarityLevels)
         .set({
+          id: row.id, // reinforce canonical ID consistency
           name: row.name,
           slug: row.slug,
           displayName: row.displayName,
@@ -86,6 +91,7 @@ async function upsertEquipmentSlots() {
       await db
         .update(refEquipmentSlots)
         .set({
+          id: row.id, // reinforce canonical ID consistency
           name: row.name,
           slug: row.slug,
           displayName: row.displayName,
@@ -123,14 +129,13 @@ async function upsertItemTypes() {
       await db
         .update(refItemTypes)
         .set({
+          id: row.id, // reinforce canonical ID consistency
           name: row.name,
           slug: row.slug,
           displayName: row.displayName,
           description: row.description,
-          itemCategory: row.itemCategory,
           isEquippable: row.isEquippable,
           isConsumable: row.isConsumable,
-          isCraftingMaterial: row.isCraftingMaterial,
           isActive: row.isActive,
           sortOrder: row.sortOrder,
           updatedAt: new Date(),
@@ -143,10 +148,8 @@ async function upsertItemTypes() {
         slug: row.slug,
         displayName: row.displayName,
         description: row.description,
-        itemCategory: row.itemCategory,
         isEquippable: row.isEquippable,
         isConsumable: row.isConsumable,
-        isCraftingMaterial: row.isCraftingMaterial,
         isActive: row.isActive,
         sortOrder: row.sortOrder,
       });
