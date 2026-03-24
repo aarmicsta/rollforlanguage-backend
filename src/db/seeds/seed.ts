@@ -9,6 +9,7 @@ import { seedPlayableIdentity } from './canon-bridge/core/playable-identity.seed
 import { seedWorldStructure } from './canon-bridge/core/world-structure.seed';
 import { seedFactions } from './canon-bridge/core/faction.seed';
 import { seedOrganizations } from './canon-bridge/core/organization.seed';
+import { seedCreatures } from './canon-bridge/core/creature.seed';
 
 /**
  * =========================================================
@@ -18,9 +19,6 @@ import { seedOrganizations } from './canon-bridge/core/organization.seed';
  * Purpose:
  * Runs all registered seed groups in a controlled order.
  *
- * Current scope:
- * - Canon Bridge reference tables
- * - Canon Bridge playable identity tables
  *
  * Notes:
  * - Seed runners are intentionally separated by domain.
@@ -29,12 +27,6 @@ import { seedOrganizations } from './canon-bridge/core/organization.seed';
  *   reference tables first, then canonical entity systems,
  *   then dependent relationship/runtime systems later.
  *
- * Planned future seed domains:
- * - Canon Bridge creature systems
- * - Canon Bridge item/equipment systems
- * - Canon Bridge world/location systems
- * - Lore layer tables
- * - Portal layer runtime/bootstrap tables
  *
  * =========================================================
  */
@@ -73,9 +65,13 @@ async function seed() {
   await seedOrganizations();
 
   // -------------------------------------------------------
+  // CANON BRIDGE — CREATURES
+  // -------------------------------------------------------
+  await seedCreatures();
+
+  // -------------------------------------------------------
   // CANON BRIDGE — FUTURE DOMAINS
   // -------------------------------------------------------
-  // await seedCreatures();
   // await seedItemsAndEquipment();
 
   // -------------------------------------------------------
