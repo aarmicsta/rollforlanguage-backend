@@ -30,5 +30,15 @@ export async function playableSpeciesAdminRoutes(app: FastifyInstance) {
       },
       handler: getPlayableSpeciesHandler,
     });
+
+    admin.patch('/playable-species/:id', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Update a playable species',
+        description:
+          'Updates one or more editable fields for a playable species record.',
+      },
+      handler: updatePlayableSpeciesHandler,
+    });
   });
 }
