@@ -48,9 +48,22 @@ export async function updatePlayableSpeciesInDB(
     })
     .where(eq(playableSpecies.id, id));
 
-  const updatedSpecies = await db.query.playableSpecies.findFirst({
-    where: eq(playableSpecies.id, id),
-  });
+    const results = await db
+      .select({
+        id: playableSpecies.id,
+        name: playableSpecies.name,
+        slug: playableSpecies.slug,
+        displayName: playableSpecies.displayName,
+        description: playableSpecies.description,
+        iconMediaAssetId: playableSpecies.iconMediaAssetId,
+        isActive: playableSpecies.isActive,
+        sortOrder: playableSpecies.sortOrder,
+        createdAt: sql<string>`DATE_FORMAT(${playableSpecies.createdAt}, '%Y-%m-%d %H:%i:%s')`.as('createdAt'),
+        updatedAt: sql<string>`DATE_FORMAT(${playableSpecies.updatedAt}, '%Y-%m-%d %H:%i:%s')`.as('updatedAt'),
+      })
+      .from(playableSpecies)
+      .where(eq(playableSpecies.id, id))
+      .limit(1);
 
-  return updatedSpecies;
+    return results[0] ?? null;
 }
