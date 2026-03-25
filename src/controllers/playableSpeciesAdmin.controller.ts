@@ -17,3 +17,39 @@ export async function getPlayableSpeciesHandler(
     });
   }
 }
+
+export async function updatePlayableSpeciesHandler(request: FastifyRequest, reply: FastifyReply) {
+  request.log.info('Received PATCH /admin/playable-species/:id request');
+
+  try {
+    const { id } = request.params as { id?: string };
+    const { displayName } = request.body as {
+      displayName?: string;
+    };
+
+    if (!id) {
+      request.log.warn('Missing species id in update request');
+      return reply.status(400).send({
+        error: 'Missing required route parameter: id.',
+      });
+    }
+
+    if (!displayName) {
+      request.log.warn('Missing displayName in update playable species request');
+      return reply.status(400).send({
+        error: 'Missing required field: displayName.',
+      });
+    }
+
+    request.log.info(`Playable species update requested for id: ${id}`);
+
+    return reply.status(200).send({
+      message: 'updatePlayableSpeciesHandler not yet implemented',
+      id,
+      displayName,
+    });
+  } catch (err) {
+    request.log.error(`Error in updatePlayableSpeciesHandler: ${err}`);
+    return reply.status(500).send({ error: 'Internal server error.' });
+  }
+}
