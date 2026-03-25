@@ -41,12 +41,12 @@ export async function updatePlayableSpeciesHandler(request: FastifyRequest, repl
       });
     }
 
-    request.log.info(`Playable species update requested for id: ${id}`);
+    await updatePlayableSpeciesInDB(id, { displayName });
+
+    request.log.info(`Playable species updated successfully: ${id}`);
 
     return reply.status(200).send({
-      message: 'updatePlayableSpeciesHandler not yet implemented',
-      id,
-      displayName,
+      message: 'Playable species updated successfully.',
     });
   } catch (err) {
     request.log.error(`Error in updatePlayableSpeciesHandler: ${err}`);

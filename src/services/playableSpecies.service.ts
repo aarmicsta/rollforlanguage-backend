@@ -2,7 +2,7 @@
 
 import { db } from '../db';
 import { playableSpecies } from '../db/schema/canon-bridge/core/playable-identity';
-import { sql } from 'drizzle-orm';
+import { sql, eq } from 'drizzle-orm';
 
 export interface PlayableSpeciesListItem {
   id: string;
@@ -35,4 +35,16 @@ export async function getPlayableSpeciesFromDB(): Promise<PlayableSpeciesListIte
     .orderBy(playableSpecies.sortOrder, playableSpecies.displayName);
 
   return results;
+}
+
+export async function updatePlayableSpeciesInDB(
+  id: string,
+  data: { displayName: string }
+) {
+  await db
+    .update(playableSpecies)
+    .set({
+      displayName: data.displayName,
+    })
+    .where(eq(playableSpecies.id, id));
 }
