@@ -47,4 +47,10 @@ export async function updatePlayableSpeciesInDB(
       displayName: data.displayName,
     })
     .where(eq(playableSpecies.id, id));
+
+  const updatedSpecies = await db.query.playableSpecies.findFirst({
+    where: eq(playableSpecies.id, id),
+  });
+
+  return updatedSpecies;
 }

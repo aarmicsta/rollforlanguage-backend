@@ -45,12 +45,13 @@ export async function updatePlayableSpeciesHandler(request: FastifyRequest, repl
       });
     }
 
-    await updatePlayableSpeciesInDB(id, { displayName });
+    const updatedSpecies = await updatePlayableSpeciesInDB(id, { displayName });
 
     request.log.info(`Playable species updated successfully: ${id}`);
 
     return reply.status(200).send({
       message: 'Playable species updated successfully.',
+      data: updatedSpecies,
     });
   } catch (err) {
     request.log.error(`Error in updatePlayableSpeciesHandler: ${err}`);
