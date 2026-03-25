@@ -1,7 +1,11 @@
 // src/controllers/playableSpeciesAdmin.controller.ts
 
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { getPlayableSpeciesFromDB } from '../services/playableSpecies.service';
+import { 
+  getPlayableSpeciesFromDB,
+  updatePlayableSpeciesInDB
+ } from '../services/playableSpecies.service';
+
 
 export async function getPlayableSpeciesHandler(
   request: FastifyRequest,
