@@ -3,7 +3,10 @@
 import type {} from '../types/fastify';
 
 import { FastifyInstance } from 'fastify';
-import { getPlayableSpeciesHandler } from '../controllers/playableSpeciesAdmin.controller';
+import {
+  getPlayableSpeciesHandler,
+  updatePlayableSpeciesHandler,
+} from '../controllers/playableSpeciesAdmin.controller';
 
 export async function playableSpeciesAdminRoutes(app: FastifyInstance) {
   app.register(async function (admin) {
