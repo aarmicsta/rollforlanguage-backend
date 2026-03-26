@@ -6,7 +6,7 @@ import {
   refDamageTypes,
   refAlignments,
   refStatusEffects,
-} from '@/db/schema/canon-bridge/reference/reference-character-trait';
+} from '@/db/schema/canon-bridge/reference/reference-playable-trait';
 
 import {
   playableStatsSeed,
