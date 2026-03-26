@@ -1,8 +1,12 @@
 // src/services/playableSpecies.service.ts
 
 import { db } from '../db';
-import { playableSpecies } from '../db/schema/canon-bridge/core/playable-identity';
-import { sql, eq } from 'drizzle-orm';
+import { 
+  playableSpecies,
+  playableSpeciesTags,
+  playableTags,
+} from '../db/schema/canon-bridge/core/playable-identity';
+import { sql, eq, asc } from 'drizzle-orm';
 
 export interface PlayableSpeciesListItem {
   id: string;
@@ -15,6 +19,17 @@ export interface PlayableSpeciesListItem {
   sortOrder: number | null;
   createdAt: string | null;
   updatedAt: string | null;
+}
+
+export interface PlayableSpeciesTagListItem {
+  id: string;
+  name: string;
+  slug: string;
+  displayName: string;
+  description: string | null;
+  tagCategory: string | null;
+  isActive: boolean | null;
+  sortOrder: number | null;
 }
 
 export async function getPlayableSpeciesFromDB(): Promise<PlayableSpeciesListItem[]> {
@@ -72,4 +87,46 @@ export async function updatePlayableSpeciesInDB(
       .limit(1);
 
     return results[0] ?? null;
+}
+
+export async function getPlayableSpeciesTagsFromDB(
+  speciesId: string
+): Promise<PlayableSpeciesTagListItem[]> {
+  const results = await db
+    .select({
+      id: playableTags.id,
+      name: playableTags.name,
+      slug: playableTags.slug,
+      displayName: playableTags.displayName,
+      description: playableTags.description,
+      tagCategory: playableTags.tagCategory,
+      isActive: playableTags.isActive,
+      sortOrder: playableTags.sortOrder,
+    })
+    .from(playableSpeciesTags)
+    .innerJoin(playableTags, eq(playableSpeciesTags.tagId, playableTags.id))
+    .where(eq(playableSpeciesTags.speciesId, speciesId))
+    .orderBy(asc(playableTags.displayName));
+
+  return results;
+}
+
+export async function updatePlayableSpeciesTagsInDB(
+  speciesId: string,
+  tagIds: string[]
+): Promise<PlayableSpeciesTagListItem[]> {
+  await db
+    .delete(playableSpeciesTags)
+    .where(eq(playableSpeciesTags.speciesId, speciesId));
+
+  if (tagIds.length > 0) {
+    await db.insert(playableSpeciesTags).values(
+      tagIds.map((tagId) => ({
+        speciesId,
+        tagId,
+      }))
+    );
+  }
+
+  return getPlayableSpeciesTagsFromDB(speciesId);
 }

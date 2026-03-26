@@ -3,7 +3,9 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { 
   getPlayableSpeciesFromDB,
-  updatePlayableSpeciesInDB
+  getPlayableSpeciesTagsFromDB,
+  updatePlayableSpeciesInDB,
+  updatePlayableSpeciesTagsInDB,
  } from '../services/playableSpecies.service';
 
 
@@ -61,6 +63,69 @@ export async function updatePlayableSpeciesHandler(request: FastifyRequest, repl
     });
   } catch (err) {
     request.log.error(`Error in updatePlayableSpeciesHandler: ${err}`);
+    return reply.status(500).send({ error: 'Internal server error.' });
+  }
+}
+
+export async function getPlayableSpeciesTagsHandler(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  request.log.info('Received GET /admin/playable-species/:id/tags request');
+
+  try {
+    const { id } = request.params as { id?: string };
+
+    if (!id) {
+      request.log.warn('Missing species id in get playable species tags request');
+      return reply.status(400).send({
+        error: 'Missing required route parameter: id.',
+      });
+    }
+
+    const tags = await getPlayableSpeciesTagsFromDB(id);
+
+    return reply.status(200).send(tags);
+  } catch (err) {
+    request.log.error(`Error in getPlayableSpeciesTagsHandler: ${err}`);
+    return reply.status(500).send({ error: 'Internal server error.' });
+  }
+}
+
+export async function updatePlayableSpeciesTagsHandler(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  request.log.info('Received PATCH /admin/playable-species/:id/tags request');
+
+  try {
+    const { id } = request.params as { id?: string };
+    const { tagIds } = request.body as { tagIds?: string[] };
+
+    if (!id) {
+      request.log.warn('Missing species id in update playable species tags request');
+      return reply.status(400).send({
+        error: 'Missing required route parameter: id.',
+      });
+    }
+
+    if (!Array.isArray(tagIds)) {
+      request.log.warn('Missing or invalid tagIds in update playable species tags request');
+      return reply.status(400).send({
+        error: 'Missing required field: tagIds.',
+      });
+    }
+
+    const updatedTags = await updatePlayableSpeciesTagsInDB(id, tagIds);
+
+    request.log.info(`Playable species tags updated successfully: ${id}`);
+
+    return reply.status(200).send({
+      message: 'Playable species tags updated successfully.',
+      data: updatedTags,
+    });
+  } catch (err) {
+    request.log.error(`Error in updatePlayableSpeciesTagsHandler: ${err}`);
     return reply.status(500).send({ error: 'Internal server error.' });
   }
 }
