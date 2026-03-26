@@ -32,7 +32,7 @@ export async function getPlayableSpeciesFromDB(): Promise<PlayableSpeciesListIte
       updatedAt: sql<string>`DATE_FORMAT(${playableSpecies.updatedAt}, '%Y-%m-%d %H:%i:%s')`.as('updatedAt'),
     })
     .from(playableSpecies)
-    .orderBy(playableSpecies.sortOrder, playableSpecies.displayName);
+    .orderBy(playableSpecies.displayName);
 
   return results;
 }
