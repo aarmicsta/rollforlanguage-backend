@@ -39,12 +39,16 @@ export async function getPlayableSpeciesFromDB(): Promise<PlayableSpeciesListIte
 
 export async function updatePlayableSpeciesInDB(
   id: string,
-  data: { displayName: string }
+  data: { 
+    displayName: string
+    description: string | null
+  }
 ) {
   await db
     .update(playableSpecies)
     .set({
       displayName: data.displayName,
+      description: data.description,
     })
     .where(eq(playableSpecies.id, id));
 
