@@ -27,7 +27,7 @@ export async function updatePlayableSpeciesHandler(request: FastifyRequest, repl
 
   try {
     const { id } = request.params as { id?: string };
-    const { displayName, description } = request.body as {
+    const { displayName, description, isActive } = request.body as {
       displayName?: string;
       description?: string | null;
       isActive?: boolean;
