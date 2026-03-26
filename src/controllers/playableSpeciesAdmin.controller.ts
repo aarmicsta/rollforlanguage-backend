@@ -30,6 +30,7 @@ export async function updatePlayableSpeciesHandler(request: FastifyRequest, repl
     const { displayName, description } = request.body as {
       displayName?: string;
       description?: string | null;
+      isActive?: boolean;
     };
 
     if (!id) {
@@ -49,6 +50,7 @@ export async function updatePlayableSpeciesHandler(request: FastifyRequest, repl
     const updatedSpecies = await updatePlayableSpeciesInDB(id, { 
       displayName,
       description: description ?? null,
+      isActive: isActive ?? false,
     });
 
     request.log.info(`Playable species updated successfully: ${id}`);

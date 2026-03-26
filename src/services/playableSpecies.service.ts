@@ -42,6 +42,7 @@ export async function updatePlayableSpeciesInDB(
   data: { 
     displayName: string
     description: string | null
+    isActive: boolean
   }
 ) {
   await db
@@ -49,6 +50,7 @@ export async function updatePlayableSpeciesInDB(
     .set({
       displayName: data.displayName,
       description: data.description,
+      isActive: data.isActive,
     })
     .where(eq(playableSpecies.id, id));
 
