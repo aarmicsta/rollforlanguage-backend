@@ -16,7 +16,7 @@ import swaggerUi from '@fastify/swagger-ui';
 import { authRoutes } from './routes/auth.route';
 import { adminRoutes } from './routes/admin.route';
 import { playableSpeciesAdminRoutes } from './routes/playableSpeciesAdmin.route';
-// import { playableClassAdminRoutes } from './routes/playableClassAdmin.route';
+import { playableClassAdminRoutes } from './routes/playableClassAdmin.route';
 import { playableTagAdminRoutes } from './routes/playableTagAdmin.route';
 // import { playableStatAdminRoutes } from './routes/playableStatAdmin.route';
 // import { playablePassiveAdminRoutes } from './routes/playablePassiveAdmin.route';
@@ -55,7 +55,7 @@ app.addHook('onRequest', (request, reply, done) => {
 app.register(authRoutes, { prefix: '/auth' });
 app.register(adminRoutes, { prefix: '/admin' })
 app.register(playableSpeciesAdminRoutes, { prefix: '/admin' });
-// app.register(playableClassAdminRoutes, { prefix: '/admin' });
+app.register(playableClassAdminRoutes, { prefix: '/admin' });
 app.register(playableTagAdminRoutes, { prefix: '/admin' });
 // app.register(playableStatAdminRoutes, { prefix: '/admin' });
 // app.register(playablePassiveAdminRoutes, { prefix: '/admin' });
