@@ -1,6 +1,5 @@
 {
-"type":"commonjs",
-  "scripts": {
+"scripts": {
   "dev": "nodemon --watch src --ext ts --exec ts-node -r tsconfig-paths/register src/server.ts",
   "start": "node dist/server.js",
   "build": "tsc",
