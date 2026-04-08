@@ -9,13 +9,13 @@
     "#validation/*": "./dist/validation/*"
   },
   "scripts": {
-    "dev": "nodemon --watch src --ext ts --exec ts-node -r tsconfig-paths/register src/server.ts",
+    "dev": "tsx watch src/server.ts",
     "start": "node dist/server.js",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
     "test": "vitest",
-    "seed": "ts-node -r tsconfig-paths/register src/db/seeds/seed.ts"
+    "seed": "tsx src/db/seeds/seed.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.799.0",
@@ -70,6 +70,7 @@
     "supertest": "^7.1.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.8.3",
     "vitest": "^3.1.2"
   },
