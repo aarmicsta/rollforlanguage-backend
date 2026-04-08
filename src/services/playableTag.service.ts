@@ -1,19 +1,20 @@
 // src/services/playableTag.service.ts
 
-import { db } from '../db'
-import { playableTags } from '../db/schema/canon-bridge/core/playable-identity'
-
 /**
- * ---------------------------------------------------------
- * PlayableTagListItem
- * ---------------------------------------------------------
+ * Admin service for playable tags.
  *
- * Represents a canonical playable tag definition as returned
- * to the admin frontend.
+ * Responsibilities:
+ * - return canonical playable tag definitions
+ * - support admin selection UIs (species/class assignment)
  *
- * These are NOT species/class assignments — they are the
- * master reference records used for assignment.
+ * Notes:
+ * - these are master reference records, not assignment mappings
+ * - returns all tags, ordered for usability
  */
+
+import { db } from '../db/index.js'
+import { playableTags } from '../db/schema/canon-bridge/core/playable-identity.js'
+
 export interface PlayableTagListItem {
   id: string
   name: string
@@ -25,20 +26,6 @@ export interface PlayableTagListItem {
   sortOrder: number | null
 }
 
-/**
- * ---------------------------------------------------------
- * getPlayableTagsFromDB
- * ---------------------------------------------------------
- *
- * Fetches all canonical playable tag definitions.
- *
- * This is used by admin UIs to populate selection controls
- * (e.g., tag assignment selectors for species/classes).
- *
- * Notes:
- * - Returns ALL tags (filtering can be added later if needed)
- * - Ordered alphabetically by displayName for usability
- */
 export async function getPlayableTagsFromDB(): Promise<PlayableTagListItem[]> {
   const results = await db
     .select({

@@ -1,18 +1,20 @@
 // src/controllers/playableTagAdmin.controller.ts
 
-import { FastifyRequest, FastifyReply } from 'fastify'
-import { getPlayableTagsFromDB } from '../services/playableTag.service'
-
 /**
- * ---------------------------------------------------------
- * getPlayableTagsHandler
- * ---------------------------------------------------------
+ * Admin controller for playable tags.
  *
- * Returns all canonical playable tag definitions for use in
- * admin selection UIs (species/class assignment).
+ * Responsibilities:
+ * - return canonical playable tag definitions
+ * - used for admin selection UIs (species/class assignment)
  *
- * This endpoint does NOT return species-specific assignments.
+ * Notes:
+ * - does NOT return assignment data (species/class relationships)
  */
+
+import { FastifyReply, FastifyRequest } from 'fastify'
+
+import { getPlayableTagsFromDB } from '../services/playableTag.service.js'
+
 export async function getPlayableTagsHandler(
   request: FastifyRequest,
   reply: FastifyReply
@@ -21,7 +23,6 @@ export async function getPlayableTagsHandler(
 
   try {
     const tags = await getPlayableTagsFromDB()
-
     return reply.status(200).send(tags)
   } catch (err) {
     request.log.error(`Error in getPlayableTagsHandler: ${err}`)

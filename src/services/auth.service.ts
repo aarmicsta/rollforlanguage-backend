@@ -1,46 +1,55 @@
 // src/services/auth.service.ts
-import bcrypt from 'bcryptjs';
-import { db } from '../db';
-import { users } from '../db/schema/portal/auth';
-import { idGenerator } from '../utils/idGenerator';
-import { eq } from 'drizzle-orm';
-
-const SALT_ROUNDS = 12;
 
 /**
- * Hash a plain text password.
- * @param plainTextPassword
- * @returns hashed password
+ * Authentication-related data and password utilities.
+ *
+ * Responsibilities:
+ * - hash and verify passwords
+ * - create users
+ * - fetch users by email or ID
  */
-export async function hashPassword(plainTextPassword: string): Promise<string> {
-  return bcrypt.hash(plainTextPassword, SALT_ROUNDS);
+
+import bcrypt from 'bcryptjs'
+import { eq } from 'drizzle-orm'
+
+import { db } from '../db/index.js'
+import { users } from '../db/schema/portal/auth.js'
+import { idGenerator } from '../utils/idGenerator.js'
+
+const SALT_ROUNDS = 12
+
+/**
+ * Hashes a plain-text password.
+ */
+export async function hashPassword(
+  plainTextPassword: string
+): Promise<string> {
+  return bcrypt.hash(plainTextPassword, SALT_ROUNDS)
 }
 
 /**
- * Verify a plain text password against a hash.
- * @param plainTextPassword
- * @param hash
- * @returns true if match, false otherwise
+ * Verifies a plain-text password against a stored hash.
  */
 export async function verifyPassword(
   plainTextPassword: string,
   hash: string
 ): Promise<boolean> {
-  return bcrypt.compare(plainTextPassword, hash);
+  return bcrypt.compare(plainTextPassword, hash)
 }
 
 /**
- * Create a new user in the database.
- * @param email, username, password
- * @returns created user object
+ * Creates a new user record with a default student role.
  */
-
-export async function createUser({ email, username, password }: {
-  email: string;
-  username: string;
-  password: string;
+export async function createUser({
+  email,
+  username,
+  password,
+}: {
+  email: string
+  username: string
+  password: string
 }) {
-  const hashedPassword = await hashPassword(password);
+  const hashedPassword = await hashPassword(password)
 
   const newUser = {
     id: idGenerator(16),
@@ -50,21 +59,25 @@ export async function createUser({ email, username, password }: {
     roleId: 'student',
     isVerified: false,
     isActive: true,
-  };
+  }
 
-  console.log('Creating user with payload:', newUser);
+  await db.insert(users).values(newUser)
 
-  await db.insert(users).values(newUser);
-
-  return newUser;
+  return newUser
 }
 
+/**
+ * Finds a user by email.
+ */
 export async function findUserByEmail(email: string) {
-  const result = await db.select().from(users).where(eq(users.email, email));
-  return result[0]; // return first user (email should be unique)
+  const result = await db.select().from(users).where(eq(users.email, email))
+  return result[0]
 }
 
+/**
+ * Finds a user by ID.
+ */
 export async function findUserById(id: string) {
-  const [user] = await db.select().from(users).where(eq(users.id, id));
-  return user || null;
+  const [user] = await db.select().from(users).where(eq(users.id, id))
+  return user || null
 }

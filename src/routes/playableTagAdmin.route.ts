@@ -1,12 +1,28 @@
 // src/routes/playableTagAdmin.route.ts
 
-import type {} from '../types/fastify'
+/**
+ * Admin routes for playable tags.
+ *
+ * Responsibilities:
+ * - protect tag admin endpoints
+ * - expose canonical tag definitions for admin UIs
+ */
+
+import type {} from '../types/fastify.js'
 
 import { FastifyInstance } from 'fastify'
-import { getPlayableTagsHandler } from '../controllers/playableTagAdmin.controller'
+
+import { getPlayableTagsHandler } from '../controllers/playableTagAdmin.controller.js'
 
 export async function playableTagAdminRoutes(app: FastifyInstance) {
   app.register(async function (admin) {
+    /**
+     * Protect all playable tag admin routes.
+     *
+     * Requirements:
+     * - valid JWT
+     * - `manage_users` permission
+     */
     admin.addHook('onRequest', async (request, reply) => {
       try {
         await request.jwtVerify()

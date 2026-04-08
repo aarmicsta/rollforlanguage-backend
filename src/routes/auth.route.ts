@@ -1,18 +1,28 @@
 // src/routes/auth.route.ts
 
-import { FastifyInstance } from 'fastify';
+/**
+ * Authentication route registration.
+ *
+ * Responsibilities:
+ * - expose registration, login, refresh, and logout endpoints
+ * - attach auth guards where required
+ * - provide route schemas for validation/docs
+ */
+
+import { FastifyInstance } from 'fastify'
+import fromZodSchema from 'zod-to-json-schema'
+
 import {
-  loginHandler,
-  registerHandler,
-  refreshHandler,
-  logoutHandler,
   globalLogoutHandler,
-} from '../controllers/auth.controller';
-import fromZodSchema from 'zod-to-json-schema';
-import { registerSchema, loginSchema } from '../validation/auth.validation';
+  loginHandler,
+  logoutHandler,
+  refreshHandler,
+  registerHandler,
+} from '../controllers/auth.controller.js'
+import { loginSchema, registerSchema } from '../validation/auth.validation.js'
 
 export async function authRoutes(server: FastifyInstance) {
-  const authenticate = (server as any).authenticate; // 👈 safely cast for TypeScript
+  const authenticate = (server as any).authenticate
 
   server.post('/register', {
     schema: {
@@ -50,7 +60,7 @@ export async function authRoutes(server: FastifyInstance) {
       },
     },
     handler: registerHandler,
-  });
+  })
 
   server.post('/login', {
     schema: {
@@ -74,7 +84,7 @@ export async function authRoutes(server: FastifyInstance) {
       },
     },
     handler: loginHandler,
-  });
+  })
 
   server.post('/refresh', {
     preHandler: [authenticate],
@@ -106,7 +116,7 @@ export async function authRoutes(server: FastifyInstance) {
       },
     },
     handler: refreshHandler,
-  });
+  })
 
   server.post('/logout', {
     preHandler: [authenticate],
@@ -136,7 +146,7 @@ export async function authRoutes(server: FastifyInstance) {
       },
     },
     handler: logoutHandler,
-  });
+  })
 
   server.post('/logout-all', {
     preHandler: [authenticate],
@@ -166,5 +176,5 @@ export async function authRoutes(server: FastifyInstance) {
       },
     },
     handler: globalLogoutHandler,
-  });
+  })
 }

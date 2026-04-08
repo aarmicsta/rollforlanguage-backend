@@ -1,30 +1,46 @@
 // src/routes/playableClassAdmin.route.ts
 
-import type {} from '../types/fastify';
+/**
+ * Admin routes for playable classes.
+ *
+ * Responsibilities:
+ * - protect class admin endpoints
+ * - expose browse, update, and tag-assignment endpoints
+ */
 
-import { FastifyInstance } from 'fastify';
+import type {} from '../types/fastify.js'
+
+import { FastifyInstance } from 'fastify'
+
 import {
   getPlayableClassesHandler,
-  updatePlayableClassHandler,
   getPlayableClassTagsHandler,
+  updatePlayableClassHandler,
   updatePlayableClassTagsHandler,
-} from '../controllers/playableClassAdmin.controller';
+} from '../controllers/playableClassAdmin.controller.js'
 
 export async function playableClassAdminRoutes(app: FastifyInstance) {
   app.register(async function (admin) {
+    /**
+     * Protect all playable class admin routes.
+     *
+     * Requirements:
+     * - valid JWT
+     * - `manage_users` permission
+     */
     admin.addHook('onRequest', async (request, reply) => {
       try {
-        await request.jwtVerify();
+        await request.jwtVerify()
       } catch (err) {
-        return reply.status(401).send({ error: 'Unauthorized' });
+        return reply.status(401).send({ error: 'Unauthorized' })
       }
 
-      const hasManageUsers = request.hasPermission('manage_users');
+      const hasManageUsers = request.hasPermission('manage_users')
 
       if (!hasManageUsers) {
-        return reply.status(403).send({ error: 'Forbidden' });
+        return reply.status(403).send({ error: 'Forbidden' })
       }
-    });
+    })
 
     admin.get('/playable-classes', {
       schema: {
@@ -34,7 +50,7 @@ export async function playableClassAdminRoutes(app: FastifyInstance) {
           'Returns playable class records for the admin dashboard browse table.',
       },
       handler: getPlayableClassesHandler,
-    });
+    })
 
     admin.patch('/playable-classes/:id', {
       schema: {
@@ -44,7 +60,7 @@ export async function playableClassAdminRoutes(app: FastifyInstance) {
           'Updates one or more editable fields for a playable class record.',
       },
       handler: updatePlayableClassHandler,
-    });
+    })
 
     admin.get('/playable-classes/:id/tags', {
       schema: {
@@ -54,7 +70,7 @@ export async function playableClassAdminRoutes(app: FastifyInstance) {
           'Returns the currently assigned playable tags for a specific playable class.',
       },
       handler: getPlayableClassTagsHandler,
-    });
+    })
 
     admin.patch('/playable-classes/:id/tags', {
       schema: {
@@ -64,6 +80,6 @@ export async function playableClassAdminRoutes(app: FastifyInstance) {
           'Replaces the currently assigned playable tags for a specific playable class.',
       },
       handler: updatePlayableClassTagsHandler,
-    });
-  });
+    })
+  })
 }

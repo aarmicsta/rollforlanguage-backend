@@ -1,30 +1,46 @@
 // src/routes/playableSpeciesAdmin.route.ts
 
-import type {} from '../types/fastify';
+/**
+ * Admin routes for playable species.
+ *
+ * Responsibilities:
+ * - protect species admin endpoints
+ * - expose browse, update, and tag-assignment endpoints
+ */
 
-import { FastifyInstance } from 'fastify';
+import type {} from '../types/fastify.js'
+
+import { FastifyInstance } from 'fastify'
+
 import {
   getPlayableSpeciesHandler,
-  updatePlayableSpeciesHandler,
   getPlayableSpeciesTagsHandler,
+  updatePlayableSpeciesHandler,
   updatePlayableSpeciesTagsHandler,
-} from '../controllers/playableSpeciesAdmin.controller';
+} from '../controllers/playableSpeciesAdmin.controller.js'
 
 export async function playableSpeciesAdminRoutes(app: FastifyInstance) {
   app.register(async function (admin) {
+    /**
+     * Protect all playable species admin routes.
+     *
+     * Requirements:
+     * - valid JWT
+     * - `manage_users` permission
+     */
     admin.addHook('onRequest', async (request, reply) => {
       try {
-        await request.jwtVerify();
+        await request.jwtVerify()
       } catch (err) {
-        return reply.status(401).send({ error: 'Unauthorized' });
+        return reply.status(401).send({ error: 'Unauthorized' })
       }
 
-      const hasManageUsers = request.hasPermission('manage_users');
+      const hasManageUsers = request.hasPermission('manage_users')
 
       if (!hasManageUsers) {
-        return reply.status(403).send({ error: 'Forbidden' });
+        return reply.status(403).send({ error: 'Forbidden' })
       }
-    });
+    })
 
     admin.get('/playable-species', {
       schema: {
@@ -34,7 +50,7 @@ export async function playableSpeciesAdminRoutes(app: FastifyInstance) {
           'Returns playable species records for the admin dashboard browse table.',
       },
       handler: getPlayableSpeciesHandler,
-    });
+    })
 
     admin.patch('/playable-species/:id', {
       schema: {
@@ -44,7 +60,7 @@ export async function playableSpeciesAdminRoutes(app: FastifyInstance) {
           'Updates one or more editable fields for a playable species record.',
       },
       handler: updatePlayableSpeciesHandler,
-    });
+    })
 
     admin.get('/playable-species/:id/tags', {
       schema: {
@@ -54,7 +70,7 @@ export async function playableSpeciesAdminRoutes(app: FastifyInstance) {
           'Returns the currently assigned playable tags for a specific playable species.',
       },
       handler: getPlayableSpeciesTagsHandler,
-    });
+    })
 
     admin.patch('/playable-species/:id/tags', {
       schema: {
@@ -64,6 +80,6 @@ export async function playableSpeciesAdminRoutes(app: FastifyInstance) {
           'Replaces the currently assigned playable tags for a specific playable species.',
       },
       handler: updatePlayableSpeciesTagsHandler,
-    });
-  });
+    })
+  })
 }

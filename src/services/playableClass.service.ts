@@ -1,35 +1,46 @@
 // src/services/playableClass.service.ts
 
-import { db } from '../db';
+/**
+ * Admin service for playable classes.
+ *
+ * Responsibilities:
+ * - return class browse records
+ * - update scalar class fields
+ * - return assigned class tags
+ * - replace assigned class tags
+ */
+
+import { asc, eq, sql } from 'drizzle-orm'
+
+import { db } from '../db/index.js'
 import {
   playableClasses,
   playableClassTags,
   playableTags,
-} from '../db/schema/canon-bridge/core/playable-identity';
-import { sql, eq, asc } from 'drizzle-orm';
+} from '../db/schema/canon-bridge/core/playable-identity.js'
 
 export interface PlayableClassListItem {
-  id: string;
-  name: string;
-  slug: string;
-  displayName: string;
-  description: string | null;
-  iconMediaAssetId: string | null;
-  isActive: boolean | null;
-  sortOrder: number | null;
-  createdAt: string | null;
-  updatedAt: string | null;
+  id: string
+  name: string
+  slug: string
+  displayName: string
+  description: string | null
+  iconMediaAssetId: string | null
+  isActive: boolean | null
+  sortOrder: number | null
+  createdAt: string | null
+  updatedAt: string | null
 }
 
 export interface PlayableClassTagListItem {
-  id: string;
-  name: string;
-  slug: string;
-  displayName: string;
-  description: string | null;
-  tagCategory: string | null;
-  isActive: boolean | null;
-  sortOrder: number | null;
+  id: string
+  name: string
+  slug: string
+  displayName: string
+  description: string | null
+  tagCategory: string | null
+  isActive: boolean | null
+  sortOrder: number | null
 }
 
 export async function getPlayableClassesFromDB(): Promise<PlayableClassListItem[]> {
@@ -47,9 +58,9 @@ export async function getPlayableClassesFromDB(): Promise<PlayableClassListItem[
       updatedAt: sql<string>`DATE_FORMAT(${playableClasses.updatedAt}, '%Y-%m-%d %H:%i:%s')`.as('updatedAt'),
     })
     .from(playableClasses)
-    .orderBy(playableClasses.displayName);
+    .orderBy(playableClasses.displayName)
 
-  return results;
+  return results
 }
 
 export async function updatePlayableClassInDB(
@@ -67,7 +78,7 @@ export async function updatePlayableClassInDB(
       description: data.description,
       isActive: data.isActive,
     })
-    .where(eq(playableClasses.id, id));
+    .where(eq(playableClasses.id, id))
 
   const results = await db
     .select({
@@ -84,9 +95,9 @@ export async function updatePlayableClassInDB(
     })
     .from(playableClasses)
     .where(eq(playableClasses.id, id))
-    .limit(1);
+    .limit(1)
 
-  return results[0] ?? null;
+  return results[0] ?? null
 }
 
 export async function getPlayableClassTagsFromDB(
@@ -106,9 +117,9 @@ export async function getPlayableClassTagsFromDB(
     .from(playableClassTags)
     .innerJoin(playableTags, eq(playableClassTags.tagId, playableTags.id))
     .where(eq(playableClassTags.classId, classId))
-    .orderBy(asc(playableTags.displayName));
+    .orderBy(asc(playableTags.displayName))
 
-  return results;
+  return results
 }
 
 export async function updatePlayableClassTagsInDB(
@@ -117,7 +128,7 @@ export async function updatePlayableClassTagsInDB(
 ): Promise<PlayableClassTagListItem[]> {
   await db
     .delete(playableClassTags)
-    .where(eq(playableClassTags.classId, classId));
+    .where(eq(playableClassTags.classId, classId))
 
   if (tagIds.length > 0) {
     await db.insert(playableClassTags).values(
@@ -125,8 +136,8 @@ export async function updatePlayableClassTagsInDB(
         classId,
         tagId,
       }))
-    );
+    )
   }
 
-  return getPlayableClassTagsFromDB(classId);
+  return getPlayableClassTagsFromDB(classId)
 }
