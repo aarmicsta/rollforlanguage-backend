@@ -1,19 +1,38 @@
 // src/plugins/permissions.plugin.ts
 
-import { FastifyPluginAsync, FastifyRequest } from 'fastify';
-import fp from 'fastify-plugin'; // ✅ ensure fastify-plugin is used
-import { checkPermission } from '../utils/permissions';
+/**
+ * Permissions plugin.
+ *
+ * Responsibilities:
+ * - expose `request.hasPermission(permission)` helper
+ * - evaluate permissions based on user role
+ *
+ * Notes:
+ * - depends on `request.user` being populated (via JWT plugin)
+ * - `superadmin` bypasses all permission checks
+ */
+
+import { FastifyPluginAsync, FastifyRequest } from 'fastify'
+import fp from 'fastify-plugin'
+
+import { checkPermission } from '../utils/permissions.js'
 
 interface JwtUser {
-  id: string;
-  email: string;
-  username: string;
-  role: string;
+  id: string
+  email: string
+  username: string
+  role: string
 }
 
 const permissionsPlugin: FastifyPluginAsync = async (app) => {
-  app.decorateRequest('hasPermission', function (this: FastifyRequest, permission: string) {
-    const rawUser = this.user;
+  /**
+   * Checks whether the current request user has a given permission.
+   */
+  app.decorateRequest('hasPermission', function (
+    this: FastifyRequest,
+    permission: string
+  ) {
+    const rawUser = this.user
 
     if (
       typeof rawUser === 'object' &&
@@ -21,18 +40,19 @@ const permissionsPlugin: FastifyPluginAsync = async (app) => {
       'role' in rawUser &&
       typeof (rawUser as JwtUser).role === 'string'
     ) {
-      const user = rawUser as JwtUser;
+      const user = rawUser as JwtUser
 
+      // Superadmin bypass
       if (user.role === 'superadmin') {
-        return true;
+        return true
       }
 
-      return checkPermission(user.role, permission);
+      return checkPermission(user.role, permission)
     }
 
-    return false;
-  });
-};
+    return false
+  })
+}
 
-// ✅ Export the plugin wrapped in fastify-plugin to disable encapsulation
-export default fp(permissionsPlugin, { name: 'permissionsPlugin' });
+// Wrapped with fastify-plugin to ensure proper scope and reuse
+export default fp(permissionsPlugin, { name: 'permissionsPlugin' })

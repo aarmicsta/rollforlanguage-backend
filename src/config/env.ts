@@ -1,9 +1,18 @@
 // src/config/env.ts
 
-import dotenv from 'dotenv';
-import { z } from 'zod';
+/**
+ * Environment configuration loader and validator.
+ *
+ * Responsibilities:
+ * - load environment variables from `.env`
+ * - validate required variables at startup
+ * - export a typed, trusted `env` object for runtime use
+ */
 
-dotenv.config();
+import dotenv from 'dotenv'
+import { z } from 'zod'
+
+dotenv.config()
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production']).default('development'),
@@ -21,18 +30,21 @@ const envSchema = z.object({
 
   JWT_SECRET: z.string(),
 
-  // ✅ Backblaze B2 integration
+  // Backblaze B2 integration
   B2_APPLICATION_KEY_ID: z.string(),
   B2_APPLICATION_KEY: z.string(),
   B2_BUCKET_NAME: z.string(),
-  B2_PUBLIC_URL: z.string().url(), // must be a valid URL
-});
+  B2_PUBLIC_URL: z.string().url(),
+})
 
-const envResult = envSchema.safeParse(process.env);
+const envResult = envSchema.safeParse(process.env)
 
 if (!envResult.success) {
-  console.error('❌ Invalid or missing environment variables:', envResult.error.flatten().fieldErrors);
-  process.exit(1);
+  console.error(
+    'Invalid or missing environment variables:',
+    envResult.error.flatten().fieldErrors
+  )
+  process.exit(1)
 }
 
-export const env = envResult.data;
+export const env = envResult.data

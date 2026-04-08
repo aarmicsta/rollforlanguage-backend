@@ -1,3 +1,5 @@
+// src/db/schema/canon-bridge/core/playable-identity.ts
+
 /**
  * =========================================================
  * RFL DATABASE SCHEMA
@@ -11,46 +13,34 @@
  * Defines canonical playable identity entities used across
  * the RFL platform. These tables represent structured,
  * reusable identity templates for species, classes, tags,
- * and passive abilities.
+ * passive abilities, and stat baselines/modifiers.
  *
  * Why these belong in the Canon Bridge layer:
- * - They define stable canonical game-world entities.
- * - They are reusable by portal/runtime systems later.
- * - They preserve structured data separate from lore text
- *   and separate from mutable player/session state.
- *
- * Tables Defined Here:
- * - playable_species
- * - playable_classes
- * - playable_tags
- * - playable_passives
- * - playable_species_tags
- * - playable_class_tags
- * - playable_species_passives
- * - playable_class_passives
+ * - They define stable canonical game-world entities
+ * - They are reusable by portal/runtime systems later
+ * - They preserve structured data separately from lore text
+ *   and from mutable player/session state
  *
  * Notes:
- * - Foreign key constraints are intentionally deferred for
- *   now, consistent with the current schema strategy.
- * - Relationship tables are included so the playable
- *   identity model is immediately useful, even before full
- *   foreign key enforcement is introduced.
- * - `icon_media_asset_id` and `starting_weapon_item_id`
- *   are currently stored as plain ID fields only. No foreign
- *   key constraints are added yet.
+ * - Foreign key constraints are intentionally deferred for now,
+ *   consistent with the current schema strategy
+ * - Relationship tables are included so the playable identity
+ *   model is immediately usable before full FK enforcement
+ * - `icon_media_asset_id` and `starting_weapon_item_id` remain
+ *   plain ID fields until those systems are formally linked
  *
  * =========================================================
  */
 
 import {
-  mysqlTable,
-  varchar,
-  text,
-  timestamp,
   boolean,
   int,
+  mysqlTable,
   primaryKey,
-} from 'drizzle-orm/mysql-core';
+  text,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/mysql-core'
 
 /**
  * ---------------------------------------------------------
@@ -59,15 +49,8 @@ import {
  *
  * Canonical list of playable species definitions.
  *
- * Example entries might include:
- * - human
- * - elf
- * - dwarf
- * - halfling
- * - dragonborn
- *
- * This table defines baseline species identity templates,
- * not player-owned characters.
+ * These are reusable identity templates, not player-owned
+ * character records.
  */
 export const playableSpecies = mysqlTable('playable_species', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -89,14 +72,14 @@ export const playableSpecies = mysqlTable('playable_species', {
   iconMediaAssetId: varchar('icon_media_asset_id', { length: 36 }),
 
   // Allows species to be soft-disabled without deleting them.
-  isActive: boolean('is_active').default(true),
+  isActive: boolean('is_active').notNull().default(true),
 
   // Useful for manual ordering in admin panels / UI display.
-  sortOrder: int('sort_order').default(0),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
@@ -105,15 +88,8 @@ export const playableSpecies = mysqlTable('playable_species', {
  *
  * Canonical list of playable class definitions.
  *
- * Example entries might include:
- * - warrior
- * - mage
- * - rogue
- * - cleric
- * - ranger
- *
- * This table defines baseline class identity templates,
- * not player progression records.
+ * These are reusable identity templates, not player
+ * progression records.
  */
 export const playableClasses = mysqlTable('playable_classes', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -130,30 +106,20 @@ export const playableClasses = mysqlTable('playable_classes', {
   // once the media/assets layer is implemented.
   iconMediaAssetId: varchar('icon_media_asset_id', { length: 36 }),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
  * playable_tags
  * ---------------------------------------------------------
  *
- * Controlled list of tags used to classify playable species,
- * classes, and other identity-related entities.
- *
- * Example entries might include:
- * - agile
- * - scholarly
- * - divine
- * - martial
- * - stealth
- *
- * `tag_category` remains a plain field for now rather than a
- * normalized taxonomy system.
+ * Controlled list of reusable tags for playable identity
+ * classification.
  */
 export const playableTags = mysqlTable('playable_tags', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -166,12 +132,12 @@ export const playableTags = mysqlTable('playable_tags', {
   // Broad category/grouping for organizational use.
   tagCategory: varchar('tag_category', { length: 100 }),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
@@ -180,21 +146,6 @@ export const playableTags = mysqlTable('playable_tags', {
  *
  * Controlled list of reusable passive effects that may be
  * assigned to playable species and/or classes.
- *
- * Example entries might include:
- * - night_vision
- * - quick_learner
- * - battle_hardened
- * - mana_affinity
- * - silver_tongue
- *
- * `effect_type` allows broad grouping for later expansion.
- * Example groupings:
- * - stat_modifier
- * - utility
- * - defense
- * - offense
- * - social
  */
 export const playablePassives = mysqlTable('playable_passives', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -204,18 +155,18 @@ export const playablePassives = mysqlTable('playable_passives', {
   displayName: varchar('display_name', { length: 100 }).notNull(),
   description: text('description'),
 
-  // Human-readable summary of the passive's actual effect.
+  // Human-readable summary of the passive's effect.
   effectText: text('effect_text'),
 
   // Broad category for organizing passive behavior/types.
   effectType: varchar('effect_type', { length: 100 }),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
@@ -223,24 +174,20 @@ export const playablePassives = mysqlTable('playable_passives', {
  * ---------------------------------------------------------
  *
  * Junction table linking playable species to reusable tags.
- *
- * This allows species to be classified using controlled
- * descriptors without embedding free-text labels directly in
- * the species table.
  */
 export const playableSpeciesTags = mysqlTable(
   'playable_species_tags',
   {
     speciesId: varchar('species_id', { length: 36 }).notNull(),
     tagId: varchar('tag_id', { length: 36 }).notNull(),
-    createdAt: timestamp('created_at').defaultNow(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
   },
   (table) => ({
     pk: primaryKey({
       columns: [table.speciesId, table.tagId],
     }),
   })
-);
+)
 
 /**
  * ---------------------------------------------------------
@@ -248,93 +195,70 @@ export const playableSpeciesTags = mysqlTable(
  * ---------------------------------------------------------
  *
  * Junction table linking playable classes to reusable tags.
- *
- * This supports structured classification of classes while
- * preserving tag reuse across the canonical model.
  */
 export const playableClassTags = mysqlTable(
   'playable_class_tags',
   {
     classId: varchar('class_id', { length: 36 }).notNull(),
     tagId: varchar('tag_id', { length: 36 }).notNull(),
-    createdAt: timestamp('created_at').defaultNow(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
   },
   (table) => ({
     pk: primaryKey({
       columns: [table.classId, table.tagId],
     }),
   })
-);
+)
 
 /**
  * ---------------------------------------------------------
  * playable_species_passives
  * ---------------------------------------------------------
  *
- * Junction table linking playable species to reusable
- * passive definitions.
- *
- * This allows species identity templates to grant one or
- * more passive effects without duplicating passive text.
+ * Junction table linking playable species to reusable passives.
  */
 export const playableSpeciesPassives = mysqlTable(
   'playable_species_passives',
   {
     speciesId: varchar('species_id', { length: 36 }).notNull(),
     passiveId: varchar('passive_id', { length: 36 }).notNull(),
-    createdAt: timestamp('created_at').defaultNow(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
   },
   (table) => ({
     pk: primaryKey({
       columns: [table.speciesId, table.passiveId],
     }),
   })
-);
+)
 
 /**
  * ---------------------------------------------------------
  * playable_class_passives
  * ---------------------------------------------------------
  *
- * Junction table linking playable classes to reusable
- * passive definitions.
- *
- * This allows classes to inherit canonical passive features
- * while keeping passive definitions centralized.
+ * Junction table linking playable classes to reusable passives.
  */
 export const playableClassPassives = mysqlTable(
   'playable_class_passives',
   {
     classId: varchar('class_id', { length: 36 }).notNull(),
     passiveId: varchar('passive_id', { length: 36 }).notNull(),
-    createdAt: timestamp('created_at').defaultNow(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
   },
   (table) => ({
     pk: primaryKey({
       columns: [table.classId, table.passiveId],
     }),
   })
-);
+)
 
 /**
  * ---------------------------------------------------------
  * playable_stat_baselines
  * ---------------------------------------------------------
  *
- * Defines the universal baseline value for each playable
- * stat before species, class, or other modifier systems are
- * applied.
- *
- * This table should contain one row per playable stat.
- *
- * Example interpretation:
- * - health = 10
- * - attack = 5
- * - defense = 5
- *
- * These values represent the default starting point shared
- * by all playable characters prior to identity-based or
- * runtime-based modifications.
+ * Universal baseline value for each playable stat before
+ * species, class, or other modifiers are applied.
  */
 export const playableStatBaselines = mysqlTable('playable_stat_baselines', {
   statId: varchar('stat_id', { length: 36 }).primaryKey(),
@@ -342,29 +266,17 @@ export const playableStatBaselines = mysqlTable('playable_stat_baselines', {
   // Universal default value for the stat.
   baseValue: int('base_value').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
  * playable_species_stat_modifiers
  * ---------------------------------------------------------
  *
- * Defines how each playable species modifies each playable
- * stat relative to the universal stat baseline.
- *
- * Each row represents one species-to-stat modifier.
- *
- * Example interpretation:
- * - dwarf + defense = +2
- * - dwarf + speed = -1
- * - elf + intelligence = +1
- *
- * These values are not final character stats. They are
- * canonical modifier contributions that should be combined
- * later with universal baselines, class modifiers, and other
- * runtime systems.
+ * Species-to-stat modifier contributions relative to the
+ * universal stat baseline.
  */
 export const playableSpeciesStatModifiers = mysqlTable(
   'playable_species_stat_modifiers',
@@ -375,35 +287,23 @@ export const playableSpeciesStatModifiers = mysqlTable(
     // Flat modifier applied to the referenced stat.
     modifierValue: int('modifier_value').notNull().default(0),
 
-    createdAt: timestamp('created_at').defaultNow(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => ({
     pk: primaryKey({
       columns: [table.speciesId, table.statId],
     }),
   })
-);
+)
 
 /**
  * ---------------------------------------------------------
  * playable_class_stat_modifiers
  * ---------------------------------------------------------
  *
- * Defines how each playable class modifies each playable
- * stat relative to the universal stat baseline.
- *
- * Each row represents one class-to-stat modifier.
- *
- * Example interpretation:
- * - warrior + health = +3
- * - warrior + attack = +2
- * - mage + intelligence = +3
- *
- * These values are not final character stats. They are
- * canonical modifier contributions that should be combined
- * later with universal baselines, species modifiers, and
- * other runtime systems.
+ * Class-to-stat modifier contributions relative to the
+ * universal stat baseline.
  */
 export const playableClassStatModifiers = mysqlTable(
   'playable_class_stat_modifiers',
@@ -414,12 +314,12 @@ export const playableClassStatModifiers = mysqlTable(
     // Flat modifier applied to the referenced stat.
     modifierValue: int('modifier_value').notNull().default(0),
 
-    createdAt: timestamp('created_at').defaultNow(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => ({
     pk: primaryKey({
       columns: [table.classId, table.statId],
     }),
   })
-);
+)

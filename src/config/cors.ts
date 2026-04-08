@@ -1,41 +1,47 @@
-import { FastifyCorsOptions } from '@fastify/cors';
+// src/config/cors.ts
+
+import { FastifyCorsOptions } from '@fastify/cors'
 
 /**
- * Define environment-specific allowed origins.
- * You can expand or conditionally load these based on NODE_ENV or other env vars.
+ * Allowed origins for CORS.
+ *
+ * Expand as needed for additional environments (staging, admin tools, etc.).
  */
 const allowedOrigins: string[] = [
   'http://localhost:5173', // Local Vite dev
   'https://www.rollforlanguage.com', // Production frontend
-  'https://bug-free-parakeet-x5p69xpg56qvfvvx5-4000.app.github.dev', // Frontend Codespaces
+  'https://bug-free-parakeet-x5p69xpg56qvfvvx5-4000.app.github.dev', // Codespaces (frontend)
   'https://bug-free-parakeet-x5p69xpg56qvfvvx5-4001.app.github.dev',
-  // Future: add staging, admin panel, mobile app domains here
-];
+]
 
 /**
- * Build the main CORS options object.
- * We handle preflight, allowed methods, credentials, and origin validation.
+ * Fastify CORS configuration.
+ *
+ * Notes:
+ * - Allows requests with no origin (e.g., server-to-server, curl)
+ * - Logs decisions for debugging (can be reduced/removed in production)
  */
 export const corsOptions: FastifyCorsOptions = {
   origin: (origin, cb) => {
-    console.log(`[CORS DEBUG] Incoming origin: ${origin}`);
-  
+    // Debug logging — consider reducing verbosity in production
+    console.log(`[CORS] Incoming origin: ${origin}`)
+
     if (!origin) {
-      console.log(`[CORS DEBUG] No origin → allowing request`);
-      cb(null, true);
+      console.log('[CORS] No origin → allowing request')
+      cb(null, true)
     } else if (allowedOrigins.includes(origin)) {
-      console.log(`[CORS DEBUG] Allowed origin: ${origin}`);
-      cb(null, true);
+      console.log(`[CORS] Allowed origin: ${origin}`)
+      cb(null, true)
     } else {
-      console.warn(`[CORS DEBUG] Blocked origin: ${origin}`);
-      cb(new Error(`Not allowed by CORS: ${origin}`), false);
+      console.warn(`[CORS] Blocked origin: ${origin}`)
+      cb(new Error(`Not allowed by CORS: ${origin}`), false)
     }
   },
-  
+
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['Content-Length', 'X-Kuma-Revision'], // Add any exposed headers you want
+  exposedHeaders: ['Content-Length', 'X-Kuma-Revision'],
   credentials: true,
-  maxAge: 86400, // Cache preflight response for 1 day
-  preflightContinue: false, // Let Fastify auto-handle OPTIONS
-};
+  maxAge: 86400, // Cache preflight for 1 day
+  preflightContinue: false, // Let Fastify handle OPTIONS automatically
+}
