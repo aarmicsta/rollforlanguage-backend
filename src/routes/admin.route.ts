@@ -1,56 +1,66 @@
 // src/routes/admin.route.ts
-import type {} from '../types/fastify';
 
-import { FastifyInstance } from 'fastify';
+import type {} from '../types/fastify.js'
+
+import { FastifyInstance } from 'fastify'
+
 import {
   createUserHandler,
+  getUserMetricsHandler,
   getUsersHandler,
-  getUserMetricsHandler, // 🆕
-} from '../controllers/admin.controller';
+} from '../controllers/admin.controller.js'
 
 /**
- * Admin Routes
- * 
- * Purpose:
- * - Handles administrative endpoints related to user management
- * - Integrates permission gate for superadmin, admin, and teacher controls
- * - Powers user creation and admin dashboard data tools (tables + metrics)
- * 
- * Development Mantra:
- * "We build not for today, but for tomorrow and beyond."
+ * Admin routes.
+ *
+ * Responsibilities:
+ * - protect admin user-management endpoints
+ * - expose user creation, listing, and metrics endpoints
+ *
+ * Notes:
+ * - route-level access is gated here
+ * - finer-grained role creation rules are enforced in the controller
  */
 
 export async function adminRoutes(app: FastifyInstance) {
   app.register(async function (admin) {
-    // ✅ Global gate: All /admin routes require JWT + at least one user-management permission
+    /**
+     * Protect all /admin routes.
+     *
+     * Requirements:
+     * - valid JWT
+     * - at least one user-management-related permission
+     *
+     * Additional restriction:
+     * - GET /admin/users is limited to users with `manage_users`
+     */
     admin.addHook('onRequest', async (request, reply) => {
       try {
-        await request.jwtVerify();
+        await request.jwtVerify()
       } catch (err) {
-        return reply.status(401).send({ error: 'Unauthorized' });
+        return reply.status(401).send({ error: 'Unauthorized' })
       }
 
-      const hasManageUsers = request.hasPermission('manage_users');
-      const hasCreateStudent = request.hasPermission('create_student');
+      const hasManageUsers = request.hasPermission('manage_users')
+      const hasCreateStudent = request.hasPermission('create_student')
 
       if (!hasManageUsers && !hasCreateStudent) {
-        return reply.status(403).send({ error: 'Forbidden' });
+        return reply.status(403).send({ error: 'Forbidden' })
       }
 
-      // Limit GET /admin/users strictly to admins/superadmins
       if (
         request.method === 'GET' &&
         request.url.startsWith('/users') &&
         !hasManageUsers
       ) {
-        return reply.status(403).send({ error: 'Insufficient permissions to view users.' });
+        return reply
+          .status(403)
+          .send({ error: 'Insufficient permissions to view users.' })
       }
-    });
+    })
 
-    // 🧩 POST /admin/users — create user (RBAC handled in controller)
-    admin.post('/users', createUserHandler);
+    admin.post('/users', createUserHandler)
 
-    // 📄 GET /admin/users — paginated list of users (Fastify-safe querystring + Zod fallback in controller)
     admin.get('/users', {
       schema: {
         querystring: {
@@ -76,9 +86,8 @@ export async function adminRoutes(app: FastifyInstance) {
           'Returns filtered, sortable, paginated user data. Supports role filters, date range, and future enhancements.',
       },
       handler: getUsersHandler,
-    });
+    })
 
-    // 📊 GET /admin/users/metrics — aggregate user stats for dashboard widget
     admin.get('/users/metrics', {
       schema: {
         tags: ['Admin'],
@@ -87,6 +96,6 @@ export async function adminRoutes(app: FastifyInstance) {
           'Returns total, active, suspended user counts, role distribution, and new users in the last 7 days.',
       },
       handler: getUserMetricsHandler,
-    });
-  });
+    })
+  })
 }

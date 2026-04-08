@@ -23,7 +23,10 @@ import {
   verifyPassword,
 } from '../services/auth.service.js'
 import { idGenerator } from '../utils/idGenerator.js'
-import { loginSchema, registerSchema } from '../validation/auth.validation.js'
+import {
+  loginSchema,
+  registerSchema,
+} from '../validation/auth.validation.js'
 
 export async function registerHandler(
   request: FastifyRequest,
@@ -42,10 +45,11 @@ export async function registerHandler(
         roleId: user.roleId,
       },
     })
-  } catch (err: any) {
+  } catch (err: unknown) {
     request.log.error(err)
     return reply.status(500).send({
-      error: err?.message || 'User creation failed',
+      error:
+        err instanceof Error ? err.message : 'User creation failed',
     })
   }
 }
@@ -58,7 +62,6 @@ export async function loginHandler(
 
   try {
     const parsed = loginSchema.parse(request.body)
-    request.log.info(`Parsed login request: ${JSON.stringify(parsed)}`)
 
     const user = await findUserByEmail(parsed.email)
     if (!user) {
@@ -66,24 +69,11 @@ export async function loginHandler(
       return reply.status(401).send({ error: 'Invalid email or password' })
     }
 
-    request.log.info(
-      `Found user: ${JSON.stringify({
-        id: user.id,
-        email: user.email,
-        roleId: user.roleId,
-        isVerified: user.isVerified,
-      })}`
-    )
-
     const isValid = await verifyPassword(parsed.password, user.passwordHash)
     if (!isValid) {
       request.log.warn(`Invalid password for user: ${parsed.email}`)
       return reply.status(401).send({ error: 'Invalid email or password' })
     }
-
-    request.log.info(
-      `Password verified, generating tokens for user: ${parsed.email}`
-    )
 
     const accessToken = await reply.jwtSign({
       id: user.id,
@@ -102,8 +92,6 @@ export async function loginHandler(
       token: refreshToken,
       expiresAt: refreshExpiry,
     })
-
-    request.log.info(`Login successful, sending tokens for user: ${parsed.email}`)
 
     return reply.send({
       accessToken,
@@ -141,7 +129,9 @@ export async function refreshHandler(
       )
 
     if (!stored || new Date(stored.expiresAt) < new Date()) {
-      return reply.status(401).send({ error: 'Invalid or expired refresh token' })
+      return reply.status(401).send({
+        error: 'Invalid or expired refresh token',
+      })
     }
 
     await db
@@ -238,7 +228,9 @@ export async function globalLogoutHandler(
       .set({ isRevoked: true })
       .where(eq(refreshTokens.userId, userId))
 
-    return reply.send({ message: 'All user sessions revoked successfully' })
+    return reply.send({
+      message: 'All user sessions revoked successfully',
+    })
   } catch (err) {
     request.log.error(err)
     return reply.status(400).send({ error: 'Global logout failed' })
