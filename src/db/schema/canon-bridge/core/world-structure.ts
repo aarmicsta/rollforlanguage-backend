@@ -1,3 +1,5 @@
+// src/db/schema/canon-bridge/core/world-structure.ts
+
 /**
  * =========================================================
  * RFL DATABASE SCHEMA
@@ -40,14 +42,14 @@
  */
 
 import {
-  mysqlTable,
-  varchar,
-  text,
-  timestamp,
   boolean,
   int,
+  mysqlTable,
   primaryKey,
-} from 'drizzle-orm/mysql-core';
+  text,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/mysql-core'
 
 /**
  * ---------------------------------------------------------
@@ -77,12 +79,6 @@ import {
  *
  * `location_scale` defines the structural scale of the
  * location.
- *
- * Example values might include:
- * - region
- * - large
- * - small
- * - poi
  */
 export const locations = mysqlTable('locations', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -115,14 +111,14 @@ export const locations = mysqlTable('locations', {
   iconMediaAssetId: varchar('icon_media_asset_id', { length: 36 }),
 
   // Allows locations to be soft-disabled without deleting them.
-  isActive: boolean('is_active').default(true),
+  isActive: boolean('is_active').notNull().default(true),
 
   // Useful for manual ordering in admin panels / UI display.
-  sortOrder: int('sort_order').default(0),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
@@ -131,24 +127,21 @@ export const locations = mysqlTable('locations', {
  *
  * Junction table linking locations to reusable world
  * structure tags.
- *
- * This allows locations to be classified using controlled
- * descriptors without embedding free-text labels directly in
- * the locations table.
  */
 export const locationTags = mysqlTable(
   'location_tags',
   {
     locationId: varchar('location_id', { length: 36 }).notNull(),
     tagId: varchar('tag_id', { length: 36 }).notNull(),
-    createdAt: timestamp('created_at').defaultNow(),
+
+    createdAt: timestamp('created_at').notNull().defaultNow(),
   },
   (table) => ({
     pk: primaryKey({
       columns: [table.locationId, table.tagId],
     }),
   })
-);
+)
 
 /**
  * ---------------------------------------------------------
@@ -158,18 +151,6 @@ export const locationTags = mysqlTable(
  * Junction-like table linking locations to other locations
  * through meaningful spatial, travel, or relational
  * connections.
- *
- * Example connections might include:
- * - road
- * - sea_route
- * - border
- * - portal
- * - tunnel
- * - mountain_pass
- *
- * This table allows the world structure to preserve
- * navigational and relational coherence without embedding
- * adjacency logic directly in the locations table.
  */
 export const locationConnections = mysqlTable(
   'location_connections',
@@ -183,11 +164,11 @@ export const locationConnections = mysqlTable(
     // Optional longer explanation of the connection.
     description: text('description'),
 
-    isActive: boolean('is_active').default(true),
-    sortOrder: int('sort_order').default(0),
+    isActive: boolean('is_active').notNull().default(true),
+    sortOrder: int('sort_order').notNull().default(0),
 
-    createdAt: timestamp('created_at').defaultNow(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => ({
     pk: primaryKey({
@@ -199,4 +180,4 @@ export const locationConnections = mysqlTable(
       ],
     }),
   })
-);
+)

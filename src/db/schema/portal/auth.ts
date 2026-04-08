@@ -1,3 +1,5 @@
+// src/db/schema/portal/auth.ts
+
 /**
  * =========================================================
  * RFL DATABASE SCHEMA
@@ -34,61 +36,91 @@
  */
 
 import {
-  mysqlTable,
-  varchar,
-  timestamp,
   boolean,
+  mysqlTable,
   text,
-} from 'drizzle-orm/mysql-core';
+  timestamp,
+  varchar,
+} from 'drizzle-orm/mysql-core'
 
-// Roles table
+/**
+ * ---------------------------------------------------------
+ * roles
+ * ---------------------------------------------------------
+ *
+ * Controlled list of portal/application roles.
+ */
 export const roles = mysqlTable('roles', {
   id: varchar('id', { length: 36 }).primaryKey(),
   name: varchar('name', { length: 50 }).notNull().unique(),
   description: text('description'),
-  createdAt: timestamp('created_at').defaultNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+})
 
-// Users table
+/**
+ * ---------------------------------------------------------
+ * users
+ * ---------------------------------------------------------
+ *
+ * Core account identity records for portal users.
+ */
 export const users = mysqlTable('users', {
   id: varchar('id', { length: 36 }).primaryKey(),
   email: varchar('email', { length: 255 }).notNull().unique(),
   passwordHash: varchar('password_hash', { length: 255 }).notNull(),
   roleId: varchar('role_id', { length: 36 }).notNull(),
   displayName: varchar('display_name', { length: 100 }),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-  isActive: boolean('is_active').default(true),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+  isActive: boolean('is_active').notNull().default(true),
   username: varchar('username', { length: 100 }).notNull().unique(),
   genderIdentity: varchar('gender_identity', { length: 100 }),
   pronouns: varchar('pronouns', { length: 100 }),
-  isVerified: boolean('is_verified').default(false),
-});
+  isVerified: boolean('is_verified').notNull().default(false),
+})
 
-// Refresh Tokens table
+/**
+ * ---------------------------------------------------------
+ * refresh_tokens
+ * ---------------------------------------------------------
+ *
+ * Stores refresh tokens issued to authenticated users.
+ */
 export const refreshTokens = mysqlTable('refresh_tokens', {
   id: varchar('id', { length: 36 }).primaryKey(),
   userId: varchar('user_id', { length: 36 }).notNull(),
   token: varchar('token', { length: 255 }).notNull(),
-  isRevoked: boolean('is_revoked').default(false),
-  createdAt: timestamp('created_at').defaultNow(),
+  isRevoked: boolean('is_revoked').notNull().default(false),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
   expiresAt: timestamp('expires_at').notNull(),
-});
+})
 
-// User Settings table
+/**
+ * ---------------------------------------------------------
+ * user_settings
+ * ---------------------------------------------------------
+ *
+ * Stores per-user portal preferences and interface settings.
+ */
 export const userSettings = mysqlTable('user_settings', {
   id: varchar('id', { length: 36 }).primaryKey(),
   userId: varchar('user_id', { length: 36 }).notNull(),
   preferredLanguage: varchar('preferred_language', { length: 100 }),
   theme: varchar('theme', { length: 50 }),
   timezone: varchar('timezone', { length: 100 }),
-  notificationsEnabled: boolean('notifications_enabled').default(true),
-  soundEnabled: boolean('sound_enabled').default(true),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  notificationsEnabled: boolean('notifications_enabled').notNull().default(true),
+  soundEnabled: boolean('sound_enabled').notNull().default(true),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
-// Login Sessions table
+/**
+ * ---------------------------------------------------------
+ * login_sessions
+ * ---------------------------------------------------------
+ *
+ * Stores active and historical user login sessions.
+ */
 export const loginSessions = mysqlTable('login_sessions', {
   id: varchar('id', { length: 36 }).primaryKey(),
   userId: varchar('user_id', { length: 36 }).notNull(),
@@ -104,7 +136,7 @@ export const loginSessions = mysqlTable('login_sessions', {
   userAgent: text('user_agent'),
   lastActiveAt: timestamp('last_active_at'),
   expiresAt: timestamp('expires_at').notNull(),
-  isRevoked: boolean('is_revoked').default(false),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  isRevoked: boolean('is_revoked').notNull().default(false),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})

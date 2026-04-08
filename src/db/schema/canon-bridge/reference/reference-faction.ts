@@ -1,3 +1,5 @@
+// src/db/schema/canon-bridge/reference/reference-faction.ts
+
 /**
  * =========================================================
  * RFL DATABASE SCHEMA
@@ -33,13 +35,13 @@
  */
 
 import {
-  mysqlTable,
-  varchar,
-  text,
-  timestamp,
   boolean,
   int,
-} from 'drizzle-orm/mysql-core';
+  mysqlTable,
+  text,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/mysql-core'
 
 /**
  * ---------------------------------------------------------
@@ -79,11 +81,11 @@ export const refFactionTags = mysqlTable('ref_faction_tags', {
   description: text('description'),
 
   // Allows tags to be soft-disabled without deleting them.
-  isActive: boolean('is_active').default(true),
+  isActive: boolean('is_active').notNull().default(true),
 
   // Useful for manual ordering in admin panels / UI display.
-  sortOrder: int('sort_order').default(0),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})

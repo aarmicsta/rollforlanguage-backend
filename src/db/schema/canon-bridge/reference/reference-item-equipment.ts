@@ -1,3 +1,5 @@
+// src/db/schema/canon-bridge/reference/reference-item-equipment.ts
+
 /**
  * =========================================================
  * RFL DATABASE SCHEMA
@@ -32,13 +34,13 @@
  */
 
 import {
-  mysqlTable,
-  varchar,
-  text,
-  timestamp,
   boolean,
   int,
-} from 'drizzle-orm/mysql-core';
+  mysqlTable,
+  text,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/mysql-core'
 
 /**
  * ---------------------------------------------------------
@@ -79,12 +81,12 @@ export const refRarityLevels = mysqlTable('ref_rarity_levels', {
   // Optional UI color for item rarity display
   colorHex: varchar('color_hex', { length: 7 }),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
@@ -119,12 +121,12 @@ export const refEquipmentSlots = mysqlTable('ref_equipment_slots', {
   // Optional grouping category for slots
   slotCategory: varchar('slot_category', { length: 100 }),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
@@ -155,13 +157,13 @@ export const refItemTypes = mysqlTable('ref_item_types', {
   itemCategory: varchar('item_category', { length: 100 }),
 
   // Behavioral flags used by gameplay systems
-  isEquippable: boolean('is_equippable').default(false),
-  isConsumable: boolean('is_consumable').default(false),
-  isCraftingMaterial: boolean('is_crafting_material').default(false),
+  isEquippable: boolean('is_equippable').notNull().default(false),
+  isConsumable: boolean('is_consumable').notNull().default(false),
+  isCraftingMaterial: boolean('is_crafting_material').notNull().default(false),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})

@@ -1,3 +1,5 @@
+// src/db/schema/canon-bridge/core/organization.ts
+
 /**
  * =========================================================
  * RFL DATABASE SCHEMA
@@ -19,14 +21,14 @@
  */
 
 import {
-  mysqlTable,
-  varchar,
-  text,
-  timestamp,
   boolean,
   int,
+  mysqlTable,
   primaryKey,
-} from 'drizzle-orm/mysql-core';
+  text,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/mysql-core'
 
 /**
  * ---------------------------------------------------------
@@ -66,12 +68,12 @@ export const organizations = mysqlTable('organizations', {
   // Optional icon reference (future media system)
   iconMediaAssetId: varchar('icon_media_asset_id', { length: 36 }),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
@@ -89,11 +91,11 @@ export const organizationTags = mysqlTable(
     organizationId: varchar('organization_id', { length: 36 }).notNull(),
     tagId: varchar('tag_id', { length: 36 }).notNull(),
 
-    isActive: boolean('is_active').default(true),
-    sortOrder: int('sort_order').default(0),
+    isActive: boolean('is_active').notNull().default(true),
+    sortOrder: int('sort_order').notNull().default(0),
 
-    createdAt: timestamp('created_at').defaultNow(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => ({
     pk: primaryKey({
@@ -101,4 +103,4 @@ export const organizationTags = mysqlTable(
       columns: [table.organizationId, table.tagId],
     }),
   })
-);
+)

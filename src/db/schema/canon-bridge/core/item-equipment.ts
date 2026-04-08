@@ -1,3 +1,5 @@
+// src/db/schema/canon-bridge/core/item-equipment.ts
+
 /**
  * =========================================================
  * RFL DATABASE SCHEMA
@@ -32,15 +34,15 @@
  */
 
 import {
+  boolean,
+  decimal,
+  int,
   mysqlTable,
-  varchar,
+  primaryKey,
   text,
   timestamp,
-  boolean,
-  int,
-  decimal,
-  primaryKey,
-} from 'drizzle-orm/mysql-core';
+  varchar,
+} from 'drizzle-orm/mysql-core'
 
 /**
  * ---------------------------------------------------------
@@ -85,26 +87,26 @@ export const items = mysqlTable('items', {
   rarityLevelId: varchar('rarity_level_id', { length: 36 }).notNull(),
 
   // Baseline canonical value for the item.
-  baseValue: int('base_value').default(0),
+  baseValue: int('base_value').notNull().default(0),
 
   // Canonical item weight. Decimal allows lighter/smaller items.
-  weight: decimal('weight', { precision: 10, scale: 2 }).default('0.00'),
+  weight: decimal('weight', { precision: 10, scale: 2 }).notNull().default('0.00'),
 
   // Maximum quantity allowed in a single stack.
-  maxStackSize: int('max_stack_size').default(1),
+  maxStackSize: int('max_stack_size').notNull().default(1),
 
   // Reserved for future media/assets integration.
   iconMediaAssetId: varchar('icon_media_asset_id', { length: 36 }),
 
   // Allows items to be soft-disabled without deleting them.
-  isActive: boolean('is_active').default(true),
+  isActive: boolean('is_active').notNull().default(true),
 
   // Useful for manual ordering in admin panels / UI display.
-  sortOrder: int('sort_order').default(0),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
@@ -132,8 +134,8 @@ export const itemEquipmentSlots = mysqlTable(
     itemId: varchar('item_id', { length: 36 }).notNull(),
     equipmentSlotId: varchar('equipment_slot_id', { length: 36 }).notNull(),
 
-    createdAt: timestamp('created_at').defaultNow(),
-    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
   },
   (table) => ({
     pk: primaryKey({
@@ -141,4 +143,4 @@ export const itemEquipmentSlots = mysqlTable(
       columns: [table.itemId, table.equipmentSlotId],
     }),
   })
-);
+)

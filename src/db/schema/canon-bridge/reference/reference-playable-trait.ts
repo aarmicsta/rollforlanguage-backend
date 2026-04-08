@@ -1,3 +1,5 @@
+// src/db/schema/canon-bridge/reference/reference-playable-trait.ts
+
 /**
  * =========================================================
  * RFL DATABASE SCHEMA
@@ -34,13 +36,13 @@
  */
 
 import {
-  mysqlTable,
-  varchar,
-  text,
-  timestamp,
   boolean,
   int,
-} from 'drizzle-orm/mysql-core';
+  mysqlTable,
+  text,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/mysql-core'
 
 /**
  * ---------------------------------------------------------
@@ -48,16 +50,6 @@ import {
  * ---------------------------------------------------------
  *
  * Controlled list of playable stat definitions.
- *
- * Example entries might include:
- * - strength
- * - defense
- * - speed
- * - intelligence
- * - charisma
- *
- * This table defines the stat types themselves, not a
- * character's current stat values.
  */
 export const refPlayableStats = mysqlTable('ref_playable_stats', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -75,14 +67,14 @@ export const refPlayableStats = mysqlTable('ref_playable_stats', {
   description: text('description'),
 
   // Allows stats to be soft-disabled without deleting them.
-  isActive: boolean('is_active').default(true),
+  isActive: boolean('is_active').notNull().default(true),
 
   // Useful for manual ordering in admin panels / UI display.
-  sortOrder: int('sort_order').default(0),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
@@ -90,16 +82,6 @@ export const refPlayableStats = mysqlTable('ref_playable_stats', {
  * ---------------------------------------------------------
  *
  * Controlled list of damage categories.
- *
- * Example entries might include:
- * - physical
- * - fire
- * - holy
- * - poison
- * - arcane
- *
- * This supports consistent damage typing across abilities,
- * creatures, items, and other systems.
  */
 export const refDamageTypes = mysqlTable('ref_damage_types', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -109,12 +91,12 @@ export const refDamageTypes = mysqlTable('ref_damage_types', {
   displayName: varchar('display_name', { length: 100 }).notNull(),
   description: text('description'),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
@@ -123,18 +105,6 @@ export const refDamageTypes = mysqlTable('ref_damage_types', {
  *
  * Controlled list of alignment values used for canonical
  * classification.
- *
- * Example entries might include:
- * - lawful_good
- * - neutral
- * - chaotic_evil
- *
- * `alignment_axis` exists to preserve flexibility if the
- * system later wants to group alignments by axis or model.
- * Examples:
- * - moral
- * - ethical
- * - composite
  */
 export const refAlignments = mysqlTable('ref_alignments', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -147,12 +117,12 @@ export const refAlignments = mysqlTable('ref_alignments', {
   // Broad alignment grouping / modeling axis.
   alignmentAxis: varchar('alignment_axis', { length: 100 }),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
@@ -160,23 +130,6 @@ export const refAlignments = mysqlTable('ref_alignments', {
  * ---------------------------------------------------------
  *
  * Controlled list of status effect definitions.
- *
- * Example entries might include:
- * - poisoned
- * - stunned
- * - burning
- * - blessed
- * - silenced
- *
- * `effect_type` allows broad grouping of effects.
- * Example groupings:
- * - buff
- * - debuff
- * - control
- * - damage_over_time
- *
- * `icon_media_asset_id` is reserved for future integration
- * with a media/assets table or asset system.
  */
 export const refStatusEffects = mysqlTable('ref_status_effects', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -193,9 +146,9 @@ export const refStatusEffects = mysqlTable('ref_status_effects', {
   // once the media/assets layer is implemented.
   iconMediaAssetId: varchar('icon_media_asset_id', { length: 36 }),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})

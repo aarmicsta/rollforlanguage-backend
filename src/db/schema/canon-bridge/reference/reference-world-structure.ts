@@ -1,3 +1,5 @@
+// src/db/schema/canon-bridge/reference/reference-world-structure.ts
+
 /**
  * =========================================================
  * RFL DATABASE SCHEMA
@@ -35,13 +37,13 @@
  */
 
 import {
-  mysqlTable,
-  varchar,
-  text,
-  timestamp,
   boolean,
   int,
-} from 'drizzle-orm/mysql-core';
+  mysqlTable,
+  text,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/mysql-core'
 
 /**
  * ---------------------------------------------------------
@@ -90,12 +92,12 @@ export const refLocationTypes = mysqlTable('ref_location_types', {
   // Optional hierarchical parent type reference
   parentLocationTypeId: varchar('parent_location_type_id', { length: 36 }),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
@@ -140,9 +142,9 @@ export const refLocationTags = mysqlTable('ref_location_tags', {
   // Broad grouping category for tag organization
   tagCategory: varchar('tag_category', { length: 100 }),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})

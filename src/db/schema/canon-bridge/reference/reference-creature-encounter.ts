@@ -1,3 +1,5 @@
+// src/db/schema/canon-bridge/reference/reference-creature-encounter.ts
+
 /**
  * =========================================================
  * RFL DATABASE SCHEMA
@@ -24,6 +26,7 @@
  * - ref_intelligence_categories
  * - ref_threat_levels
  * - ref_creature_tags
+ *
  * Notes:
  * - These tables intentionally do not require foreign keys
  *   at this stage.
@@ -34,30 +37,18 @@
  */
 
 import {
-  mysqlTable,
-  varchar,
-  text,
-  timestamp,
   boolean,
   int,
-} from 'drizzle-orm/mysql-core';
+  mysqlTable,
+  text,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/mysql-core'
 
 /**
  * ---------------------------------------------------------
  * ref_creature_types
  * ---------------------------------------------------------
- *
- * Controlled list of broad creature classifications.
- *
- * Example entries might include:
- * - beast
- * - sapient
- * - undead
- * - construct
- * - celestial
- *
- * This table defines the high-level canonical type, not
- * a specific creature entry.
  */
 export const refCreatureTypes = mysqlTable('ref_creature_types', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -75,30 +66,19 @@ export const refCreatureTypes = mysqlTable('ref_creature_types', {
   description: text('description'),
 
   // Allows types to be soft-disabled without deletion.
-  isActive: boolean('is_active').default(true),
+  isActive: boolean('is_active').notNull().default(true),
 
   // Useful for manual ordering in admin/UI display.
-  sortOrder: int('sort_order').default(0),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
  * ref_size_categories
  * ---------------------------------------------------------
- *
- * Controlled list of size classifications.
- *
- * Example entries might include:
- * - tiny
- * - small
- * - medium
- * - large
- * - colossal
- *
- * `size_rank` allows ordered comparison and sorting.
  */
 export const refSizeCategories = mysqlTable('ref_size_categories', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -111,32 +91,17 @@ export const refSizeCategories = mysqlTable('ref_size_categories', {
   // Numeric ordering value for size comparisons.
   sizeRank: int('size_rank'),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
  * ref_movement_types
  * ---------------------------------------------------------
- *
- * Controlled list of movement capabilities.
- *
- * Example entries might include:
- * - walking
- * - flying
- * - swimming
- * - burrowing
- * - teleporting
- *
- * `movement_category` allows broader grouping if needed.
- * Example groupings:
- * - physical
- * - magical
- * - environmental
  */
 export const refMovementTypes = mysqlTable('ref_movement_types', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -149,65 +114,43 @@ export const refMovementTypes = mysqlTable('ref_movement_types', {
   // Broad grouping/category of movement style.
   movementCategory: varchar('movement_category', { length: 100 }),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
  * ref_intelligence_categories
  * ---------------------------------------------------------
- *
- * Controlled list of intelligence classifications.
- *
- * Example entries might include:
- * - mindless
- * - instinctive
- * - animal
- * - sapient
- * - genius
- *
- * `intelligence_rank` allows ordered comparison if needed.
  */
-export const refIntelligenceCategories = mysqlTable('ref_intelligence_categories', {
-  id: varchar('id', { length: 36 }).primaryKey(),
+export const refIntelligenceCategories = mysqlTable(
+  'ref_intelligence_categories',
+  {
+    id: varchar('id', { length: 36 }).primaryKey(),
 
-  name: varchar('name', { length: 100 }).notNull().unique(),
-  slug: varchar('slug', { length: 100 }).notNull().unique(),
-  displayName: varchar('display_name', { length: 100 }).notNull(),
-  description: text('description'),
+    name: varchar('name', { length: 100 }).notNull().unique(),
+    slug: varchar('slug', { length: 100 }).notNull().unique(),
+    displayName: varchar('display_name', { length: 100 }).notNull(),
+    description: text('description'),
 
-  // Numeric ordering value for intelligence comparisons.
-  intelligenceRank: int('intelligence_rank'),
+    // Numeric ordering value for intelligence comparisons.
+    intelligenceRank: int('intelligence_rank'),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+    isActive: boolean('is_active').notNull().default(true),
+    sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+  }
+)
 
 /**
  * ---------------------------------------------------------
  * ref_threat_levels
  * ---------------------------------------------------------
- *
- * Controlled list of threat classifications used to indicate
- * how dangerous a creature or encounter is expected to be.
- *
- * Example entries might include:
- * - trivial
- * - low
- * - moderate
- * - severe
- * - catastrophic
- *
- * `threat_rank` provides a sortable severity value.
- * `recommended_level_min` and `recommended_level_max`
- * provide a rough guide for intended character/group level.
  */
 export const refThreatLevels = mysqlTable('ref_threat_levels', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -226,37 +169,17 @@ export const refThreatLevels = mysqlTable('ref_threat_levels', {
   // Suggested upper bound for intended level range.
   recommendedLevelMax: int('recommended_level_max'),
 
-  isActive: boolean('is_active').default(true),
-  sortOrder: int('sort_order').default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
 
 /**
  * ---------------------------------------------------------
  * ref_creature_tags
  * ---------------------------------------------------------
- *
- * Controlled list of tag definitions used to classify
- * creatures across multiple dimensions.
- *
- * Example entries might include:
- * - undead
- * - beast
- * - humanoid
- * - elemental
- * - aquatic
- * - flying
- * - nocturnal
- * - venomous
- * - armored
- * - magical
- * - territorial
- * - pack_hunter
- *
- * These tags allow creatures to be flexibly categorized
- * without forcing all meaning into a single type field.
  */
 export const refCreatureTags = mysqlTable('ref_creature_tags', {
   id: varchar('id', { length: 36 }).primaryKey(),
@@ -274,11 +197,11 @@ export const refCreatureTags = mysqlTable('ref_creature_tags', {
   description: text('description'),
 
   // Allows tags to be soft-disabled without deleting them.
-  isActive: boolean('is_active').default(true),
+  isActive: boolean('is_active').notNull().default(true),
 
   // Useful for manual ordering in admin panels / UI display.
-  sortOrder: int('sort_order').default(0),
+  sortOrder: int('sort_order').notNull().default(0),
 
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow(),
-});
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+})
