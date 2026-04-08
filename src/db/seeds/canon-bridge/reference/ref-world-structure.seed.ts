@@ -1,15 +1,15 @@
 import { eq } from 'drizzle-orm';
 
-import { db } from '@/db/index';
+import { db } from '#db/index.js';
 import {
   refLocationTypes,
   refLocationTags,
-} from '@/db/schema/canon-bridge/reference/reference-world-structure';
+} from '#db/schema/canon-bridge/reference/reference-world-structure.js';
 
 import {
   locationTypesSeed,
   locationTagsSeed,
-} from './ref-world-structure.data';
+} from './ref-world-structure.data.js';
 
 /**
  * =========================================================

@@ -1,17 +1,17 @@
 import { eq, and } from 'drizzle-orm';
 
-import { db } from '@/db/index';
+import { db } from '#db/index.js';
 import {
   creatures,
   creatureTags,
   creatureStatValues,
-} from '@schema/canon-bridge/core/creature';
+} from '#db/schema/canon-bridge/core/creature.js';
 
 import {
   creaturesSeed,
   creatureTagsSeed,
   creatureStatValuesSeed,
-} from '@seeds/canon-bridge/core/creature.data';
+} from '#db/seeds/canon-bridge/core/creature.data.js';
 
 /**
  * =========================================================

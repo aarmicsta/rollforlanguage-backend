@@ -1,9 +1,9 @@
 import { eq } from 'drizzle-orm';
 
-import { db } from '@/db/index';
-import { refOrganizationTags } from '@schema/canon-bridge/reference/reference-organization';
+import { db } from '#db/index.js';
+import { refOrganizationTags } from '#db/schema/canon-bridge/reference/reference-organization.js';
 
-import { organizationTagsSeed } from '@seeds/canon-bridge/reference/ref-organization.data';
+import { organizationTagsSeed } from '#db/seeds/canon-bridge/reference/ref-organization.data.js';
 
 /**
  * =========================================================

@@ -1,17 +1,17 @@
 import { eq } from 'drizzle-orm';
 
-import { db } from '@/db/index';
+import { db } from '#db/index.js';
 import {
   refRarityLevels,
   refEquipmentSlots,
   refItemTypes,
-} from '@schema/canon-bridge/reference/reference-item-equipment';
+} from '#db/schema/canon-bridge/reference/reference-item-equipment.js';
 
 import {
   rarityLevelsSeed,
   equipmentSlotsSeed,
   itemTypesSeed,
-} from './ref-item-equipment.data';
+} from './ref-item-equipment.data.js';
 
 /**
  * =========================================================

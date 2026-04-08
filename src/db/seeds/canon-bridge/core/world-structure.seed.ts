@@ -1,17 +1,17 @@
 import { and, eq } from 'drizzle-orm';
 
-import { db } from '@/db/index';
+import { db } from '#db/index.js';
 import {
   locations,
   locationTags,
   locationConnections,
-} from '@schema/canon-bridge/core/world-structure';
+} from '#db/schema/canon-bridge/core/world-structure.js';
 
 import {
   locationsSeed,
   locationTagsSeed,
   locationConnectionsSeed,
-} from './world-structure.data';
+} from './world-structure.data.js';
 
 /**
  * =========================================================

@@ -1,9 +1,9 @@
 import { and, eq } from 'drizzle-orm';
 
-import { db } from '@/db/index';
-import { items, itemEquipmentSlots } from '@schema/canon-bridge/core/item-equipment';
+import { db } from '#db/index.js';
+import { items, itemEquipmentSlots } from '#db/schema/canon-bridge/core/item-equipment.js';
 
-import { itemsSeed, itemEquipmentSlotsSeed } from './item-equipment.data';
+import { itemsSeed, itemEquipmentSlotsSeed } from './item-equipment.data.js';
 
 /**
  * =========================================================

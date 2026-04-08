@@ -1,19 +1,19 @@
 import { eq } from 'drizzle-orm';
 
-import { db } from '@/db/index';
+import { db } from '#db/index.js';
 import {
   refPlayableStats,
   refDamageTypes,
   refAlignments,
   refStatusEffects,
-} from '@/db/schema/canon-bridge/reference/reference-playable-trait';
+} from '#db/schema/canon-bridge/reference/reference-playable-trait.js';
 
 import {
   playableStatsSeed,
   damageTypesSeed,
   alignmentsSeed,
   statusEffectsSeed,
-} from './ref-character-traits.data';
+} from './ref-character-traits.data.js';
 
 /**
  * =========================================================

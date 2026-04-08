@@ -10,7 +10,7 @@
  */
 
 import { FastifyInstance } from 'fastify'
-import fromZodSchema from 'zod-to-json-schema'
+import { zodToJsonSchema } from 'zod-to-json-schema'
 
 import {
   globalLogoutHandler,
@@ -28,7 +28,7 @@ export async function authRoutes(server: FastifyInstance) {
     schema: {
       description: 'Create a new user account',
       tags: ['Auth'],
-      body: fromZodSchema(registerSchema),
+      body: zodToJsonSchema(registerSchema),
       response: {
         201: {
           description: 'User created successfully',
@@ -66,7 +66,7 @@ export async function authRoutes(server: FastifyInstance) {
     schema: {
       description: 'Log in with email and password',
       tags: ['Auth'],
-      body: fromZodSchema(loginSchema),
+      body: zodToJsonSchema(loginSchema),
       response: {
         200: {
           description: 'Successful login with JWT token',

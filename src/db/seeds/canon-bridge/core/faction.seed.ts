@@ -1,9 +1,9 @@
 import { and, eq } from 'drizzle-orm';
 
-import { db } from '@/db/index';
-import { factions, factionTags } from '@schema/canon-bridge/core/faction';
+import { db } from '#db/index.js';
+import { factions, factionTags } from '#db/schema/canon-bridge/core/faction.js';
 
-import { factionsSeed, factionTagsSeed } from './faction.data';
+import { factionsSeed, factionTagsSeed } from './faction.data.js';
 
 /**
  * =========================================================

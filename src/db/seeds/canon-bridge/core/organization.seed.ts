@@ -1,15 +1,15 @@
 import { and, eq } from 'drizzle-orm';
 
-import { db } from '@/db/index';
+import { db } from '#db/index.js';
 import {
   organizations,
   organizationTags,
-} from '@schema/canon-bridge/core/organization';
+} from '#db/schema/canon-bridge/core/organization.js';
 
 import {
   organizationsSeed,
   organizationTagsSeed,
-} from '@seeds/canon-bridge/core/organization.data';
+} from '#db/seeds/canon-bridge/core/organization.data.js';
 
 /**
  * =========================================================

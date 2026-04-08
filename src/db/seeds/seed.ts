@@ -1,16 +1,16 @@
-import { seedCharacterTraitsReference } from './canon-bridge/reference/ref-character-traits.seed';
-import { seedCreatureEncounterReference } from './canon-bridge/reference/ref-creature-encounter.seed';
-import { seedItemEquipmentReference } from './canon-bridge/reference/ref-item-equipment.seed';
-import { seedWorldStructureReference } from './canon-bridge/reference/ref-world-structure.seed';
-import { seedFactionReference } from './canon-bridge/reference/ref-faction.seed';
-import { seedOrganizationReference } from './canon-bridge/reference/ref-organization.seed';
+import { seedCharacterTraitsReference } from './canon-bridge/reference/ref-character-traits.seed.js';
+import { seedCreatureEncounterReference } from './canon-bridge/reference/ref-creature-encounter.seed.js';
+import { seedItemEquipmentReference } from './canon-bridge/reference/ref-item-equipment.seed.js';
+import { seedWorldStructureReference } from './canon-bridge/reference/ref-world-structure.seed.js';
+import { seedFactionReference } from './canon-bridge/reference/ref-faction.seed.js';
+import { seedOrganizationReference } from './canon-bridge/reference/ref-organization.seed.js';
 
-import { seedPlayableIdentity } from './canon-bridge/core/playable-identity.seed';
-import { seedWorldStructure } from './canon-bridge/core/world-structure.seed';
-import { seedFactions } from './canon-bridge/core/faction.seed';
-import { seedOrganizations } from './canon-bridge/core/organization.seed';
-import { seedCreatures } from './canon-bridge/core/creature.seed';
-import { seedItemEquipment } from './canon-bridge/core/item-equipment.seed';
+import { seedPlayableIdentity } from './canon-bridge/core/playable-identity.seed.js';
+import { seedWorldStructure } from './canon-bridge/core/world-structure.seed.js';
+import { seedFactions } from './canon-bridge/core/faction.seed.js';
+import { seedOrganizations } from './canon-bridge/core/organization.seed.js';
+import { seedCreatures } from './canon-bridge/core/creature.seed.js';
+import { seedItemEquipment } from './canon-bridge/core/item-equipment.seed.js';
 
 /**
  * =========================================================

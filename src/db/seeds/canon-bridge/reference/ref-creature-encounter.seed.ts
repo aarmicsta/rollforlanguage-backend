@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
 
-import { db } from '@/db/index';
+import { db } from '#db/index.js';
 import {
   refCreatureTypes,
   refSizeCategories,
@@ -8,7 +8,7 @@ import {
   refIntelligenceCategories,
   refThreatLevels,
   refCreatureTags,
-} from '@schema/canon-bridge/reference/reference-creature-encounter';
+} from '#db/schema/canon-bridge/reference/reference-creature-encounter.js';
 
 import {
   creatureTypesSeed,
@@ -17,7 +17,7 @@ import {
   intelligenceCategoriesSeed,
   threatLevelsSeed,
   creatureTagsSeed,
-} from '@seeds/canon-bridge/reference/ref-creature-encounter.data';
+} from '#db/seeds/canon-bridge/reference/ref-creature-encounter.data.js';
 
 /**
  * =========================================================
