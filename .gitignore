@@ -12,6 +12,9 @@ yarn-error.log*
 pnpm-debug.log*
 *.log
 
+# Lockfiles (npm)
+package-lock.json
+
 # Build output
 dist/
 build/
