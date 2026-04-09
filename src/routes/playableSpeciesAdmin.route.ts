@@ -5,7 +5,7 @@
  *
  * Responsibilities:
  * - protect species admin endpoints
- * - expose browse, update, and tag-assignment endpoints
+ * - expose browse, create, update, and tag-assignment endpoints
  */
 
 import type {} from '../types/fastify.js'
@@ -13,6 +13,7 @@ import type {} from '../types/fastify.js'
 import { FastifyInstance } from 'fastify'
 
 import {
+  createPlayableSpeciesHandler,
   getPlayableSpeciesHandler,
   getPlayableSpeciesTagsHandler,
   updatePlayableSpeciesHandler,
@@ -42,6 +43,11 @@ export async function playableSpeciesAdminRoutes(app: FastifyInstance) {
       }
     })
 
+    /**
+     * ---------------------------------------------------------
+     * Browse
+     * ---------------------------------------------------------
+     */
     admin.get('/playable-species', {
       schema: {
         tags: ['Admin'],
@@ -52,6 +58,26 @@ export async function playableSpeciesAdminRoutes(app: FastifyInstance) {
       handler: getPlayableSpeciesHandler,
     })
 
+    /**
+     * ---------------------------------------------------------
+     * Create
+     * ---------------------------------------------------------
+     */
+    admin.post('/playable-species', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Create a playable species',
+        description:
+          'Creates a new playable species record for the admin dashboard.',
+      },
+      handler: createPlayableSpeciesHandler,
+    })
+
+    /**
+     * ---------------------------------------------------------
+     * Update
+     * ---------------------------------------------------------
+     */
     admin.patch('/playable-species/:id', {
       schema: {
         tags: ['Admin'],
@@ -62,6 +88,11 @@ export async function playableSpeciesAdminRoutes(app: FastifyInstance) {
       handler: updatePlayableSpeciesHandler,
     })
 
+    /**
+     * ---------------------------------------------------------
+     * Tags
+     * ---------------------------------------------------------
+     */
     admin.get('/playable-species/:id/tags', {
       schema: {
         tags: ['Admin'],

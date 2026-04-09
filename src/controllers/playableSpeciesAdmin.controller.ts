@@ -5,6 +5,7 @@
  *
  * Responsibilities:
  * - return species browse records
+ * - create new species records
  * - update scalar species fields
  * - return assigned species tags
  * - replace assigned species tags
@@ -13,11 +14,18 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 
 import {
+  createPlayableSpeciesInDB,
   getPlayableSpeciesFromDB,
   getPlayableSpeciesTagsFromDB,
   updatePlayableSpeciesInDB,
   updatePlayableSpeciesTagsInDB,
 } from '../services/playableSpecies.service.js'
+
+/**
+ * ---------------------------------------------------------
+ * Browse
+ * ---------------------------------------------------------
+ */
 
 export async function getPlayableSpeciesHandler(
   request: FastifyRequest,
@@ -33,6 +41,74 @@ export async function getPlayableSpeciesHandler(
     })
   }
 }
+
+/**
+ * ---------------------------------------------------------
+ * Create
+ * ---------------------------------------------------------
+ */
+
+export async function createPlayableSpeciesHandler(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  request.log.info('Received POST /admin/playable-species request')
+
+  try {
+    const { displayName, name, slug, description, isActive } = request.body as {
+      displayName?: string
+      name?: string
+      slug?: string
+      description?: string | null
+      isActive?: boolean
+    }
+
+    if (!displayName) {
+      request.log.warn('Missing displayName in create playable species request')
+      return reply.status(400).send({
+        error: 'Missing required field: displayName.',
+      })
+    }
+
+    if (!name) {
+      request.log.warn('Missing name in create playable species request')
+      return reply.status(400).send({
+        error: 'Missing required field: name.',
+      })
+    }
+
+    if (!slug) {
+      request.log.warn('Missing slug in create playable species request')
+      return reply.status(400).send({
+        error: 'Missing required field: slug.',
+      })
+    }
+
+    const createdSpecies = await createPlayableSpeciesInDB({
+      displayName,
+      name,
+      slug,
+      description: description ?? null,
+      isActive: isActive ?? true,
+    })
+
+    request.log.info(`Playable species created successfully: ${createdSpecies?.id ?? 'unknown'}`)
+
+    return reply.status(201).send({
+      message: 'Playable species created successfully.',
+      data: createdSpecies,
+    })
+  } catch (err) {
+    request.log.error(`Error in createPlayableSpeciesHandler: ${err}`)
+    return reply.status(500).send({ error: 'Internal server error.' })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Update
+ * ---------------------------------------------------------
+ */
 
 export async function updatePlayableSpeciesHandler(
   request: FastifyRequest,
@@ -79,6 +155,12 @@ export async function updatePlayableSpeciesHandler(
     return reply.status(500).send({ error: 'Internal server error.' })
   }
 }
+
+/**
+ * ---------------------------------------------------------
+ * Tags
+ * ---------------------------------------------------------
+ */
 
 export async function getPlayableSpeciesTagsHandler(
   request: FastifyRequest,
