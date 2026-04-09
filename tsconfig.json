@@ -5,14 +5,13 @@
     "moduleResolution": "nodenext",
     "outDir": "./dist",
     "rootDir": "./src",
-    "baseUrl": ".",
     "paths": {
-      "#db/*": ["src/db/*"],
-      "#services/*": ["src/services/*"],
-      "#utils/*": ["src/utils/*"],
-      "#config/*": ["src/config/*"],
-      "#plugins/*": ["src/plugins/*"],
-      "#validation/*": ["src/validation/*"]
+      "#db/*": ["./src/db/*"],
+      "#services/*": ["./src/services/*"],
+      "#utils/*": ["./src/utils/*"],
+      "#config/*": ["./src/config/*"],
+      "#plugins/*": ["./src/plugins/*"],
+      "#validation/*": ["./src/validation/*"]
     },
     "strict": true,
     "esModuleInterop": true,
