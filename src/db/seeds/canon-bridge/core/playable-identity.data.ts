@@ -788,27 +788,27 @@ export const playablePassivesSeed = [
  */
 export const playableStatBaselinesSeed = [
   {
-    statId: 'hp',
+    statId: 'ref_stat_hp',
     baseValue: 10,
   },
   {
-    statId: 'attack',
+    statId: 'ref_stat_attack',
     baseValue: 5,
   },
   {
-    statId: 'defense',
+    statId: 'ref_stat_defense',
     baseValue: 5,
   },
   {
-    statId: 'speed',
+    statId: 'ref_stat_speed',
     baseValue: 5,
   },
   {
-    statId: 'intelligence',
+    statId: 'ref_stat_intelligence',
     baseValue: 5,
   },
   {
-    statId: 'charisma',
+    statId: 'ref_stat_charisma',
     baseValue: 5,
   },
 ];
@@ -821,122 +821,122 @@ export const playableStatBaselinesSeed = [
 export const playableSpeciesStatModifiersSeed = [
   {
     speciesId: 'species_dragonborn',
-    statId: 'hp',
+    statId: 'ref_stat_hp',
     modifierValue: 1,
   },
   {
     speciesId: 'species_dragonborn',
-    statId: 'charisma',
+    statId: 'ref_stat_charisma',
     modifierValue: 1,
   },
   {
     speciesId: 'species_dragonborn',
-    statId: 'speed',
+    statId: 'ref_stat_speed',
     modifierValue: -1,
   },
   {
     speciesId: 'species_dwarf',
-    statId: 'hp',
+    statId: 'ref_stat_hp',
     modifierValue: 1,
   },
   {
     speciesId: 'species_dwarf',
-    statId: 'defense',
+    statId: 'ref_stat_defense',
     modifierValue: 1,
   },
   {
     speciesId: 'species_dwarf',
-    statId: 'speed',
+    statId: 'ref_stat_speed',
     modifierValue: -1,
   },
   {
     speciesId: 'species_elf',
-    statId: 'speed',
+    statId: 'ref_stat_speed',
     modifierValue: 1,
   },
   {
     speciesId: 'species_elf',
-    statId: 'intelligence',
+    statId: 'ref_stat_intelligence',
     modifierValue: 1,
   },
   {
     speciesId: 'species_elf',
-    statId: 'hp',
+    statId: 'ref_stat_hp',
     modifierValue: -1,
   },
   {
     speciesId: 'species_gnome',
-    statId: 'intelligence',
+    statId: 'ref_stat_intelligence',
     modifierValue: 1,
   },
   {
     speciesId: 'species_gnome',
-    statId: 'charisma',
+    statId: 'ref_stat_charisma',
     modifierValue: 1,
   },
   {
     speciesId: 'species_gnome',
-    statId: 'attack',
+    statId: 'ref_stat_attack',
     modifierValue: -1,
   },
   {
     speciesId: 'species_halfling',
-    statId: 'speed',
+    statId: 'ref_stat_speed',
     modifierValue: 1,
   },
   {
     speciesId: 'species_halfling',
-    statId: 'charisma',
+    statId: 'ref_stat_charisma',
     modifierValue: 1,
   },
   {
     speciesId: 'species_halfling',
-    statId: 'defense',
+    statId: 'ref_stat_defense',
     modifierValue: -1,
   },
   {
     speciesId: 'species_half_orc',
-    statId: 'attack',
+    statId: 'ref_stat_attack',
     modifierValue: 1,
   },
   {
     speciesId: 'species_half_orc',
-    statId: 'hp',
+    statId: 'ref_stat_hp',
     modifierValue: 1,
   },
   {
     speciesId: 'species_half_orc',
-    statId: 'charisma',
+    statId: 'ref_stat_charisma',
     modifierValue: -1,
   },
   {
     speciesId: 'species_tiefling',
-    statId: 'intelligence',
+    statId: 'ref_stat_intelligence',
     modifierValue: 1,
   },
   {
     speciesId: 'species_tiefling',
-    statId: 'charisma',
+    statId: 'ref_stat_charisma',
     modifierValue: 1,
   },
   {
     speciesId: 'species_tiefling',
-    statId: 'hp',
+    statId: 'ref_stat_hp',
     modifierValue: -1,
   },
   {
     speciesId: 'species_cornling',
-    statId: 'defense',
+    statId: 'ref_stat_defense',
     modifierValue: 1,
   },
   {
     speciesId: 'species_cornling',
-    statId: 'intelligence',
+    statId: 'ref_stat_intelligence',
     modifierValue: 1,
   },
   {
     speciesId: 'species_cornling',
-    statId: 'speed',
+    statId: 'ref_stat_speed',
     modifierValue: -1,
   },
 ];
@@ -947,53 +947,53 @@ export const playableSpeciesStatModifiersSeed = [
  * Defines how each class modifies each stat.
  */
 export const playableClassStatModifiersSeed = [
-  { classId: 'class_barbarian', statId: 'hp', modifierValue: 2 },
-  { classId: 'class_barbarian', statId: 'attack', modifierValue: 1 },
-  { classId: 'class_barbarian', statId: 'intelligence', modifierValue: -1 },
+  { classId: 'class_barbarian', statId: 'ref_stat_hp', modifierValue: 2 },
+  { classId: 'class_barbarian', statId: 'ref_stat_attack', modifierValue: 1 },
+  { classId: 'class_barbarian', statId: 'ref_stat_intelligence', modifierValue: -1 },
 
-  { classId: 'class_fighter', statId: 'attack', modifierValue: 2 },
-  { classId: 'class_fighter', statId: 'defense', modifierValue: 1 },
-  { classId: 'class_fighter', statId: 'intelligence', modifierValue: -1 },
+  { classId: 'class_fighter', statId: 'ref_stat_attack', modifierValue: 2 },
+  { classId: 'class_fighter', statId: 'ref_stat_defense', modifierValue: 1 },
+  { classId: 'class_fighter', statId: 'ref_stat_intelligence', modifierValue: -1 },
 
-  { classId: 'class_paladin', statId: 'defense', modifierValue: 2 },
-  { classId: 'class_paladin', statId: 'charisma', modifierValue: 1 },
-  { classId: 'class_paladin', statId: 'speed', modifierValue: -1 },
+  { classId: 'class_paladin', statId: 'ref_stat_defense', modifierValue: 2 },
+  { classId: 'class_paladin', statId: 'ref_stat_charisma', modifierValue: 1 },
+  { classId: 'class_paladin', statId: 'ref_stat_speed', modifierValue: -1 },
 
-  { classId: 'class_monk', statId: 'speed', modifierValue: 2 },
-  { classId: 'class_monk', statId: 'defense', modifierValue: 1 },
-  { classId: 'class_monk', statId: 'attack', modifierValue: -1 },
+  { classId: 'class_monk', statId: 'ref_stat_speed', modifierValue: 2 },
+  { classId: 'class_monk', statId: 'ref_stat_defense', modifierValue: 1 },
+  { classId: 'class_monk', statId: 'ref_stat_attack', modifierValue: -1 },
 
-  { classId: 'class_ranger', statId: 'attack', modifierValue: 2 },
-  { classId: 'class_ranger', statId: 'speed', modifierValue: 1 },
-  { classId: 'class_ranger', statId: 'charisma', modifierValue: -1 },
+  { classId: 'class_ranger', statId: 'ref_stat_attack', modifierValue: 2 },
+  { classId: 'class_ranger', statId: 'ref_stat_speed', modifierValue: 1 },
+  { classId: 'class_ranger', statId: 'ref_stat_charisma', modifierValue: -1 },
 
-  { classId: 'class_druid', statId: 'intelligence', modifierValue: 2 },
-  { classId: 'class_druid', statId: 'defense', modifierValue: 1 },
-  { classId: 'class_druid', statId: 'attack', modifierValue: -1 },
+  { classId: 'class_druid', statId: 'ref_stat_intelligence', modifierValue: 2 },
+  { classId: 'class_druid', statId: 'ref_stat_defense', modifierValue: 1 },
+  { classId: 'class_druid', statId: 'ref_stat_attack', modifierValue: -1 },
 
-  { classId: 'class_rogue', statId: 'speed', modifierValue: 2 },
-  { classId: 'class_rogue', statId: 'attack', modifierValue: 1 },
-  { classId: 'class_rogue', statId: 'defense', modifierValue: -1 },
+  { classId: 'class_rogue', statId: 'ref_stat_speed', modifierValue: 2 },
+  { classId: 'class_rogue', statId: 'ref_stat_attack', modifierValue: 1 },
+  { classId: 'class_rogue', statId: 'ref_stat_defense', modifierValue: -1 },
 
-  { classId: 'class_bard', statId: 'charisma', modifierValue: 2 },
-  { classId: 'class_bard', statId: 'intelligence', modifierValue: 1 },
-  { classId: 'class_bard', statId: 'defense', modifierValue: -1 },
+  { classId: 'class_bard', statId: 'ref_stat_charisma', modifierValue: 2 },
+  { classId: 'class_bard', statId: 'ref_stat_intelligence', modifierValue: 1 },
+  { classId: 'class_bard', statId: 'ref_stat_defense', modifierValue: -1 },
 
-  { classId: 'class_wizard', statId: 'intelligence', modifierValue: 2 },
-  { classId: 'class_wizard', statId: 'speed', modifierValue: 1 },
-  { classId: 'class_wizard', statId: 'hp', modifierValue: -1 },
+  { classId: 'class_wizard', statId: 'ref_stat_intelligence', modifierValue: 2 },
+  { classId: 'class_wizard', statId: 'ref_stat_speed', modifierValue: 1 },
+  { classId: 'class_wizard', statId: 'ref_stat_hp', modifierValue: -1 },
 
-  { classId: 'class_sorcerer', statId: 'intelligence', modifierValue: 2 },
-  { classId: 'class_sorcerer', statId: 'charisma', modifierValue: 1 },
-  { classId: 'class_sorcerer', statId: 'defense', modifierValue: -1 },
+  { classId: 'class_sorcerer', statId: 'ref_stat_intelligence', modifierValue: 2 },
+  { classId: 'class_sorcerer', statId: 'ref_stat_charisma', modifierValue: 1 },
+  { classId: 'class_sorcerer', statId: 'ref_stat_defense', modifierValue: -1 },
 
-  { classId: 'class_warlock', statId: 'charisma', modifierValue: 2 },
-  { classId: 'class_warlock', statId: 'intelligence', modifierValue: 1 },
-  { classId: 'class_warlock', statId: 'hp', modifierValue: -1 },
+  { classId: 'class_warlock', statId: 'ref_stat_charisma', modifierValue: 2 },
+  { classId: 'class_warlock', statId: 'ref_stat_intelligence', modifierValue: 1 },
+  { classId: 'class_warlock', statId: 'ref_stat_hp', modifierValue: -1 },
 
-  { classId: 'class_cleric', statId: 'defense', modifierValue: 2 },
-  { classId: 'class_cleric', statId: 'intelligence', modifierValue: 1 },
-  { classId: 'class_cleric', statId: 'speed', modifierValue: -1 },
+  { classId: 'class_cleric', statId: 'ref_stat_defense', modifierValue: 2 },
+  { classId: 'class_cleric', statId: 'ref_stat_intelligence', modifierValue: 1 },
+  { classId: 'class_cleric', statId: 'ref_stat_speed', modifierValue: -1 },
 ];
 
 //
