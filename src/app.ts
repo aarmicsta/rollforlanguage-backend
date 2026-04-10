@@ -29,7 +29,7 @@ import { authRoutes } from './routes/auth.route.js'
 import { playableClassAdminRoutes } from './routes/playableClassAdmin.route.js'
 import { playableSpeciesAdminRoutes } from './routes/playableSpeciesAdmin.route.js'
 import { playableTagAdminRoutes } from './routes/playableTagAdmin.route.js'
-// import { playableStatAdminRoutes } from './routes/playableStatAdmin.route.js'
+import { playableStatAdminRoutes } from './routes/playableStatAdmin.route.js'
 // import { playablePassiveAdminRoutes } from './routes/playablePassiveAdmin.route.js'
 // import { mediaUploadRoutes } from './routes/mediaUpload.route.js'
 // import { playableTagCategoryAdminRoutes } from './routes/playableTagCategoryAdmin.route.js'
@@ -88,7 +88,7 @@ app.register(adminRoutes, { prefix: '/admin' })
 app.register(playableSpeciesAdminRoutes, { prefix: '/admin' })
 app.register(playableClassAdminRoutes, { prefix: '/admin' })
 app.register(playableTagAdminRoutes, { prefix: '/admin' })
-// app.register(playableStatAdminRoutes, { prefix: '/admin' })
+app.register(playableStatAdminRoutes, { prefix: '/admin' })
 // app.register(playablePassiveAdminRoutes, { prefix: '/admin' })
 // app.register(mediaUploadRoutes)
 // app.register(playableTagCategoryAdminRoutes, { prefix: '/admin' })
