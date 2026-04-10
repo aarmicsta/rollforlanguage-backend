@@ -5,6 +5,7 @@
  *
  * Responsibilities:
  * - return class browse records
+ * - create new class records
  * - update scalar class fields
  * - return assigned class tags
  * - replace assigned class tags
@@ -13,11 +14,18 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 
 import {
+  createPlayableClassInDB,
   getPlayableClassesFromDB,
   getPlayableClassTagsFromDB,
   updatePlayableClassInDB,
   updatePlayableClassTagsInDB,
 } from '../services/playableClass.service.js'
+
+/**
+ * ---------------------------------------------------------
+ * Browse
+ * ---------------------------------------------------------
+ */
 
 export async function getPlayableClassesHandler(
   request: FastifyRequest,
@@ -33,6 +41,74 @@ export async function getPlayableClassesHandler(
     })
   }
 }
+
+/**
+ * ---------------------------------------------------------
+ * Create
+ * ---------------------------------------------------------
+ */
+
+export async function createPlayableClassHandler(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  request.log.info('Received POST /admin/playable-classes request')
+
+  try {
+    const { displayName, name, slug, description, isActive } = request.body as {
+      displayName?: string
+      name?: string
+      slug?: string
+      description?: string | null
+      isActive?: boolean
+    }
+
+    if (!displayName) {
+      request.log.warn('Missing displayName in create playable class request')
+      return reply.status(400).send({
+        error: 'Missing required field: displayName.',
+      })
+    }
+
+    if (!name) {
+      request.log.warn('Missing name in create playable class request')
+      return reply.status(400).send({
+        error: 'Missing required field: name.',
+      })
+    }
+
+    if (!slug) {
+      request.log.warn('Missing slug in create playable class request')
+      return reply.status(400).send({
+        error: 'Missing required field: slug.',
+      })
+    }
+
+    const createdClass = await createPlayableClassInDB({
+      displayName,
+      name,
+      slug,
+      description: description ?? null,
+      isActive: isActive ?? true,
+    })
+
+    request.log.info(`Playable class created successfully: ${createdClass?.id ?? 'unknown'}`)
+
+    return reply.status(201).send({
+      message: 'Playable class created successfully.',
+      data: createdClass,
+    })
+  } catch (err) {
+    request.log.error(`Error in createPlayableClassHandler: ${err}`)
+    return reply.status(500).send({ error: 'Internal server error.' })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Update
+ * ---------------------------------------------------------
+ */
 
 export async function updatePlayableClassHandler(
   request: FastifyRequest,
@@ -79,6 +155,12 @@ export async function updatePlayableClassHandler(
     return reply.status(500).send({ error: 'Internal server error.' })
   }
 }
+
+/**
+ * ---------------------------------------------------------
+ * Tags
+ * ---------------------------------------------------------
+ */
 
 export async function getPlayableClassTagsHandler(
   request: FastifyRequest,

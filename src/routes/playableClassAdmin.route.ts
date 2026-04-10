@@ -5,7 +5,7 @@
  *
  * Responsibilities:
  * - protect class admin endpoints
- * - expose browse, update, and tag-assignment endpoints
+ * - expose browse, create, update, and tag-assignment endpoints
  */
 
 import type {} from '../types/fastify.js'
@@ -13,6 +13,7 @@ import type {} from '../types/fastify.js'
 import { FastifyInstance } from 'fastify'
 
 import {
+  createPlayableClassHandler,
   getPlayableClassesHandler,
   getPlayableClassTagsHandler,
   updatePlayableClassHandler,
@@ -42,6 +43,11 @@ export async function playableClassAdminRoutes(app: FastifyInstance) {
       }
     })
 
+    /**
+     * ---------------------------------------------------------
+     * Browse
+     * ---------------------------------------------------------
+     */
     admin.get('/playable-classes', {
       schema: {
         tags: ['Admin'],
@@ -52,6 +58,26 @@ export async function playableClassAdminRoutes(app: FastifyInstance) {
       handler: getPlayableClassesHandler,
     })
 
+    /**
+     * ---------------------------------------------------------
+     * Create
+     * ---------------------------------------------------------
+     */
+    admin.post('/playable-classes', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Create a playable class',
+        description:
+          'Creates a new playable class record for the admin dashboard.',
+      },
+      handler: createPlayableClassHandler,
+    })
+
+    /**
+     * ---------------------------------------------------------
+     * Update
+     * ---------------------------------------------------------
+     */
     admin.patch('/playable-classes/:id', {
       schema: {
         tags: ['Admin'],
@@ -62,6 +88,11 @@ export async function playableClassAdminRoutes(app: FastifyInstance) {
       handler: updatePlayableClassHandler,
     })
 
+    /**
+     * ---------------------------------------------------------
+     * Tags
+     * ---------------------------------------------------------
+     */
     admin.get('/playable-classes/:id/tags', {
       schema: {
         tags: ['Admin'],
