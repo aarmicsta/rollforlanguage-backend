@@ -31,7 +31,8 @@ import { playableSpeciesAdminRoutes } from './routes/playableSpeciesAdmin.route.
 import { playableTagAdminRoutes } from './routes/playableTagAdmin.route.js'
 import { playableStatAdminRoutes } from './routes/playableStatAdmin.route.js'
 import { playableStatModifierAdminRoutes } from './routes/playableStatModifierAdmin.route.js'
-// import { playablePassiveAdminRoutes } from './routes/playablePassiveAdmin.route.js'
+import { playablePassiveAdminRoutes } from './routes/playablePassiveAdmin.route.js'
+import { playablePassiveAssignmentAdminRoutes } from './routes/playablePassiveAssignmentAdmin.route.js'
 // import { mediaUploadRoutes } from './routes/mediaUpload.route.js'
 // import { playableTagCategoryAdminRoutes } from './routes/playableTagCategoryAdmin.route.js'
 // import { playableTagCategoryLinkAdminRoutes } from './routes/playableTagCategoryLinkAdmin.route.js'
@@ -91,7 +92,8 @@ app.register(playableClassAdminRoutes, { prefix: '/admin' })
 app.register(playableTagAdminRoutes, { prefix: '/admin' })
 app.register(playableStatAdminRoutes, { prefix: '/admin' })
 app.register(playableStatModifierAdminRoutes, { prefix: '/admin' })
-// app.register(playablePassiveAdminRoutes, { prefix: '/admin' })
+app.register(playablePassiveAdminRoutes, { prefix: '/admin' })
+app.register(playablePassiveAssignmentAdminRoutes, { prefix: '/admin' })
 // app.register(mediaUploadRoutes)
 // app.register(playableTagCategoryAdminRoutes, { prefix: '/admin' })
 // app.register(playableTagCategoryLinkAdminRoutes, { prefix: '/admin' })
