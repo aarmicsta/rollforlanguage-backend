@@ -542,7 +542,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_night_vision',
     name: 'night_vision',
-    slug: 'night_vision',
+    slug: 'night-vision',
     displayName: 'Night Vision',
     description:
       'Can see in low-light or darkness where others cannot.',
@@ -555,7 +555,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_keen_senses',
     name: 'keen_senses',
-    slug: 'keen_senses',
+    slug: 'keen-senses',
     displayName: 'Keen Senses',
     description:
       'Heightened awareness of surroundings.',
@@ -581,7 +581,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_battle_hardened',
     name: 'battle_hardened',
-    slug: 'battle_hardened',
+    slug: 'battle-hardened',
     displayName: 'Battle Hardened',
     description:
       'Experienced in enduring physical hardship.',
@@ -594,7 +594,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_quick_reflexes',
     name: 'quick_reflexes',
-    slug: 'quick_reflexes',
+    slug: 'quick-reflexes',
     displayName: 'Quick Reflexes',
     description:
       'Reacts rapidly to changing situations.',
@@ -607,7 +607,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_steady_aim',
     name: 'steady_aim',
-    slug: 'steady_aim',
+    slug: 'steady-aim',
     displayName: 'Steady Aim',
     description:
       'Maintains precision under pressure.',
@@ -620,7 +620,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_mana_affinity',
     name: 'mana_affinity',
-    slug: 'mana_affinity',
+    slug: 'mana-affinity',
     displayName: 'Mana Affinity',
     description:
       'Naturally attuned to magical energy.',
@@ -633,7 +633,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_spell_resilience',
     name: 'spell_resilience',
-    slug: 'spell_resilience',
+    slug: 'spell-resilience',
     displayName: 'Spell Resilience',
     description:
       'Resistant to magical interference.',
@@ -646,7 +646,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_primal_attunement',
     name: 'primal_attunement',
-    slug: 'primal_attunement',
+    slug: 'primal-attunement',
     displayName: 'Primal Attunement',
     description:
       'Deep connection to natural forces.',
@@ -659,7 +659,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_silver_tongue',
     name: 'silver_tongue',
-    slug: 'silver_tongue',
+    slug: 'silver-tongue',
     displayName: 'Silver Tongue',
     description:
       'Gifted in persuasion and communication.',
@@ -672,7 +672,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_cultural_adaptability',
     name: 'cultural_adaptability',
-    slug: 'cultural_adaptability',
+    slug: 'cultural-adaptability',
     displayName: 'Cultural Adaptability',
     description:
       'Easily navigates different social and cultural contexts.',
@@ -685,7 +685,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_commanding_presence',
     name: 'commanding_presence',
-    slug: 'commanding_presence',
+    slug: 'commanding-presence',
     displayName: 'Commanding Presence',
     description:
       'Naturally inspires attention and authority.',
@@ -698,7 +698,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_quick_learner',
     name: 'quick_learner',
-    slug: 'quick_learner',
+    slug: 'quick-learner',
     displayName: 'Quick Learner',
     description:
       'Grasps new concepts rapidly.',
@@ -711,7 +711,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_disciplined_mind',
     name: 'disciplined_mind',
-    slug: 'disciplined_mind',
+    slug: 'disciplined-mind',
     displayName: 'Disciplined Mind',
     description:
       'Maintains focus and consistency.',
@@ -724,7 +724,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_intuitive_grasp',
     name: 'intuitive_grasp',
-    slug: 'intuitive_grasp',
+    slug: 'intuitive-grasp',
     displayName: 'Intuitive Grasp',
     description:
       'Understands patterns without formal instruction.',
@@ -750,7 +750,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_elemental_tolerance',
     name: 'elemental_tolerance',
-    slug: 'elemental_tolerance',
+    slug: 'elemental-tolerance',
     displayName: 'Elemental Tolerance',
     description:
       'Better withstands environmental extremes.',
@@ -763,7 +763,7 @@ export const playablePassivesSeed = [
   {
     id: 'passive_inner_fire',
     name: 'inner_fire',
-    slug: 'inner_fire',
+    slug: 'inner-fire',
     displayName: 'Inner Fire',
     description:
       'Driven by strong internal motivation or emotion.',
@@ -773,7 +773,7 @@ export const playablePassivesSeed = [
     isActive: true,
     sortOrder: 18,
   },
-];
+]
 
 //
 // ---------------------------------------------------------
