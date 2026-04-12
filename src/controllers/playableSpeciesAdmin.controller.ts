@@ -19,6 +19,8 @@ import {
   getPlayableSpeciesTagsFromDB,
   updatePlayableSpeciesInDB,
   updatePlayableSpeciesTagsInDB,
+  getPlayableSpeciesPassivesFromDB,
+  updatePlayableSpeciesPassivesInDB,
 } from '../services/playableSpecies.service.js'
 
 /**
@@ -221,6 +223,78 @@ export async function updatePlayableSpeciesTagsHandler(
     })
   } catch (err) {
     request.log.error(`Error in updatePlayableSpeciesTagsHandler: ${err}`)
+    return reply.status(500).send({ error: 'Internal server error.' })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Passives
+ * ---------------------------------------------------------
+ */
+
+export async function getPlayableSpeciesPassivesHandler(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  request.log.info('Received GET /admin/playable-species/:id/passives request')
+
+  try {
+    const { id } = request.params as { id?: string }
+
+    if (!id) {
+      request.log.warn('Missing species id in get playable species passives request')
+      return reply.status(400).send({
+        error: 'Missing required route parameter: id.',
+      })
+    }
+
+    const passives = await getPlayableSpeciesPassivesFromDB(id)
+
+    return reply.status(200).send(passives)
+  } catch (err) {
+    request.log.error(`Error in getPlayableSpeciesPassivesHandler: ${err}`)
+    return reply.status(500).send({ error: 'Internal server error.' })
+  }
+}
+
+export async function updatePlayableSpeciesPassivesHandler(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  request.log.info('Received PATCH /admin/playable-species/:id/passives request')
+
+  try {
+    const { id } = request.params as { id?: string }
+    const { passiveIds } = request.body as { passiveIds?: string[] }
+
+    if (!id) {
+      request.log.warn('Missing species id in update playable species passives request')
+      return reply.status(400).send({
+        error: 'Missing required route parameter: id.',
+      })
+    }
+
+    if (!Array.isArray(passiveIds)) {
+      request.log.warn('Missing or invalid passiveIds in update playable species passives request')
+      return reply.status(400).send({
+        error: 'Missing required field: passiveIds.',
+      })
+    }
+
+    const updatedPassives = await updatePlayableSpeciesPassivesInDB(
+      id,
+      passiveIds
+    )
+
+    request.log.info(`Playable species passives updated successfully: ${id}`)
+
+    return reply.status(200).send({
+      message: 'Playable species passives updated successfully.',
+      data: updatedPassives,
+    })
+  } catch (err) {
+    request.log.error(`Error in updatePlayableSpeciesPassivesHandler: ${err}`)
     return reply.status(500).send({ error: 'Internal server error.' })
   }
 }

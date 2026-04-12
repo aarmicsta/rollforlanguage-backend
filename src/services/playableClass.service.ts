@@ -18,6 +18,8 @@ import {
   playableClasses,
   playableClassTags,
   playableTags,
+  playableClassPassives,
+  playablePassives,
 } from '../db/schema/canon-bridge/core/playable-identity.js'
 
 export interface PlayableClassListItem {
@@ -232,4 +234,50 @@ export async function updatePlayableClassTagsInDB(
   }
 
   return getPlayableClassTagsFromDB(classId)
+}
+
+/**
+ * ---------------------------------------------------------
+ * Passives
+ * ---------------------------------------------------------
+ */
+
+export async function getPlayableClassPassivesFromDB(
+  classId: string
+) {
+  const results = await db
+    .select({
+      id: playablePassives.id,
+      displayName: playablePassives.displayName,
+      effectType: playablePassives.effectType,
+    })
+    .from(playableClassPassives)
+    .innerJoin(
+      playablePassives,
+      eq(playableClassPassives.passiveId, playablePassives.id)
+    )
+    .where(eq(playableClassPassives.classId, classId))
+    .orderBy(asc(playablePassives.displayName))
+
+  return results
+}
+
+export async function updatePlayableClassPassivesInDB(
+  classId: string,
+  passiveIds: string[]
+) {
+  await db
+    .delete(playableClassPassives)
+    .where(eq(playableClassPassives.classId, classId))
+
+  if (passiveIds.length > 0) {
+    await db.insert(playableClassPassives).values(
+      passiveIds.map((passiveId) => ({
+        classId,
+        passiveId,
+      }))
+    )
+  }
+
+  return getPlayableClassPassivesFromDB(classId)
 }

@@ -18,6 +18,8 @@ import {
   getPlayableClassTagsHandler,
   updatePlayableClassHandler,
   updatePlayableClassTagsHandler,
+  getPlayableClassPassivesHandler,
+  updatePlayableClassPassivesHandler,
 } from '../controllers/playableClassAdmin.controller.js'
 
 export async function playableClassAdminRoutes(app: FastifyInstance) {
@@ -112,5 +114,31 @@ export async function playableClassAdminRoutes(app: FastifyInstance) {
       },
       handler: updatePlayableClassTagsHandler,
     })
+
+    /**
+     * ---------------------------------------------------------
+     * Passives
+     * ---------------------------------------------------------
+     */
+    admin.get('/playable-classes/:id/passives', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Get assigned passives for a playable class',
+        description:
+          'Returns the currently assigned playable passives for a specific playable class.',
+      },
+      handler: getPlayableClassPassivesHandler,
+    })
+
+    admin.patch('/playable-classes/:id/passives', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Update assigned passives for a playable class',
+        description:
+          'Replaces the currently assigned playable passives for a specific playable class.',
+      },
+      handler: updatePlayableClassPassivesHandler,
+    })
   })
 }
+

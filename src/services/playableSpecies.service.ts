@@ -18,6 +18,8 @@ import {
   playableSpecies,
   playableSpeciesTags,
   playableTags,
+  playableSpeciesPassives,
+  playablePassives,
 } from '../db/schema/canon-bridge/core/playable-identity.js'
 
 export interface PlayableSpeciesListItem {
@@ -231,4 +233,50 @@ export async function updatePlayableSpeciesTagsInDB(
   }
 
   return getPlayableSpeciesTagsFromDB(speciesId)
+}
+
+/**
+ * ---------------------------------------------------------
+ * Passives
+ * ---------------------------------------------------------
+ */
+
+export async function getPlayableSpeciesPassivesFromDB(
+  speciesId: string
+) {
+  const results = await db
+    .select({
+      id: playablePassives.id,
+      displayName: playablePassives.displayName,
+      effectType: playablePassives.effectType,
+    })
+    .from(playableSpeciesPassives)
+    .innerJoin(
+      playablePassives,
+      eq(playableSpeciesPassives.passiveId, playablePassives.id)
+    )
+    .where(eq(playableSpeciesPassives.speciesId, speciesId))
+    .orderBy(asc(playablePassives.displayName))
+
+  return results
+}
+
+export async function updatePlayableSpeciesPassivesInDB(
+  speciesId: string,
+  passiveIds: string[]
+) {
+  await db
+    .delete(playableSpeciesPassives)
+    .where(eq(playableSpeciesPassives.speciesId, speciesId))
+
+  if (passiveIds.length > 0) {
+    await db.insert(playableSpeciesPassives).values(
+      passiveIds.map((passiveId) => ({
+        speciesId,
+        passiveId,
+      }))
+    )
+  }
+
+  return getPlayableSpeciesPassivesFromDB(speciesId)
 }

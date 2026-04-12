@@ -18,6 +18,8 @@ import {
   getPlayableSpeciesTagsHandler,
   updatePlayableSpeciesHandler,
   updatePlayableSpeciesTagsHandler,
+  getPlayableSpeciesPassivesHandler,
+  updatePlayableSpeciesPassivesHandler,
 } from '../controllers/playableSpeciesAdmin.controller.js'
 
 export async function playableSpeciesAdminRoutes(app: FastifyInstance) {
@@ -111,6 +113,31 @@ export async function playableSpeciesAdminRoutes(app: FastifyInstance) {
           'Replaces the currently assigned playable tags for a specific playable species.',
       },
       handler: updatePlayableSpeciesTagsHandler,
+    })
+
+    /**
+     * ---------------------------------------------------------
+     * Passives
+     * ---------------------------------------------------------
+     */
+    admin.get('/playable-species/:id/passives', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Get assigned passives for a playable species',
+        description:
+          'Returns the currently assigned playable passives for a specific playable species.',
+      },
+      handler: getPlayableSpeciesPassivesHandler,
+    })
+
+    admin.patch('/playable-species/:id/passives', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Update assigned passives for a playable species',
+        description:
+          'Replaces the currently assigned playable passives for a specific playable species.',
+      },
+      handler: updatePlayableSpeciesPassivesHandler,
     })
   })
 }
