@@ -57,6 +57,7 @@ async function upsertCreatureTypes() {
       await db
         .update(refCreatureTypes)
         .set({
+          id: row.id,
           name: row.name,
           slug: row.slug,
           displayName: row.displayName,
@@ -92,6 +93,7 @@ async function upsertSizeCategories() {
       await db
         .update(refSizeCategories)
         .set({
+          id: row.id,
           name: row.name,
           slug: row.slug,
           displayName: row.displayName,
@@ -129,6 +131,7 @@ async function upsertMovementTypes() {
       await db
         .update(refMovementTypes)
         .set({
+          id: row.id,
           name: row.name,
           slug: row.slug,
           displayName: row.displayName,
@@ -166,6 +169,7 @@ async function upsertIntelligenceCategories() {
       await db
         .update(refIntelligenceCategories)
         .set({
+          id: row.id,
           name: row.name,
           slug: row.slug,
           displayName: row.displayName,
@@ -203,6 +207,7 @@ async function upsertThreatLevels() {
       await db
         .update(refThreatLevels)
         .set({
+          id: row.id,
           name: row.name,
           slug: row.slug,
           displayName: row.displayName,
@@ -244,6 +249,7 @@ async function upsertCreatureTags() {
       await db
         .update(refCreatureTags)
         .set({
+          id: row.id,
           name: row.name,
           slug: row.slug,
           displayName: row.displayName,
