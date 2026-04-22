@@ -21,6 +21,8 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 import { 
   getCreaturesFromDB,
   updateCreatureInDB,
+  getCreatureTagsFromDB,
+  updateCreatureTagsInDB,
 } from '../services/creature.service.js'
 
 /**
@@ -90,6 +92,74 @@ export async function updateCreature(
     return reply.status(500).send({
       success: false,
       message: 'Failed to update creature',
+    })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Get Creature Tags
+ * ---------------------------------------------------------
+ *
+ * Returns assigned tags for a specific creature.
+ */
+export async function getCreatureTags(
+  request: FastifyRequest<{
+    Params: { id: string }
+  }>,
+  reply: FastifyReply
+) {
+  try {
+    const { id } = request.params
+
+    const tags = await getCreatureTagsFromDB(id)
+
+    return reply.send({
+      success: true,
+      data: tags,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to fetch creature tags')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to fetch creature tags',
+    })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Update Creature Tags
+ * ---------------------------------------------------------
+ *
+ * Replaces all assigned tags for a creature.
+ */
+export async function updateCreatureTags(
+  request: FastifyRequest<{
+    Params: { id: string }
+    Body: {
+      tagIds: string[]
+    }
+  }>,
+  reply: FastifyReply
+) {
+  try {
+    const { id } = request.params
+    const { tagIds } = request.body
+
+    const updated = await updateCreatureTagsInDB(id, tagIds)
+
+    return reply.send({
+      success: true,
+      data: updated,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to update creature tags')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to update creature tags',
     })
   }
 }

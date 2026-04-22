@@ -20,13 +20,17 @@
 import { asc, eq, sql } from 'drizzle-orm'
 
 import { db } from '../db/index.js'
-import { creatures } from '../db/schema/canon-bridge/core/creature.js'
+import { 
+  creatures,
+  creatureTags,
+} from '../db/schema/canon-bridge/core/creature.js'
 import {
   refCreatureTypes,
   refSizeCategories,
   refIntelligenceCategories,
   refThreatLevels,
 } from '../db/schema/canon-bridge/reference/reference-creature-encounter.js'
+import { playableTags } from '../db/schema/canon-bridge/core/playable-identity.js'
 
 /**
  * ---------------------------------------------------------
@@ -208,4 +212,73 @@ export async function updateCreatureInDB(
     .limit(1)
 
   return results[0] ?? null
+}
+
+/**
+ * ---------------------------------------------------------
+ * Creature Tags
+ * ---------------------------------------------------------
+ *
+ * Mirrors the canonical Playables tag-assignment pattern.
+ *
+ * Responsibilities:
+ * - fetch assigned tags for a creature
+ * - replace all assigned tags for a creature
+ *
+ * Notes:
+ * - uses replace-all pattern (delete → insert)
+ * - returns canonical tag list shape for UI consumption
+ */
+
+/**
+ * Fetch assigned tags for a creature
+ */
+export async function getCreatureTagsFromDB(
+  creatureId: string
+) {
+  const results = await db
+    .select({
+      id: playableTags.id,
+      name: playableTags.name,
+      slug: playableTags.slug,
+      displayName: playableTags.displayName,
+      description: playableTags.description,
+      tagCategory: playableTags.tagCategory,
+      isActive: playableTags.isActive,
+      sortOrder: playableTags.sortOrder,
+    })
+    .from(creatureTags)
+    .innerJoin(
+      playableTags,
+      eq(creatureTags.tagId, playableTags.id)
+    )
+    .where(eq(creatureTags.creatureId, creatureId))
+    .orderBy(asc(playableTags.displayName))
+
+  return results
+}
+
+/**
+ * Replace assigned tags for a creature
+ */
+export async function updateCreatureTagsInDB(
+  creatureId: string,
+  tagIds: string[]
+) {
+  // Remove existing assignments
+  await db
+    .delete(creatureTags)
+    .where(eq(creatureTags.creatureId, creatureId))
+
+  // Insert new assignments
+  if (tagIds.length > 0) {
+    await db.insert(creatureTags).values(
+      tagIds.map((tagId) => ({
+        creatureId,
+        tagId,
+      }))
+    )
+  }
+
+  return getCreatureTagsFromDB(creatureId)
 }

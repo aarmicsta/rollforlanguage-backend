@@ -22,6 +22,8 @@ import { FastifyInstance } from 'fastify'
 import { 
   getCreatures,
   updateCreature,
+  getCreatureTags,
+  updateCreatureTags,
 } from '../controllers/creatureAdmin.controller.js'
 
 export async function creatureAdminRoutes(app: FastifyInstance) {
@@ -75,6 +77,36 @@ export async function creatureAdminRoutes(app: FastifyInstance) {
           'Updates core scalar fields for a canonical creature record.',
       },
       handler: updateCreature,
+    })
+
+        /**
+     * ---------------------------------------------------------
+     * Get Creature Tags
+     * ---------------------------------------------------------
+     */
+    admin.get('/creatures/:id/tags', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Get creature tags',
+        description:
+          'Returns assigned tags for a canonical creature record.',
+      },
+      handler: getCreatureTags,
+    })
+
+    /**
+     * ---------------------------------------------------------
+     * Update Creature Tags
+     * ---------------------------------------------------------
+     */
+    admin.patch('/creatures/:id/tags', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Update creature tags',
+        description:
+          'Replaces assigned tags for a canonical creature record.',
+      },
+      handler: updateCreatureTags,
     })
   })
 }
