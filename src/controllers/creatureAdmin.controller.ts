@@ -18,7 +18,10 @@
 
 import type { FastifyReply, FastifyRequest } from 'fastify'
 
-import { getCreaturesFromDB } from '../services/creature.service.js'
+import { 
+  getCreaturesFromDB,
+  updateCreatureInDB,
+} from '../services/creature.service.js'
 
 /**
  * ---------------------------------------------------------
@@ -45,6 +48,48 @@ export async function getCreatures(
     return reply.status(500).send({
       success: false,
       message: 'Failed to fetch creatures',
+    })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Update Creature
+ * ---------------------------------------------------------
+ *
+ * Updates core scalar creature fields from admin edit modal.
+ */
+export async function updateCreature(
+  request: FastifyRequest<{
+    Params: { id: string }
+    Body: {
+      displayName: string
+      description: string | null
+      isActive: boolean
+    }
+  }>,
+  reply: FastifyReply
+) {
+  try {
+    const { id } = request.params
+    const { displayName, description, isActive } = request.body
+
+    const updated = await updateCreatureInDB(id, {
+      displayName,
+      description,
+      isActive,
+    })
+
+    return reply.send({
+      success: true,
+      data: updated,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to update creature')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to update creature',
     })
   }
 }

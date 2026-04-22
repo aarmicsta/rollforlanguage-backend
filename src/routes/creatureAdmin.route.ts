@@ -19,7 +19,10 @@ import type {} from '../types/fastify.js'
 
 import { FastifyInstance } from 'fastify'
 
-import { getCreatures } from '../controllers/creatureAdmin.controller.js'
+import { 
+  getCreatures,
+  updateCreature,
+} from '../controllers/creatureAdmin.controller.js'
 
 export async function creatureAdminRoutes(app: FastifyInstance) {
   app.register(async function (admin) {
@@ -57,6 +60,21 @@ export async function creatureAdminRoutes(app: FastifyInstance) {
           'Returns canonical creature records for the admin dashboard browse table.',
       },
       handler: getCreatures,
+    })
+
+        /**
+     * ---------------------------------------------------------
+     * Update
+     * ---------------------------------------------------------
+     */
+    admin.patch('/creatures/:id', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Update creature',
+        description:
+          'Updates core scalar fields for a canonical creature record.',
+      },
+      handler: updateCreature,
     })
   })
 }

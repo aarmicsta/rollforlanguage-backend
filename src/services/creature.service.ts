@@ -126,3 +126,86 @@ export async function getCreaturesFromDB(): Promise<CreatureListItem[]> {
 
   return results
 }
+
+/**
+ * ---------------------------------------------------------
+ * Update
+ * ---------------------------------------------------------
+ *
+ * Updates core scalar creature fields for the admin edit flow.
+ *
+ * Current scope:
+ * - displayName
+ * - description
+ * - isActive
+ *
+ * Notes:
+ * - This intentionally mirrors the canonical Playables update
+ *   pattern: update scalar fields, then re-select the record
+ *   using the same browse-shaped projection used elsewhere.
+ * - Classification/reference fields are not edited here.
+ */
+export async function updateCreatureInDB(
+  id: string,
+  data: {
+    displayName: string
+    description: string | null
+    isActive: boolean
+  }
+): Promise<CreatureListItem | null> {
+  await db
+    .update(creatures)
+    .set({
+      displayName: data.displayName,
+      description: data.description,
+      isActive: data.isActive,
+    })
+    .where(eq(creatures.id, id))
+
+  const results = await db
+    .select({
+      id: creatures.id,
+      name: creatures.name,
+      slug: creatures.slug,
+      displayName: creatures.displayName,
+      description: creatures.description,
+
+      creatureType: refCreatureTypes.displayName,
+      sizeCategory: refSizeCategories.displayName,
+      intelligenceCategory: refIntelligenceCategories.displayName,
+      threatLevel: refThreatLevels.displayName,
+
+      iconMediaAssetId: creatures.iconMediaAssetId,
+      isActive: creatures.isActive,
+      sortOrder: creatures.sortOrder,
+      createdAt:
+        sql<string>`DATE_FORMAT(${creatures.createdAt}, '%Y-%m-%d %H:%i:%s')`.as(
+          'createdAt'
+        ),
+      updatedAt:
+        sql<string>`DATE_FORMAT(${creatures.updatedAt}, '%Y-%m-%d %H:%i:%s')`.as(
+          'updatedAt'
+        ),
+    })
+    .from(creatures)
+    .innerJoin(
+      refCreatureTypes,
+      eq(creatures.creatureTypeId, refCreatureTypes.id)
+    )
+    .innerJoin(
+      refSizeCategories,
+      eq(creatures.sizeCategoryId, refSizeCategories.id)
+    )
+    .leftJoin(
+      refIntelligenceCategories,
+      eq(creatures.intelligenceCategoryId, refIntelligenceCategories.id)
+    )
+    .leftJoin(
+      refThreatLevels,
+      eq(creatures.threatLevelId, refThreatLevels.id)
+    )
+    .where(eq(creatures.id, id))
+    .limit(1)
+
+  return results[0] ?? null
+}
