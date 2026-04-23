@@ -66,6 +66,23 @@ export interface CreatureListItem {
 
 /**
  * ---------------------------------------------------------
+ * Canonical ID Helpers
+ * ---------------------------------------------------------
+ *
+ * Creature IDs follow the established canonical convention
+ * used across admin-created identity records:
+ *
+ *   creature_<canonical_name>
+ *
+ * Example:
+ *   cave_troll -> creature_cave_troll
+ */
+function buildCreatureId(name: string): string {
+  return `creature_${name}`
+}
+
+/**
+ * ---------------------------------------------------------
  * Browse
  * ---------------------------------------------------------
  *
@@ -129,6 +146,96 @@ export async function getCreaturesFromDB(): Promise<CreatureListItem[]> {
     .orderBy(asc(creatures.displayName))
 
   return results
+}
+
+/**
+ * ---------------------------------------------------------
+ * Create
+ * ---------------------------------------------------------
+ *
+ * Creates a new canonical creature record using:
+ * - backend-generated canonical id
+ * - admin-supplied canonical name/slug/displayName
+ * - required classification ids
+ * - nullable description
+ * - explicit or default active state
+ *
+ * Notes:
+ * - `creatureTypeId` and `sizeCategoryId` are required by the
+ *   schema and must be supplied at create time.
+ * - `sortOrder` is intentionally omitted so the DB default
+ *   remains the source of truth for initial assignment.
+ * - optional fields such as intelligence, threat level, and
+ *   icon media are intentionally deferred in Create v1.
+ */
+export async function createCreatureInDB(data: {
+  displayName: string
+  name: string
+  slug: string
+  description: string | null
+  creatureTypeId: string
+  sizeCategoryId: string
+  isActive: boolean
+}): Promise<CreatureListItem | null> {
+  const id = buildCreatureId(data.name)
+
+  await db.insert(creatures).values({
+    id,
+    name: data.name,
+    slug: data.slug,
+    displayName: data.displayName,
+    description: data.description,
+    creatureTypeId: data.creatureTypeId,
+    sizeCategoryId: data.sizeCategoryId,
+    isActive: data.isActive,
+  })
+
+  const results = await db
+    .select({
+      id: creatures.id,
+      name: creatures.name,
+      slug: creatures.slug,
+      displayName: creatures.displayName,
+      description: creatures.description,
+
+      creatureType: refCreatureTypes.displayName,
+      sizeCategory: refSizeCategories.displayName,
+      intelligenceCategory: refIntelligenceCategories.displayName,
+      threatLevel: refThreatLevels.displayName,
+
+      iconMediaAssetId: creatures.iconMediaAssetId,
+      isActive: creatures.isActive,
+      sortOrder: creatures.sortOrder,
+      createdAt:
+        sql<string>`DATE_FORMAT(${creatures.createdAt}, '%Y-%m-%d %H:%i:%s')`.as(
+          'createdAt'
+        ),
+      updatedAt:
+        sql<string>`DATE_FORMAT(${creatures.updatedAt}, '%Y-%m-%d %H:%i:%s')`.as(
+          'updatedAt'
+        ),
+    })
+    .from(creatures)
+    .innerJoin(
+      refCreatureTypes,
+      eq(creatures.creatureTypeId, refCreatureTypes.id)
+    )
+    .innerJoin(
+      refSizeCategories,
+      eq(creatures.sizeCategoryId, refSizeCategories.id)
+    )
+    .leftJoin(
+      refIntelligenceCategories,
+      eq(creatures.intelligenceCategoryId, refIntelligenceCategories.id)
+    )
+    .leftJoin(
+      refThreatLevels,
+      eq(creatures.threatLevelId, refThreatLevels.id)
+    )
+    .where(eq(creatures.id, id))
+    .limit(1)
+
+  return results[0] ?? null
 }
 
 /**

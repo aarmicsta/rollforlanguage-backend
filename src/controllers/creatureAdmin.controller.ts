@@ -25,6 +25,7 @@ import {
   updateCreatureTagsInDB,
   getCreatureTypesFromDB,
   getSizeCategoriesFromDB,
+  createCreatureInDB,
 } from '../services/creature.service.js'
 
 /**
@@ -126,6 +127,77 @@ export async function getCreatureTags(
     return reply.status(500).send({
       success: false,
       message: 'Failed to fetch creature tags',
+    })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Create Creature
+ * ---------------------------------------------------------
+ *
+ * Creates a new canonical creature record from the admin
+ * create modal payload.
+ *
+ * Current scope:
+ * - displayName
+ * - name
+ * - slug
+ * - description
+ * - creatureTypeId
+ * - sizeCategoryId
+ * - isActive
+ *
+ * Notes:
+ * - required classification fields are enforced at create time
+ * - optional fields such as intelligence, threat level, and
+ *   icon media remain deferred in Create v1
+ */
+export async function createCreature(
+  request: FastifyRequest<{
+    Body: {
+      displayName: string
+      name: string
+      slug: string
+      description: string | null
+      creatureTypeId: string
+      sizeCategoryId: string
+      isActive: boolean
+    }
+  }>,
+  reply: FastifyReply
+) {
+  try {
+    const {
+      displayName,
+      name,
+      slug,
+      description,
+      creatureTypeId,
+      sizeCategoryId,
+      isActive,
+    } = request.body
+
+    const created = await createCreatureInDB({
+      displayName,
+      name,
+      slug,
+      description,
+      creatureTypeId,
+      sizeCategoryId,
+      isActive,
+    })
+
+    return reply.send({
+      success: true,
+      data: created,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to create creature')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to create creature',
     })
   }
 }

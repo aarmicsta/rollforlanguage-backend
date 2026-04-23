@@ -26,6 +26,7 @@ import {
   updateCreatureTags,
   getCreatureTypes,
   getSizeCategories,
+  createCreature,
 } from '../controllers/creatureAdmin.controller.js'
 
 export async function creatureAdminRoutes(app: FastifyInstance) {
@@ -79,6 +80,21 @@ export async function creatureAdminRoutes(app: FastifyInstance) {
           'Updates core scalar fields for a canonical creature record.',
       },
       handler: updateCreature,
+    })
+
+    /**
+     * ---------------------------------------------------------
+     * Create
+     * ---------------------------------------------------------
+     */
+    admin.post('/creatures', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Create creature',
+        description:
+          'Creates a new canonical creature record for the admin dashboard.',
+      },
+      handler: createCreature,
     })
 
         /**
