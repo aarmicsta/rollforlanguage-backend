@@ -4,13 +4,13 @@ import { db } from '#db/index.js';
 import {
   creatures,
   creatureTags,
-  creatureStatValues,
+  creatureBaseStatValues,
 } from '#db/schema/canon-bridge/core/creature.js';
 
 import {
   creaturesSeed,
   creatureTagsSeed,
-  creatureStatValuesSeed,
+  creatureBaseStatValuesSeed,
 } from '#db/seeds/canon-bridge/core/creature.data.js';
 
 /**
@@ -107,25 +107,25 @@ async function insertCreatureTags() {
   }
 }
 
-async function upsertCreatureStatValues() {
-  for (const row of creatureStatValuesSeed) {
+async function upsertcreatureBaseStatValues() {
+  for (const row of creatureBaseStatValuesSeed) {
     const existing = await db
       .select({
-        creatureId: creatureStatValues.creatureId,
-        statId: creatureStatValues.statId,
+        creatureId: creatureBaseStatValues.creatureId,
+        statId: creatureBaseStatValues.statId,
       })
-      .from(creatureStatValues)
+      .from(creatureBaseStatValues)
       .where(
         and(
-          eq(creatureStatValues.creatureId, row.creatureId),
-          eq(creatureStatValues.statId, row.statId)
+          eq(creatureBaseStatValues.creatureId, row.creatureId),
+          eq(creatureBaseStatValues.statId, row.statId)
         )
       )
       .limit(1);
 
     if (existing.length > 0) {
       await db
-        .update(creatureStatValues)
+        .update(creatureBaseStatValues)
         .set({
           statValue: row.statValue,
           isActive: row.isActive,
@@ -134,12 +134,12 @@ async function upsertCreatureStatValues() {
         })
         .where(
           and(
-            eq(creatureStatValues.creatureId, row.creatureId),
-            eq(creatureStatValues.statId, row.statId)
+            eq(creatureBaseStatValues.creatureId, row.creatureId),
+            eq(creatureBaseStatValues.statId, row.statId)
           )
         );
     } else {
-      await db.insert(creatureStatValues).values({
+      await db.insert(creatureBaseStatValues).values({
         creatureId: row.creatureId,
         statId: row.statId,
         statValue: row.statValue,
@@ -154,6 +154,6 @@ export async function seedCreatures() {
   console.log('Seeding creature systems...');
   await upsertCreatures();
   await insertCreatureTags();
-  await upsertCreatureStatValues();
+  await upsertcreatureBaseStatValues();
   console.log('Finished seeding creature systems.');
 }

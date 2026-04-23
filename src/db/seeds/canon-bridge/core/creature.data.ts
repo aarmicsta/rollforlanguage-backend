@@ -356,7 +356,7 @@ export const creatureTagsSeed = [
   },
 ];
 
-export const creatureStatValuesSeed = [
+export const creatureBaseStatValuesSeed = [
   {
     creatureId: 'creature_ash_fen_wolf',
     statId: 'ref_stat_hp',

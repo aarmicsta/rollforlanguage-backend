@@ -72,13 +72,24 @@ export const creatureTags = mysqlTable(
 
 /**
  * ---------------------------------------------------------
- * creature_stat_values
+ * creature_base_stat_values
  * ---------------------------------------------------------
  *
- * Defines canonical stat values for each creature template.
+ * Defines canonical base stat values for each creature
+ * template.
+ *
+ * Notes:
+ * - This table represents the base stat layer only.
+ * - It does not attempt to model future overlays such as:
+ *   - level scaling
+ *   - elite/boss variants
+ *   - archetype adjustments
+ *   - encounter-specific modifiers
+ * - Additional creature stat systems can be layered on later
+ *   without changing the intended role of this table.
  */
-export const creatureStatValues = mysqlTable(
-  'creature_stat_values',
+export const creatureBaseStatValues = mysqlTable(
+  'creature_base_stat_values',
   {
     creatureId: varchar('creature_id', { length: 36 }).notNull(),
     statId: varchar('stat_id', { length: 36 }).notNull(),
