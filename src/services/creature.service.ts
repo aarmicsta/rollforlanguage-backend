@@ -282,3 +282,91 @@ export async function updateCreatureTagsInDB(
 
   return getCreatureTagsFromDB(creatureId)
 }
+
+/**
+ * =========================================================
+ * Reference Lookups
+ * =========================================================
+ *
+ * Provides canonical reference data for creature creation
+ * and editing workflows.
+ *
+ * Responsibilities:
+ * - return creature type options
+ * - return size category options
+ *
+ * Notes:
+ * - these endpoints mirror the canonical reference-table
+ *   usage pattern established across the platform
+ * - results are intentionally lightweight and UI-friendly
+ * - ordering is based on sortOrder for consistent display
+ * =========================================================
+ */
+
+/**
+ * ---------------------------------------------------------
+ * Creature Types
+ * ---------------------------------------------------------
+ *
+ * Returns canonical creature type options for admin forms.
+ *
+ * Output shape:
+ * - id
+ * - name
+ * - slug
+ * - displayName
+ * - description
+ * - isActive
+ * - sortOrder
+ */
+export async function getCreatureTypesFromDB() {
+  const results = await db
+    .select({
+      id: refCreatureTypes.id,
+      name: refCreatureTypes.name,
+      slug: refCreatureTypes.slug,
+      displayName: refCreatureTypes.displayName,
+      description: refCreatureTypes.description,
+      isActive: refCreatureTypes.isActive,
+      sortOrder: refCreatureTypes.sortOrder,
+    })
+    .from(refCreatureTypes)
+    .orderBy(asc(refCreatureTypes.sortOrder))
+
+  return results
+}
+
+/**
+ * ---------------------------------------------------------
+ * Size Categories
+ * ---------------------------------------------------------
+ *
+ * Returns canonical size category options for admin forms.
+ *
+ * Output shape:
+ * - id
+ * - name
+ * - slug
+ * - displayName
+ * - description
+ * - sizeRank
+ * - isActive
+ * - sortOrder
+ */
+export async function getSizeCategoriesFromDB() {
+  const results = await db
+    .select({
+      id: refSizeCategories.id,
+      name: refSizeCategories.name,
+      slug: refSizeCategories.slug,
+      displayName: refSizeCategories.displayName,
+      description: refSizeCategories.description,
+      sizeRank: refSizeCategories.sizeRank,
+      isActive: refSizeCategories.isActive,
+      sortOrder: refSizeCategories.sortOrder,
+    })
+    .from(refSizeCategories)
+    .orderBy(asc(refSizeCategories.sortOrder))
+
+  return results
+}

@@ -24,6 +24,8 @@ import {
   updateCreature,
   getCreatureTags,
   updateCreatureTags,
+  getCreatureTypes,
+  getSizeCategories,
 } from '../controllers/creatureAdmin.controller.js'
 
 export async function creatureAdminRoutes(app: FastifyInstance) {
@@ -107,6 +109,31 @@ export async function creatureAdminRoutes(app: FastifyInstance) {
           'Replaces assigned tags for a canonical creature record.',
       },
       handler: updateCreatureTags,
+    })
+
+    /**
+     * ---------------------------------------------------------
+     * Reference Lookups
+     * ---------------------------------------------------------
+     */
+    admin.get('/creature-types', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Get creature types',
+        description:
+          'Returns canonical creature type options for admin forms.',
+      },
+      handler: getCreatureTypes,
+    })
+
+    admin.get('/size-categories', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Get size categories',
+        description:
+          'Returns canonical size category options for admin forms.',
+      },
+      handler: getSizeCategories,
     })
   })
 }

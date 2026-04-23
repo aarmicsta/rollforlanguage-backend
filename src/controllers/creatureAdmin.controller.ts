@@ -23,6 +23,8 @@ import {
   updateCreatureInDB,
   getCreatureTagsFromDB,
   updateCreatureTagsInDB,
+  getCreatureTypesFromDB,
+  getSizeCategoriesFromDB,
 } from '../services/creature.service.js'
 
 /**
@@ -160,6 +162,79 @@ export async function updateCreatureTags(
     return reply.status(500).send({
       success: false,
       message: 'Failed to update creature tags',
+    })
+  }
+}
+
+/**
+ * =========================================================
+ * Reference Lookups
+ * =========================================================
+ *
+ * Handles HTTP requests for canonical creature reference data.
+ *
+ * Responsibilities:
+ * - return creature type options
+ * - return size category options
+ *
+ * Notes:
+ * - mirrors existing admin controller patterns
+ * - delegates all data access to the service layer
+ * =========================================================
+ */
+
+/**
+ * ---------------------------------------------------------
+ * Get Creature Types
+ * ---------------------------------------------------------
+ *
+ * Returns canonical creature type options for admin forms.
+ */
+export async function getCreatureTypes(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  try {
+    const types = await getCreatureTypesFromDB()
+
+    return reply.send({
+      success: true,
+      data: types,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to fetch creature types')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to fetch creature types',
+    })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Get Size Categories
+ * ---------------------------------------------------------
+ *
+ * Returns canonical size category options for admin forms.
+ */
+export async function getSizeCategories(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  try {
+    const sizes = await getSizeCategoriesFromDB()
+
+    return reply.send({
+      success: true,
+      data: sizes,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to fetch size categories')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to fetch size categories',
     })
   }
 }
