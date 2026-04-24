@@ -26,6 +26,9 @@ import {
   getCreatureTypesFromDB,
   getSizeCategoriesFromDB,
   createCreatureInDB,
+  getCreatureBaseStatsTableFromDB,
+  getCreatureBaseStatsFromDB,
+  updateCreatureBaseStatsInDB,
 } from '../services/creature.service.js'
 
 /**
@@ -307,6 +310,127 @@ export async function getSizeCategories(
     return reply.status(500).send({
       success: false,
       message: 'Failed to fetch size categories',
+    })
+  }
+}
+
+/**
+ * =========================================================
+ * Creature Base Stats
+ * =========================================================
+ *
+ * Handles HTTP requests for the creature base stat subsystem.
+ *
+ * Responsibilities:
+ * - return creature base stat summary rows for the admin table
+ * - return editable base stat values for a selected creature
+ * - replace base stat values for a selected creature
+ *
+ * Notes:
+ * - this is the V1 base-stat layer only
+ * - future derived stat systems should layer on top of these
+ *   values rather than replacing this endpoint contract
+ * =========================================================
+ */
+
+/**
+ * ---------------------------------------------------------
+ * Get Creature Base Stats Table
+ * ---------------------------------------------------------
+ *
+ * Returns one summary row per creature for the admin Creature
+ * Stats Table management surface.
+ */
+export async function getCreatureBaseStatsTable(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  try {
+    const rows = await getCreatureBaseStatsTableFromDB()
+
+    return reply.send({
+      success: true,
+      data: rows,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to fetch creature base stats table')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to fetch creature base stats table',
+    })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Get Creature Base Stats
+ * ---------------------------------------------------------
+ *
+ * Returns a complete editable stat list for a selected creature.
+ */
+export async function getCreatureBaseStats(
+  request: FastifyRequest<{
+    Params: { id: string }
+  }>,
+  reply: FastifyReply
+) {
+  try {
+    const { id } = request.params
+
+    const stats = await getCreatureBaseStatsFromDB(id)
+
+    return reply.send({
+      success: true,
+      data: stats,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to fetch creature base stats')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to fetch creature base stats',
+    })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Update Creature Base Stats
+ * ---------------------------------------------------------
+ *
+ * Replaces stored base stat values for a selected creature.
+ */
+export async function updateCreatureBaseStats(
+  request: FastifyRequest<{
+    Params: { id: string }
+    Body: {
+      stats: Array<{
+        statId: string
+        baseValue: number | null
+      }>
+    }
+  }>,
+  reply: FastifyReply
+) {
+  try {
+    const { id } = request.params
+    const { stats } = request.body
+
+    const updated = await updateCreatureBaseStatsInDB(id, {
+      stats,
+    })
+
+    return reply.send({
+      success: true,
+      data: updated,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to update creature base stats')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to update creature base stats',
     })
   }
 }

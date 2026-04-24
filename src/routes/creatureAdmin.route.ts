@@ -27,6 +27,9 @@ import {
   getCreatureTypes,
   getSizeCategories,
   createCreature,
+  getCreatureBaseStatsTable,
+  getCreatureBaseStats,
+  updateCreatureBaseStats,
 } from '../controllers/creatureAdmin.controller.js'
 
 export async function creatureAdminRoutes(app: FastifyInstance) {
@@ -95,6 +98,41 @@ export async function creatureAdminRoutes(app: FastifyInstance) {
           'Creates a new canonical creature record for the admin dashboard.',
       },
       handler: createCreature,
+    })
+
+    /**
+     * ---------------------------------------------------------
+     * Creature Base Stats
+     * ---------------------------------------------------------
+     */
+    admin.get('/creature-base-stats', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Get creature base stats table',
+        description:
+          'Returns creature base stat summary rows for the admin Creature Stats Table.',
+      },
+      handler: getCreatureBaseStatsTable,
+    })
+
+    admin.get('/creatures/:id/base-stats', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Get creature base stats',
+        description:
+          'Returns editable base stat values for a selected canonical creature.',
+      },
+      handler: getCreatureBaseStats,
+    })
+
+    admin.patch('/creatures/:id/base-stats', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Update creature base stats',
+        description:
+          'Replaces stored base stat values for a selected canonical creature.',
+      },
+      handler: updateCreatureBaseStats,
     })
 
         /**

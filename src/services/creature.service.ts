@@ -17,12 +17,13 @@
  *   slice is stable.
  */
 
-import { asc, eq, sql } from 'drizzle-orm'
+import { and, asc, eq, sql } from 'drizzle-orm'
 
 import { db } from '../db/index.js'
 import { 
   creatures,
   creatureTags,
+  creatureBaseStatValues,
 } from '../db/schema/canon-bridge/core/creature.js'
 import {
   refCreatureTypes,
@@ -31,6 +32,7 @@ import {
   refThreatLevels,
 } from '../db/schema/canon-bridge/reference/reference-creature-encounter.js'
 import { playableTags } from '../db/schema/canon-bridge/core/playable-identity.js'
+import { refPlayableStats } from '../db/schema/canon-bridge/reference/reference-playable-trait.js'
 
 /**
  * ---------------------------------------------------------
@@ -476,4 +478,202 @@ export async function getSizeCategoriesFromDB() {
     .orderBy(asc(refSizeCategories.sortOrder))
 
   return results
+}
+
+/**
+ * ---------------------------------------------------------
+ * Creature Base Stat Types
+ * ---------------------------------------------------------
+ *
+ * Admin-facing shapes for the creature base stat subsystem.
+ *
+ * Notes:
+ * - Base stats represent the foundational stat layer for a
+ *   canonical creature template.
+ * - Future systems such as level scaling, environmental
+ *   modifiers, and variant overlays should layer on top of
+ *   these values rather than replacing this concept.
+ */
+export interface CreatureBaseStatsTableRow {
+  creatureId: string
+  creatureDisplayName: string
+  creatureType: string
+  sizeCategory: string
+  assignedStatCount: number
+  updatedAt: string | null
+}
+
+export interface CreatureBaseStatEditRow {
+  statId: string
+  statName: string
+  statSlug: string
+  statDisplayName: string
+  baseValue: number | null
+  sortOrder: number | null
+}
+
+export interface UpdateCreatureBaseStatsInput {
+  stats: Array<{
+    statId: string
+    baseValue: number | null
+  }>
+}
+
+/**
+ * =========================================================
+ * Creature Base Stats
+ * =========================================================
+ *
+ * Provides the V1 base-stat assignment layer for canonical
+ * creature templates.
+ *
+ * Responsibilities:
+ * - return creature-level base stat summary rows for admin
+ *   table display
+ * - return a merged editable view of canonical stat definitions
+ *   and a selected creature's stored base values
+ * - replace stored base stat values for a creature
+ *
+ * Notes:
+ * - this subsystem intentionally models base values only
+ * - it does not model derived/final stat calculation
+ * - future modifier/scaling systems should layer on top of
+ *   these base values
+ * =========================================================
+ */
+
+/**
+ * ---------------------------------------------------------
+ * Browse Creature Base Stat Summaries
+ * ---------------------------------------------------------
+ *
+ * Returns one admin-facing row per creature.
+ *
+ * The row summarizes whether base stats have been assigned
+ * without exposing the full stat set in the table itself.
+ */
+export async function getCreatureBaseStatsTableFromDB(): Promise<
+  CreatureBaseStatsTableRow[]
+> {
+  const assignedCounts = await db
+    .select({
+      creatureId: creatureBaseStatValues.creatureId,
+      assignedStatCount: sql<number>`COUNT(${creatureBaseStatValues.statId})`.as(
+        'assignedStatCount'
+      ),
+      updatedAt:
+        sql<string>`DATE_FORMAT(MAX(${creatureBaseStatValues.updatedAt}), '%Y-%m-%d %H:%i:%s')`.as(
+          'updatedAt'
+        ),
+    })
+    .from(creatureBaseStatValues)
+    .groupBy(creatureBaseStatValues.creatureId)
+
+  const countMap = new Map(
+    assignedCounts.map((row) => [
+      row.creatureId,
+      {
+        assignedStatCount: Number(row.assignedStatCount ?? 0),
+        updatedAt: row.updatedAt ?? null,
+      },
+    ])
+  )
+
+  const creaturesList = await getCreaturesFromDB()
+
+  return creaturesList.map((creature) => {
+    const statSummary = countMap.get(creature.id)
+
+    return {
+      creatureId: creature.id,
+      creatureDisplayName: creature.displayName,
+      creatureType: creature.creatureType,
+      sizeCategory: creature.sizeCategory,
+      assignedStatCount: statSummary?.assignedStatCount ?? 0,
+      updatedAt: statSummary?.updatedAt ?? creature.updatedAt,
+    }
+  })
+}
+
+/**
+ * ---------------------------------------------------------
+ * Get Creature Base Stats
+ * ---------------------------------------------------------
+ *
+ * Returns all canonical stat definitions merged with any
+ * currently stored base stat values for the selected creature.
+ *
+ * Missing base stat rows are returned with baseValue = null
+ * so the admin UI can present a complete editable stat list
+ * without implying that every stat has already been assigned.
+ */
+export async function getCreatureBaseStatsFromDB(
+  creatureId: string
+): Promise<CreatureBaseStatEditRow[]> {
+  const statDefinitions = await db
+    .select({
+      statId: refPlayableStats.id,
+      statName: refPlayableStats.name,
+      statSlug: refPlayableStats.slug,
+      statDisplayName: refPlayableStats.displayName,
+      sortOrder: refPlayableStats.sortOrder,
+    })
+    .from(refPlayableStats)
+    .where(eq(refPlayableStats.isActive, true))
+    .orderBy(asc(refPlayableStats.sortOrder), asc(refPlayableStats.displayName))
+
+  const storedValues = await db
+    .select({
+      statId: creatureBaseStatValues.statId,
+      baseValue: creatureBaseStatValues.statValue,
+    })
+    .from(creatureBaseStatValues)
+    .where(eq(creatureBaseStatValues.creatureId, creatureId))
+
+  const valueMap = new Map(
+    storedValues.map((row) => [row.statId, row.baseValue])
+  )
+
+  return statDefinitions.map((stat) => ({
+    ...stat,
+    baseValue: valueMap.get(stat.statId) ?? null,
+  }))
+}
+
+/**
+ * ---------------------------------------------------------
+ * Update Creature Base Stats
+ * ---------------------------------------------------------
+ *
+ * Replaces all stored base stat values for a creature.
+ *
+ * Behavior:
+ * - deletes existing base stat rows for the creature
+ * - inserts a row for each provided non-null base value
+ *
+ * Notes:
+ * - null values mean "no stored base value" and are omitted
+ * - zero is preserved as a real numeric value
+ */
+export async function updateCreatureBaseStatsInDB(
+  creatureId: string,
+  input: UpdateCreatureBaseStatsInput
+): Promise<CreatureBaseStatEditRow[]> {
+  await db
+    .delete(creatureBaseStatValues)
+    .where(eq(creatureBaseStatValues.creatureId, creatureId))
+
+  const rowsToInsert = input.stats
+    .filter((item) => item.baseValue !== null)
+    .map((item) => ({
+      creatureId,
+      statId: item.statId,
+      statValue: item.baseValue as number,
+    }))
+
+  if (rowsToInsert.length > 0) {
+    await db.insert(creatureBaseStatValues).values(rowsToInsert)
+  }
+
+  return getCreatureBaseStatsFromDB(creatureId)
 }
