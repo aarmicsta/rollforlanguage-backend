@@ -29,6 +29,8 @@ import {
   getCreatureBaseStatsTableFromDB,
   getCreatureBaseStatsFromDB,
   updateCreatureBaseStatsInDB,
+  getIntelligenceCategoriesFromDB,
+  getThreatLevelsFromDB,
 } from '../services/creature.service.js'
 
 /**
@@ -73,6 +75,10 @@ export async function updateCreature(
     Body: {
       displayName: string
       description: string | null
+      creatureTypeId: string
+      sizeCategoryId: string
+      intelligenceCategoryId: string | null
+      threatLevelId: string | null
       isActive: boolean
     }
   }>,
@@ -80,11 +86,23 @@ export async function updateCreature(
 ) {
   try {
     const { id } = request.params
-    const { displayName, description, isActive } = request.body
+    const {
+      displayName,
+      description,
+      creatureTypeId,
+      sizeCategoryId,
+      intelligenceCategoryId,
+      threatLevelId,
+      isActive,
+    } = request.body
 
     const updated = await updateCreatureInDB(id, {
       displayName,
       description,
+      creatureTypeId,
+      sizeCategoryId,
+      intelligenceCategoryId,
+      threatLevelId,
       isActive,
     })
 
@@ -310,6 +328,64 @@ export async function getSizeCategories(
     return reply.status(500).send({
       success: false,
       message: 'Failed to fetch size categories',
+    })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Get Intelligence Categories
+ * ---------------------------------------------------------
+ *
+ * Returns canonical intelligence category options for admin
+ * creature edit forms.
+ */
+export async function getIntelligenceCategories(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  try {
+    const categories = await getIntelligenceCategoriesFromDB()
+
+    return reply.send({
+      success: true,
+      data: categories,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to fetch intelligence categories')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to fetch intelligence categories',
+    })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Get Threat Levels
+ * ---------------------------------------------------------
+ *
+ * Returns canonical threat level options for admin creature
+ * edit forms.
+ */
+export async function getThreatLevels(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  try {
+    const levels = await getThreatLevelsFromDB()
+
+    return reply.send({
+      success: true,
+      data: levels,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to fetch threat levels')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to fetch threat levels',
     })
   }
 }

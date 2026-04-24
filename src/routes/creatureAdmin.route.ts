@@ -30,6 +30,8 @@ import {
   getCreatureBaseStatsTable,
   getCreatureBaseStats,
   updateCreatureBaseStats,
+  getIntelligenceCategories,
+  getThreatLevels,
 } from '../controllers/creatureAdmin.controller.js'
 
 export async function creatureAdminRoutes(app: FastifyInstance) {
@@ -188,6 +190,26 @@ export async function creatureAdminRoutes(app: FastifyInstance) {
           'Returns canonical size category options for admin forms.',
       },
       handler: getSizeCategories,
+    })
+
+    admin.get('/intelligence-categories', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Get intelligence categories',
+        description:
+          'Returns canonical intelligence category options for admin creature edit forms.',
+      },
+      handler: getIntelligenceCategories,
+    })
+
+    admin.get('/threat-levels', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Get threat levels',
+        description:
+          'Returns canonical threat level options for admin creature edit forms.',
+      },
+      handler: getThreatLevels,
     })
   })
 }

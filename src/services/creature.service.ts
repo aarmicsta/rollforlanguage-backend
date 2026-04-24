@@ -54,6 +54,11 @@ export interface CreatureListItem {
   displayName: string
   description: string | null
 
+  creatureTypeId: string
+  sizeCategoryId: string
+  intelligenceCategoryId: string | null
+  threatLevelId: string | null
+
   creatureType: string
   sizeCategory: string
   intelligenceCategory: string | null
@@ -115,6 +120,11 @@ export async function getCreaturesFromDB(): Promise<CreatureListItem[]> {
       sizeCategory: refSizeCategories.displayName,
       intelligenceCategory: refIntelligenceCategories.displayName,
       threatLevel: refThreatLevels.displayName,
+
+      creatureTypeId: creatures.creatureTypeId,
+      sizeCategoryId: creatures.sizeCategoryId,
+      intelligenceCategoryId: creatures.intelligenceCategoryId,
+      threatLevelId: creatures.threatLevelId,
 
       iconMediaAssetId: creatures.iconMediaAssetId,
       isActive: creatures.isActive,
@@ -205,6 +215,11 @@ export async function createCreatureInDB(data: {
       intelligenceCategory: refIntelligenceCategories.displayName,
       threatLevel: refThreatLevels.displayName,
 
+      creatureTypeId: creatures.creatureTypeId,
+      sizeCategoryId: creatures.sizeCategoryId,
+      intelligenceCategoryId: creatures.intelligenceCategoryId,
+      threatLevelId: creatures.threatLevelId,
+
       iconMediaAssetId: creatures.iconMediaAssetId,
       isActive: creatures.isActive,
       sortOrder: creatures.sortOrder,
@@ -263,6 +278,10 @@ export async function updateCreatureInDB(
   data: {
     displayName: string
     description: string | null
+    creatureTypeId: string
+    sizeCategoryId: string
+    intelligenceCategoryId: string | null
+    threatLevelId: string | null
     isActive: boolean
   }
 ): Promise<CreatureListItem | null> {
@@ -271,6 +290,10 @@ export async function updateCreatureInDB(
     .set({
       displayName: data.displayName,
       description: data.description,
+      creatureTypeId: data.creatureTypeId,
+      sizeCategoryId: data.sizeCategoryId,
+      intelligenceCategoryId: data.intelligenceCategoryId,
+      threatLevelId: data.threatLevelId,
       isActive: data.isActive,
     })
     .where(eq(creatures.id, id))
@@ -287,6 +310,11 @@ export async function updateCreatureInDB(
       sizeCategory: refSizeCategories.displayName,
       intelligenceCategory: refIntelligenceCategories.displayName,
       threatLevel: refThreatLevels.displayName,
+
+      creatureTypeId: creatures.creatureTypeId,
+      sizeCategoryId: creatures.sizeCategoryId,
+      intelligenceCategoryId: creatures.intelligenceCategoryId,
+      threatLevelId: creatures.threatLevelId,
 
       iconMediaAssetId: creatures.iconMediaAssetId,
       isActive: creatures.isActive,
@@ -476,6 +504,66 @@ export async function getSizeCategoriesFromDB() {
     })
     .from(refSizeCategories)
     .orderBy(asc(refSizeCategories.sortOrder))
+
+  return results
+}
+
+/**
+ * ---------------------------------------------------------
+ * Intelligence Categories
+ * ---------------------------------------------------------
+ *
+ * Returns canonical intelligence category options for admin
+ * creature edit forms.
+ *
+ * These values are optional on creature records, so the UI can
+ * also allow an empty / unassigned selection.
+ */
+export async function getIntelligenceCategoriesFromDB() {
+  const results = await db
+    .select({
+      id: refIntelligenceCategories.id,
+      name: refIntelligenceCategories.name,
+      slug: refIntelligenceCategories.slug,
+      displayName: refIntelligenceCategories.displayName,
+      description: refIntelligenceCategories.description,
+      intelligenceRank: refIntelligenceCategories.intelligenceRank,
+      isActive: refIntelligenceCategories.isActive,
+      sortOrder: refIntelligenceCategories.sortOrder,
+    })
+    .from(refIntelligenceCategories)
+    .orderBy(asc(refIntelligenceCategories.sortOrder))
+
+  return results
+}
+
+/**
+ * ---------------------------------------------------------
+ * Threat Levels
+ * ---------------------------------------------------------
+ *
+ * Returns canonical threat level options for admin creature
+ * edit forms.
+ *
+ * These values are optional on creature records, so the UI can
+ * also allow an empty / unassigned selection.
+ */
+export async function getThreatLevelsFromDB() {
+  const results = await db
+    .select({
+      id: refThreatLevels.id,
+      name: refThreatLevels.name,
+      slug: refThreatLevels.slug,
+      displayName: refThreatLevels.displayName,
+      description: refThreatLevels.description,
+      threatRank: refThreatLevels.threatRank,
+      recommendedLevelMin: refThreatLevels.recommendedLevelMin,
+      recommendedLevelMax: refThreatLevels.recommendedLevelMax,
+      isActive: refThreatLevels.isActive,
+      sortOrder: refThreatLevels.sortOrder,
+    })
+    .from(refThreatLevels)
+    .orderBy(asc(refThreatLevels.sortOrder))
 
   return results
 }
@@ -677,3 +765,4 @@ export async function updateCreatureBaseStatsInDB(
 
   return getCreatureBaseStatsFromDB(creatureId)
 }
+
