@@ -585,8 +585,17 @@ export async function getThreatLevelsFromDB() {
 export interface CreatureBaseStatsTableRow {
   creatureId: string
   creatureDisplayName: string
+
+  creatureTypeId: string
+  sizeCategoryId: string
+  intelligenceCategoryId: string | null
+  threatLevelId: string | null
+
   creatureType: string
   sizeCategory: string
+  intelligenceCategory: string | null
+  threatLevel: string | null
+
   assignedStatCount: number
   updatedAt: string | null
 }
@@ -675,8 +684,17 @@ export async function getCreatureBaseStatsTableFromDB(): Promise<
     return {
       creatureId: creature.id,
       creatureDisplayName: creature.displayName,
+
+      creatureTypeId: creature.creatureTypeId,
+      sizeCategoryId: creature.sizeCategoryId,
+      intelligenceCategoryId: creature.intelligenceCategoryId,
+      threatLevelId: creature.threatLevelId,
+
       creatureType: creature.creatureType,
       sizeCategory: creature.sizeCategory,
+      intelligenceCategory: creature.intelligenceCategory,
+      threatLevel: creature.threatLevel,
+
       assignedStatCount: statSummary?.assignedStatCount ?? 0,
       updatedAt: statSummary?.updatedAt ?? creature.updatedAt,
     }
