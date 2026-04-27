@@ -12,6 +12,7 @@ const allowedOrigins: string[] = [
   'https://www.rollforlanguage.com', // Production frontend
   'https://bug-free-parakeet-x5p69xpg56qvfvvx5-4000.app.github.dev', // Codespaces (frontend)
   'https://bug-free-parakeet-x5p69xpg56qvfvvx5-4001.app.github.dev',
+  'http://localhost:4001',
 ]
 
 /**
