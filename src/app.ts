@@ -34,6 +34,7 @@ import { playableStatModifierAdminRoutes } from './routes/playableStatModifierAd
 import { playablePassiveAdminRoutes } from './routes/playablePassiveAdmin.route.js'
 import { playablePassiveAssignmentAdminRoutes } from './routes/playablePassiveAssignmentAdmin.route.js'
 import { creatureAdminRoutes } from './routes/creatureAdmin.route.js'
+import { itemAdminRoutes } from './routes/itemAdmin.route.js'
 // import { mediaUploadRoutes } from './routes/mediaUpload.route.js'
 // import { playableTagCategoryAdminRoutes } from './routes/playableTagCategoryAdmin.route.js'
 // import { playableTagCategoryLinkAdminRoutes } from './routes/playableTagCategoryLinkAdmin.route.js'
@@ -89,6 +90,7 @@ app.addHook('onRequest', (request, reply, done) => {
 app.register(authRoutes, { prefix: '/auth' })
 app.register(adminRoutes, { prefix: '/admin' })
 app.register(creatureAdminRoutes, { prefix: '/admin' })
+app.register(itemAdminRoutes, { prefix: '/admin' })
 app.register(playableSpeciesAdminRoutes, { prefix: '/admin' })
 app.register(playableClassAdminRoutes, { prefix: '/admin' })
 app.register(playableTagAdminRoutes, { prefix: '/admin' })
@@ -106,11 +108,15 @@ app.register(playablePassiveAssignmentAdminRoutes, { prefix: '/admin' })
  * This ensures unexpected uncaught route/plugin errors return a
  * consistent server error response and are logged centrally.
  */
-app.setErrorHandler((error, request, reply) => {
-  app.log.error(`Global error handler caught: ${error.message}`)
+app.setErrorHandler((error: unknown, request, reply) => {
+  const message =
+    error instanceof Error ? error.message : 'Unknown error'
+
+  app.log.error(`Global error handler caught: ${message}`)
+
   reply.status(500).send({
     error: 'Internal Server Error',
-    message: error.message,
+    message,
   })
 })
 
