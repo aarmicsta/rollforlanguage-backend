@@ -35,6 +35,7 @@ import { playablePassiveAdminRoutes } from './routes/playablePassiveAdmin.route.
 import { playablePassiveAssignmentAdminRoutes } from './routes/playablePassiveAssignmentAdmin.route.js'
 import { creatureAdminRoutes } from './routes/creatureAdmin.route.js'
 import { itemAdminRoutes } from './routes/itemAdmin.route.js'
+import { factionAdminRoutes } from './routes/factionAdmin.route.js'
 // import { mediaUploadRoutes } from './routes/mediaUpload.route.js'
 // import { playableTagCategoryAdminRoutes } from './routes/playableTagCategoryAdmin.route.js'
 // import { playableTagCategoryLinkAdminRoutes } from './routes/playableTagCategoryLinkAdmin.route.js'
@@ -91,6 +92,7 @@ app.register(authRoutes, { prefix: '/auth' })
 app.register(adminRoutes, { prefix: '/admin' })
 app.register(creatureAdminRoutes, { prefix: '/admin' })
 app.register(itemAdminRoutes, { prefix: '/admin' })
+app.register(factionAdminRoutes, { prefix: '/admin' })
 app.register(playableSpeciesAdminRoutes, { prefix: '/admin' })
 app.register(playableClassAdminRoutes, { prefix: '/admin' })
 app.register(playableTagAdminRoutes, { prefix: '/admin' })
