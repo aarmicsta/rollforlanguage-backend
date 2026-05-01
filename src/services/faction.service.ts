@@ -75,3 +75,30 @@ export async function getFactionsFromDB(): Promise<FactionListItem[]> {
 
   return results
 }
+
+/**
+ * ---------------------------------------------------------
+ * Update
+ * ---------------------------------------------------------
+ */
+export async function updateFactionInDB(
+  id: string,
+  data: {
+    displayName: string
+    description: string | null
+    isActive: boolean
+  }
+): Promise<FactionListItem | null> {
+  await db
+    .update(factions)
+    .set({
+      displayName: data.displayName,
+      description: data.description,
+      isActive: data.isActive,
+    })
+    .where(eq(factions.id, id))
+
+  const results = await getFactionsFromDB()
+
+  return results.find((f) => f.id === id) ?? null
+}

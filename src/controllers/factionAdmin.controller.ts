@@ -16,6 +16,7 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 
 import { getFactionsFromDB } from '../services/faction.service.js'
+import { updateFactionInDB } from '../services/faction.service.js'
 
 /**
  * ---------------------------------------------------------
@@ -39,6 +40,41 @@ export async function getFactions(
     return reply.status(500).send({
       success: false,
       message: 'Failed to fetch factions',
+    })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Update Faction
+ * ---------------------------------------------------------
+ */
+export async function updateFaction(
+  request: FastifyRequest<{
+    Params: { id: string }
+    Body: {
+      displayName: string
+      description: string | null
+      isActive: boolean
+    }
+  }>,
+  reply: FastifyReply
+) {
+  try {
+    const { id } = request.params
+
+    const updated = await updateFactionInDB(id, request.body)
+
+    return reply.send({
+      success: true,
+      data: updated,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to update faction')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to update faction',
     })
   }
 }

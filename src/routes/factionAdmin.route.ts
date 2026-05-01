@@ -16,6 +16,7 @@ import type {} from '../types/fastify.js'
 import { FastifyInstance } from 'fastify'
 
 import { getFactions } from '../controllers/factionAdmin.controller.js'
+import { updateFaction } from '../controllers/factionAdmin.controller.js'
 
 export async function factionAdminRoutes(app: FastifyInstance) {
   app.register(async function (admin) {
@@ -49,6 +50,19 @@ export async function factionAdminRoutes(app: FastifyInstance) {
           'Returns canonical faction records for the admin dashboard browse table.',
       },
       handler: getFactions,
+    })
+
+    /**
+     * ---------------------------------------------------------
+     * Update
+     * ---------------------------------------------------------
+     */
+    admin.patch('/factions/:id', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Update faction',
+      },
+      handler: updateFaction,
     })
   })
 }
