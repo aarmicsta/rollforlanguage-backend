@@ -86,6 +86,7 @@ export async function updateFactionInDB(
   data: {
     displayName: string
     description: string | null
+    alignmentId: string | null
     isActive: boolean
   }
 ): Promise<FactionListItem | null> {
@@ -94,6 +95,7 @@ export async function updateFactionInDB(
     .set({
       displayName: data.displayName,
       description: data.description,
+      alignmentId: data.alignmentId,
       isActive: data.isActive,
     })
     .where(eq(factions.id, id))
