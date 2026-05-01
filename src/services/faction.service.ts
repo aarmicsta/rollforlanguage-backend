@@ -102,3 +102,26 @@ export async function updateFactionInDB(
 
   return results.find((f) => f.id === id) ?? null
 }
+
+/**
+ * ---------------------------------------------------------
+ * Alignment Options
+ * ---------------------------------------------------------
+ */
+export async function getAlignmentsFromDB() {
+  const results = await db
+    .select({
+      id: refAlignments.id,
+      name: refAlignments.name,
+      slug: refAlignments.slug,
+      displayName: refAlignments.displayName,
+      description: refAlignments.description,
+      alignmentAxis: refAlignments.alignmentAxis,
+      isActive: refAlignments.isActive,
+      sortOrder: refAlignments.sortOrder,
+    })
+    .from(refAlignments)
+    .orderBy(asc(refAlignments.sortOrder), asc(refAlignments.displayName))
+
+  return results
+}

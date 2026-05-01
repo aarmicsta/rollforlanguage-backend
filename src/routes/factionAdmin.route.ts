@@ -15,8 +15,12 @@ import type {} from '../types/fastify.js'
 
 import { FastifyInstance } from 'fastify'
 
-import { getFactions } from '../controllers/factionAdmin.controller.js'
-import { updateFaction } from '../controllers/factionAdmin.controller.js'
+import { 
+  getFactions,
+  updateFaction,
+  getAlignments,
+} from '../controllers/factionAdmin.controller.js'
+
 
 export async function factionAdminRoutes(app: FastifyInstance) {
   app.register(async function (admin) {
@@ -63,6 +67,19 @@ export async function factionAdminRoutes(app: FastifyInstance) {
         summary: 'Update faction',
       },
       handler: updateFaction,
+    })
+
+    /**
+     * ---------------------------------------------------------
+     * Get Alignments
+     * ---------------------------------------------------------
+     */
+    admin.get('/alignments', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Get alignment options',
+      },
+      handler: getAlignments,
     })
   })
 }

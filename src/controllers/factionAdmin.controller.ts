@@ -15,8 +15,11 @@
 
 import type { FastifyReply, FastifyRequest } from 'fastify'
 
-import { getFactionsFromDB } from '../services/faction.service.js'
-import { updateFactionInDB } from '../services/faction.service.js'
+import { 
+  getFactionsFromDB,
+  updateFactionInDB,
+  getAlignmentsFromDB
+} from '../services/faction.service.js'
 
 /**
  * ---------------------------------------------------------
@@ -75,6 +78,32 @@ export async function updateFaction(
     return reply.status(500).send({
       success: false,
       message: 'Failed to update faction',
+    })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Get Alignments
+ * ---------------------------------------------------------
+ */
+export async function getAlignments(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  try {
+    const alignments = await getAlignmentsFromDB()
+
+    return reply.send({
+      success: true,
+      data: alignments,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to fetch alignments')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to fetch alignments',
     })
   }
 }
