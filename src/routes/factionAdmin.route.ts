@@ -19,6 +19,7 @@ import {
   getFactions,
   updateFaction,
   getAlignments,
+  createFaction,
 } from '../controllers/factionAdmin.controller.js'
 
 
@@ -80,6 +81,19 @@ export async function factionAdminRoutes(app: FastifyInstance) {
         summary: 'Get alignment options',
       },
       handler: getAlignments,
+    })
+
+    /**
+     * ---------------------------------------------------------
+     * Create Faction
+     * ---------------------------------------------------------
+     */
+    admin.post('/factions', {
+      schema: {
+        tags: ['Admin'],
+        summary: 'Create faction',
+      },
+      handler: createFaction,
     })
   })
 }

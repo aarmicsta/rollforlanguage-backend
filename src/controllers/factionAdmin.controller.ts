@@ -18,7 +18,8 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 import { 
   getFactionsFromDB,
   updateFactionInDB,
-  getAlignmentsFromDB
+  getAlignmentsFromDB,
+  createFactionInDB
 } from '../services/faction.service.js'
 
 /**
@@ -79,6 +80,68 @@ export async function updateFaction(
     return reply.status(500).send({
       success: false,
       message: 'Failed to update faction',
+    })
+  }
+}
+
+/**
+ * ---------------------------------------------------------
+ * Create Faction
+ * ---------------------------------------------------------
+ *
+ * Creates a new canonical faction record from the admin
+ * create modal payload.
+ *
+ * Current scope:
+ * - displayName
+ * - name
+ * - slug
+ * - description
+ * - alignmentId (optional)
+ * - isActive
+ */
+export async function createFaction(
+  request: FastifyRequest<{
+    Body: {
+      displayName: string
+      name: string
+      slug: string
+      description: string | null
+      alignmentId: string | null
+      isActive: boolean
+    }
+  }>,
+  reply: FastifyReply
+) {
+  try {
+    const {
+      displayName,
+      name,
+      slug,
+      description,
+      alignmentId,
+      isActive,
+    } = request.body
+
+    const created = await createFactionInDB({
+      displayName,
+      name,
+      slug,
+      description,
+      alignmentId,
+      isActive,
+    })
+
+    return reply.send({
+      success: true,
+      data: created,
+    })
+  } catch (error) {
+    request.log.error(error, 'Failed to create faction')
+
+    return reply.status(500).send({
+      success: false,
+      message: 'Failed to create faction',
     })
   }
 }

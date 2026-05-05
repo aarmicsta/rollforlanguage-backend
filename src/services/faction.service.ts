@@ -127,3 +127,54 @@ export async function getAlignmentsFromDB() {
 
   return results
 }
+
+/**
+ * ---------------------------------------------------------
+ * Canonical ID Helpers
+ * ---------------------------------------------------------
+ *
+ * Faction IDs follow the established canonical admin-created
+ * identity pattern:
+ *
+ *   fac_<canonical_name>
+ */
+function buildFactionId(name: string): string {
+  return `fac_${name}`
+}
+
+/**
+ * ---------------------------------------------------------
+ * Create
+ * ---------------------------------------------------------
+ *
+ * Creates a new canonical faction record using:
+ * - backend-generated canonical id
+ * - admin-supplied canonical name/slug/displayName
+ * - nullable description
+ * - optional alignment assignment
+ * - explicit or default active state
+ */
+export async function createFactionInDB(data: {
+  displayName: string
+  name: string
+  slug: string
+  description: string | null
+  alignmentId: string | null
+  isActive: boolean
+}): Promise<FactionListItem | null> {
+  const id = buildFactionId(data.name)
+
+  await db.insert(factions).values({
+    id,
+    name: data.name,
+    slug: data.slug,
+    displayName: data.displayName,
+    description: data.description,
+    alignmentId: data.alignmentId,
+    isActive: data.isActive,
+  })
+
+  const results = await getFactionsFromDB()
+
+  return results.find((faction) => faction.id === id) ?? null
+}
