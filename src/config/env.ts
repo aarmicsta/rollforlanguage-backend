@@ -9,14 +9,14 @@
  * - export a typed, trusted `env` object for runtime use
  */
 
-import dotenv from 'dotenv'
-import { z } from 'zod'
+import dotenv from "dotenv";
+import { z } from "zod";
 
-dotenv.config()
+dotenv.config();
 
 const envSchema = z.object({
-  NODE_ENV: z.enum(['development', 'production']).default('development'),
-  PORT: z.string().default('3000'),
+  NODE_ENV: z.enum(["development", "production"]).default("development"),
+  PORT: z.string().default("3000"),
 
   DATABASE_HOST: z.string(),
   DATABASE_USERNAME: z.string(),
@@ -28,23 +28,25 @@ const envSchema = z.object({
   DB_PASSWORD: z.string(),
   DB_NAME: z.string(),
 
-  JWT_SECRET: z.string(),
+  JWT_SECRET: z
+    .string()
+    .min(43, "JWT_SECRET must contain a securely generated 256-bit secret"),
 
   // Backblaze B2 integration
-  B2_APPLICATION_KEY_ID: z.string(),
-  B2_APPLICATION_KEY: z.string(),
+  B2_APPLICATION_KEY_ID: z.string().optional(),
+  B2_APPLICATION_KEY: z.string().optional(),
   B2_BUCKET_NAME: z.string(),
   B2_PUBLIC_URL: z.string().url(),
-})
+});
 
-const envResult = envSchema.safeParse(process.env)
+const envResult = envSchema.safeParse(process.env);
 
 if (!envResult.success) {
   console.error(
-    'Invalid or missing environment variables:',
-    envResult.error.flatten().fieldErrors
-  )
-  process.exit(1)
+    "Invalid or missing environment variables:",
+    envResult.error.flatten().fieldErrors,
+  );
+  process.exit(1);
 }
 
-export const env = envResult.data
+export const env = envResult.data;

@@ -12,17 +12,17 @@
  * - fallback secret should only be used in development
  */
 
-import fp from 'fastify-plugin'
-import fastifyJwt from '@fastify/jwt'
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
+import fp from "fastify-plugin";
+import fastifyJwt from "@fastify/jwt";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
-import { env } from '../config/env.js'
+import { env } from "../config/env.js";
 
 export default fp(async (fastify: FastifyInstance) => {
   fastify.register(fastifyJwt, {
     // Fallback is dev-only safety; production should always provide JWT_SECRET
-    secret: env.JWT_SECRET || 'supersecretkey',
-  })
+    secret: env.JWT_SECRET,
+  });
 
   /**
    * Route guard for authenticated endpoints.
@@ -31,14 +31,14 @@ export default fp(async (fastify: FastifyInstance) => {
    * - add `preHandler: fastify.authenticate` to protected routes
    */
   fastify.decorate(
-    'authenticate',
+    "authenticate",
     async function (request: FastifyRequest, reply: FastifyReply) {
       try {
-        await request.jwtVerify()
+        await request.jwtVerify();
       } catch (err) {
-        request.log.error('JWT verification failed:', err)
-        reply.status(401).send({ error: 'Unauthorized' })
+        request.log.error({ err }, "JWT verification failed");
+        reply.status(401).send({ error: "Unauthorized" });
       }
-    }
-  )
-})
+    },
+  );
+});
